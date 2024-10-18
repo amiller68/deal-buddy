@@ -1,0 +1,40 @@
+{% block sidebar %}
+<div class="flex flex-col h-screen bg-beige border-r-2 border-black w-64">
+  <!-- Logo at the top -->
+  <div class="flex items-center border-b-2 border-black w-48">
+    <a href="/" class="flex items-center px-4 py-2 hover:bg-dark-beige w-full">
+      <img src="/static/icon.svg" alt="Icon" class="h-8 mr-2">
+      <div class="flex flex-col">
+        <span class="font-black text-xl leading-none">deal</span>
+        <span class="font-black text-xl leading-none">buddy</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Navigation items -->
+  <nav class="flex-grow">
+      <a 
+        href="/app/index"
+        class="block py-2.5 px-4 text-black hover:bg-orange transition duration-200"
+          hx-get="/app/content/index" hx-target="#content">
+          Dashboard
+      </a>
+      <!-- Add more navigation items as needed -->
+  </nav>
+  <!-- <nav class="flex-grow">
+      <a 
+        href="/app/settings" 
+        class="block py-2.5 px-4 text-black hover:bg-gray-200 transition duration-200 border-b border-black" 
+          hx-get="/app/content/settings" hx-target="#content">
+          Settings
+      </a>
+  </nav> -->
+
+  <!-- Logout button at the bottom -->
+  <div class="mt-auto border-t-2 border-black">
+      <a href="{{ auth_logout_url }}" class="block bottom-0 py-2.5 px-4 text-black bg-orange hover:bg-darkorange transition duration-200 text-center">
+          Logout
+      </a>
+  </div>
+</div>
+{% endblock %}

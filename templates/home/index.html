@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% include "header.html" %}
+
+{% block content %}
+  {% if initial_content %}
+    {% include initial_content %}
+  {% else %}
+    {% include 'index_content.html' %}
+  {% endif %}
+{% endblock %}

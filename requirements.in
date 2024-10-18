@@ -1,0 +1,19 @@
+SQLAlchemy
+aiosqlite
+alembic
+python-dotenv
+pydantic
+fastapi
+fastapi-sso
+fastapi-login
+starlette
+uvicorn
+jinja2
+python-jose[cryptography]
+itsdangerous==2.1.2
+werkzeug==3.0.1
+greenlet
+
+# Dev dependencies
+
+pytailwindcss

@@ -1,0 +1,67 @@
+services:
+  deal-buddy:
+    image: amiller68/deal-buddy:latest
+    ports:
+      - "8000"
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
+    networks:
+      - internal_net
+      - swag_net
+    environment:
+      - DATABASE_PATH=/data/app.db
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+    # Source the .env file
+    env_file:
+      - .env
+
+  swag:
+    image: ghcr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      # Replace this with your domain name
+      - URL=deal-buddy.xyz
+      - VALIDATION=http
+      - CERTPROVIDER=letsencrypt
+      - EMAIL=al@krondor.org
+    volumes:
+      - ./config:/config
+    ports:
+      - 443:443
+      - 80:80
+    restart: unless-stopped
+    networks:
+      - swag_net
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    volumes:
+      # Replace this with the correct path to your data directory
+      #  of your properly mounted volume
+      - /mnt/deal buddy_volume_nyc1_02:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    command: server /data --console-address ":9001"
+    restart: unless-stopped
+    networks:
+      - internal_net
+      - swag_net
+
+networks:
+  internal_net:
+    internal: true
+  swag_net:
+    name: swag_net

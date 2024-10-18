@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .font-roboto {
+    font-family: "Roboto", monospace;
+  }
+}
+
+@layer base {
+  html,
+  body {
+    @apply w-full h-full bg-white font-roboto;
+  }
+}
