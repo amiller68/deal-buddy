@@ -54,9 +54,9 @@ jobs:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         run: |
-          echo "SERVICE_SECRET=$SERVICE_SECRET" > .env
-          echo "GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID" >> .env
-          echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> .env
+          echo "SERVICE_SECRET=$SERVICE_SECRET" > .env.prod
+          echo "GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID" >> .env.prod
+          echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> .env.prod
 
       - name: Install dependencies
         run: |
