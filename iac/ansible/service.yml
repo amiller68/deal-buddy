@@ -37,12 +37,7 @@
         state: directory
         mode: 0755
 
-    - name: Pull the latest deal buddy-server
-      shell: su service -c "docker pull amiller68/deal-buddy:latest"
-      args:
-        chdir: /home/service/service
-
     - name: Run the docker compose stack
-      shell: su service -c "docker compose up -d --remove-orphans --force-recreate"
+      shell: su service -c "docker compose up -d  --build --pull always"
       args:
         chdir: /home/service/service
