@@ -48,7 +48,7 @@ jobs:
           echo "ADMIN_KEY_PATH=~/.ssh/deal-buddy/admin" > ./iac/.env
           echo "INVENTORY_PATH=./hosts/digitalOcean/deal-buddy-production" >> ./iac/.env
 
-      - name: Create an .env to pass our secrets to the container
+      - name: Create an .env.prod to pass our secrets to the container
         env:
           SERVICE_SECRET: ${{ secrets.SERVICE_SECRET }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
