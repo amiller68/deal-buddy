@@ -11,8 +11,23 @@ from starlette import status
 from starlette.exceptions import HTTPException
 from fastapi.exception_handlers import http_exception_handler
 import datetime
+import io
+import anthropic
+import PyPDF2
+
+from database.models import Om, OmStatus
+from database.database import AsyncSession
+from storage import Storage, StorageBucket
+
+def extract_text_from_pdf_stream(pdf_stream):
+    reader = PyPDF2.PdfReader(pdf_stream)
+    text = ""
+    for page in reader.pages:
+        text += page.extract_text()
+    return text
 
 
+from anthropic import Anthropic
 from jose import jwt
 
 import sys
@@ -30,6 +45,7 @@ from database.models import (
 )
 from config import Config
 from logger import Logger, RequestSpan
+from storage import Storage, StorageBucket
 
 # Constants
 
@@ -46,7 +62,10 @@ try:
     print("HOST_NAME: ", CONFIG.host_name)
     print("LISTEN_ADDRESS: ", CONFIG.listen_address)
     print("LISTEN_PORT: ", CONFIG.listen_port)
+    print("MINIO_ENDPOINT: ", CONFIG.minio_endpoint)
 
+    ANTHROPIC_CLIENT = anthropic.Client(api_key=CONFIG.secrets.anthropic_api_key)
+    STORAGE = Storage(CONFIG)
     DATABASE = AsyncDatabase(CONFIG.database_path)
     LOGGER = Logger(CONFIG.log_path, CONFIG.debug)
     APP = FastAPI()
@@ -229,30 +248,6 @@ def app_content(request: Request, content: str = Path(...), user: User = Depends
 
 ### APP Components
     
-# @APP.get("/app/components/om", response_class=HTMLResponse)
-# async def app_plaid_accounts(
-#     request: Request,
-#     user: User = Depends(get_logged_in_user),
-#     async_db: AsyncSession = Depends(async_db),
-#     span: RequestSpan = Depends(span)
-# ):
-#     user_id = user.id
-#     data = { "request": request }
-#     try:
-#         plaid_item = await user.plaid_item(session=async_db, span=span)
-#         if not plaid_item:
-#             data["error"] = "plaid not linked"
-#         else:
-#             accounts_response = PLAID_CLIENT.get_accounts(plaid_item.access_token)
-#             accounts = accounts_response['accounts']
-#             data["accounts"] = accounts
-#         return app_templates.TemplateResponse(
-#             f"components/plaid_accounts.html",
-#             data
-#         )
-#     except Exception as error:
-#         raise HTTPException(status_code=400, detail=str(error)) from error
-
 ### APP LOGIN
 
 
@@ -324,6 +319,57 @@ APP.mount("/static", StaticFiles(directory="static"), name="static")
 
 API_VERSION = "v0"
 API_PATH = f"api/{API_VERSION}"
+
+### Om
+
+@APP.post("/api/v0/om")
+async def api_om(request: Request):
+    print("uploading om api")
+    # process the file upload by uploading to minio and then processing the om
+    content_length = request.headers.get("Content-Length")
+    upload_id = STORAGE.put_object(
+        request.body(),
+        content_length,
+        StorageBucket.oms,
+    )
+
+    print("uploaded om");
+
+    object_response = STORAGE.get_object(StorageBucket.om, upload_id)
+
+    print("got object")
+    object_stream = io.BytesIO(object_response.read())
+    text = extract_text_from_pdf_stream(object_stream)
+    object_response.close()
+    object_response.release_conn()
+
+    prompt = f"""
+    Analyze the following real estate offering memorandum and extract key information:
+    1. Property name
+    2. Location
+    3. Asking price
+    4. Square footage
+    Also, provide a brief summary of the property in 2-3 sentences.
+
+    Here's the text:
+    {text[:5000]}  # Truncated for API limits
+
+    Respond with a JSON object containing the extracted information and summary.
+    """
+
+    response = ANTHROPIC_CLIENT.completions.create(
+        model="claude-3-opus-20240229",
+        prompt=prompt,
+        max_tokens_to_sample=1000,
+        temperature=0,
+        stop_sequences=["}"]
+    )
+
+    summary = response.completion
+    print(f"Summary: {summary}")
+    await Om.update(upload_id, {"summary": summary, "status": OmStatus.completed}, DATABASE)
+    await DATABASE.commit()
+
 
 
 

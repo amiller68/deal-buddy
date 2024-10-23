@@ -16,6 +16,7 @@ class Secrets:
     google_client_secret: str
     minio_access_key: str
     minio_secret_key: str
+    anthropic_api_key: str
 
     def __init__(self):
         self.service_secret = os.getenv("SERVICE_SECRET")
@@ -23,12 +24,14 @@ class Secrets:
         self.google_client_secret = os.getenv("GOOGLE_CLIENT_SECRET")
         self.minio_access_key = os.getenv("MINIO_ACCESS_KEY")
         self.minio_secret_key = os.getenv("MINIO_SECRET_KEY")
+        self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
 
         # Load the environment variables
         load_dotenv()
 
 # TODO: getopt() for cmd line arguments
 class Config:
+    dev_mode: bool
     host_name: str
     listen_address: str
     listen_port: int
@@ -43,6 +46,8 @@ class Config:
     def __init__(self):
         # Load the environment variables
         load_dotenv()
+
+        self.dev_mode = os.getenv("DEV_MODE", "false") == "true"
 
         self.host_name = os.getenv("HOST_NAME", "http://localhost:9000")
 

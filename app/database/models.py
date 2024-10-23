@@ -1,14 +1,15 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import Column, String, DateTime
+from sqlalchemy import Column, String, DateTime, update
 from datetime import datetime
 import uuid
 from sqlalchemy.future import select
-
+from typing import Dict, Any
 import sys
+from enum import Enum as PyEnum
+
 
 sys.path.append("..")
 
-# Import our Base class
 from app.logger import RequestSpan
 from .database import Base, DatabaseException
 
@@ -70,6 +71,71 @@ class User(Base):
                 span.error(f"database::models::User::read_by_email: {e}")
             db_e = DatabaseException.from_sqlalchemy_error(e)
             raise db_e
+
+class OmStatus(PyEnum):
+    pending = "uploading"
+    processing = "processing"
+    complete = "complete"
+
+class Om(Base):
+    __tablename__ = "oms"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()), nullable=False)
+
+    upload_id = Column(String, nullable=False)
+
+    summary = Column(String, nullable=True)
+
+    # timestamps
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    @staticmethod
+    async def create(upload_id: str, session: AsyncSession, span: RequestSpan | None = None):
+        om = Om(upload_id=upload_id)
+        session.add(om)
+        await session.flush()
+        return om
+    
+    @staticmethod
+    async def read(id: str, session: AsyncSession, span: RequestSpan | None = None):
+        result = await session.execute(select(Om).filter_by(id=id))
+        return result.scalars().first()
+
+    @staticmethod
+    async def update(id: str, update_data: Dict[str, Any], session: AsyncSession, span: RequestSpan | None = None):
+        try:
+            # First, check if the Om exists
+            result = await session.execute(select(Om).filter_by(id=id))
+            om = result.scalars().first()
+            if not om:
+                raise ValueError(f"Om with id {id} not found")
+
+            # Update the Om
+            stmt = (
+                update(Om)
+                .where(Om.id == id)
+                .values(**update_data)
+                .returning(Om)
+            )
+            result = await session.execute(stmt)
+            updated_om = result.scalars().first()
+
+            await session.commit()
+            return updated_om
+        except Exception as e:
+            if span:
+                span.error(f"database::models::Om::update: {e}")
+            db_e = DatabaseException.from_sqlalchemy_error(e)
+            raise db_e
+
+    @staticmethod
+    async def update_summary(id: str, summary: str, session: AsyncSession, span: RequestSpan | None = None):
+        return await Om.update(id, {"summary": summary}, session, span)
+
+    @staticmethod
+    async def update_status(id: str, status: OmStatus, session: AsyncSession, span: RequestSpan | None = None):
+        return await Om.update(id, {"status": status}, session, span)
 
 # class Chat(Base):
 #     __tablename__ = "chat"
