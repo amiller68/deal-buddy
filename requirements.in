@@ -16,6 +16,8 @@ greenlet
 anthropic
 minio
 PyPDF2
+python-multipart
+black
 
 # Dev dependencies
 

@@ -1,0 +1,32 @@
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Your OMs Dashboard</h1>
+
+    <!-- Upload new OM section -->
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h2 class="text-xl font-semibold mb-4">Upload New OM</h2>
+        <form hx-post="/api/v0/om" hx-encoding="multipart/form-data" hx-swap="outerHTML">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="om-file">
+                    Select PDF File
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                       id="om-file" type="file" name="file" accept=".pdf" required>
+            </div>
+            <div class="flex items-center justify-between">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+                        type="submit">
+                    Upload OM
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- List of available OMs -->
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
+        <h2 class="text-xl font-semibold mb-4">Your Available OMs</h2>
+        <div id="om-list" hx-get="/api/v0/oms" hx-trigger="load">
+            <!-- This will be populated by the API call -->
+            <p>Loading your OMs...</p>
+        </div>
+    </div>
+</div>

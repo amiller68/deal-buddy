@@ -31,7 +31,7 @@ export LOG_PATH=
 export PYTHONPATH="$PYTHONPATH:$(pwd)"
 
 # Run the server with verbose output
-python  ./app/server.py
+python ./app/server.py
 
 # Deactivate the virtual environment
 deactivate

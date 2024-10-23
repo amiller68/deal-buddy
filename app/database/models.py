@@ -1,11 +1,12 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import Column, String, DateTime, update
+from sqlalchemy import Column, String, DateTime, update, ForeignKey
 from datetime import datetime
 import uuid
 from sqlalchemy.future import select
 from typing import Dict, Any
 import sys
 from enum import Enum as PyEnum
+from sqlalchemy.orm import relationship
 
 
 sys.path.append("..")
@@ -82,6 +83,8 @@ class Om(Base):
 
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()), nullable=False)
 
+    user_id = Column(String, ForeignKey("users.id"), nullable=False)
+
     upload_id = Column(String, nullable=False)
 
     summary = Column(String, nullable=True)
@@ -91,8 +94,10 @@ class Om(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     @staticmethod
-    async def create(upload_id: str, session: AsyncSession, span: RequestSpan | None = None):
-        om = Om(upload_id=upload_id)
+    async def create(
+        user_id: str, upload_id: str, session: AsyncSession, span: RequestSpan | None = None
+    ):
+        om = Om(upload_id=upload_id, user_id=user_id)
         session.add(om)
         await session.flush()
         return om
@@ -136,6 +141,12 @@ class Om(Base):
     @staticmethod
     async def update_status(id: str, status: OmStatus, session: AsyncSession, span: RequestSpan | None = None):
         return await Om.update(id, {"status": status}, session, span)
+
+    @classmethod
+    async def read_by_user_id(cls, user_id: str, session: AsyncSession, span: RequestSpan):
+        query = select(cls).where(cls.user_id == user_id)
+        result = await session.execute(query)
+        return result.scalars().all()
 
 # class Chat(Base):
 #     __tablename__ = "chat"
@@ -428,3 +439,5 @@ class Om(Base):
 #                 span.error(f"Message::read_all(): Error reading message: {e}")
 #             e = DatabaseException.from_sqlalchemy_error(e)
 #             raise e
+
+

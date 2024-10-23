@@ -1,4 +1,4 @@
-from fastapi import Depends, FastAPI, Request, Response, Security, Path
+from fastapi import Depends, FastAPI, Request, Response, Security, Path, UploadFile, File
 from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel
 from fastapi.templating import Jinja2Templates
@@ -45,7 +45,7 @@ from database.models import (
 )
 from config import Config
 from logger import Logger, RequestSpan
-from storage import Storage, StorageBucket
+from storage import Storage, StorageBucket, StorageException
 
 # Constants
 
@@ -163,6 +163,11 @@ async def get_logged_in_user(
     except Exception as error:
         raise HTTPException(status_code=401, detail="Unauthorized") from error
 
+async def require_logged_in_user(user: User = Depends(get_logged_in_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    return user
+
 # Auth Routes
 
 ## Catch All
@@ -216,7 +221,12 @@ def app_index(request: Request, user: User = Depends(get_logged_in_user)):
     user_info = user.dict()
     return app_templates.TemplateResponse(
         "index.html",
-        {"request": request, "user": user_info, "auth_logout_url": "/auth/logout"},
+        {
+            "request": request, 
+            "user": user_info, 
+            "auth_logout_url": "/auth/logout",
+            "initial_content": "dashboard.html"  # Add this line
+        },
     )
 
 @APP.get("/app/settings", response_class=HTMLResponse)
@@ -323,55 +333,64 @@ API_PATH = f"api/{API_VERSION}"
 ### Om
 
 @APP.post("/api/v0/om")
-async def api_om(request: Request):
-    print("uploading om api")
-    # process the file upload by uploading to minio and then processing the om
-    content_length = request.headers.get("Content-Length")
-    upload_id = STORAGE.put_object(
-        request.body(),
-        content_length,
-        StorageBucket.oms,
-    )
+async def api_om(
+    file: UploadFile = File(...),
+    user: User = Depends(require_logged_in_user),
+    span: RequestSpan = Depends(span),
+    db: AsyncSession = Depends(async_db)
+):
+    if file.content_type != "application/pdf":
+        raise HTTPException(status_code=400, detail="Only PDF files are allowed")
 
-    print("uploaded om");
+    try:
+        # Read the file content
+        content = await file.read()
+        file_size = len(content)
 
-    object_response = STORAGE.get_object(StorageBucket.om, upload_id)
+        # Upload to MinIO
+        upload_id = STORAGE.put_object(
+            stream=io.BytesIO(content),
+            stream_len=file_size,
+            bucket=StorageBucket.oms
+        )
 
-    print("got object")
-    object_stream = io.BytesIO(object_response.read())
-    text = extract_text_from_pdf_stream(object_stream)
-    object_response.close()
-    object_response.release_conn()
+        # Extract text from PDF
+        pdf_text = extract_text_from_pdf_stream(io.BytesIO(content))
 
-    prompt = f"""
-    Analyze the following real estate offering memorandum and extract key information:
-    1. Property name
-    2. Location
-    3. Asking price
-    4. Square footage
-    Also, provide a brief summary of the property in 2-3 sentences.
+        user_id = user.id
+        print(f"user_id: {user_id}")
+        # Create Om record in database
+        om = await Om.create(
+            user_id=user.id,
+            upload_id=upload_id,
+            session=db,
+            span=span
+        )
+        await db.commit()
 
-    Here's the text:
-    {text[:5000]}  # Truncated for API limits
+        # TODO: Process the PDF text (e.g., send to AI for analysis)
 
-    Respond with a JSON object containing the extracted information and summary.
-    """
+        return {"message": "Om uploaded successfully", "om_id": om.id}
 
-    response = ANTHROPIC_CLIENT.completions.create(
-        model="claude-3-opus-20240229",
-        prompt=prompt,
-        max_tokens_to_sample=1000,
-        temperature=0,
-        stop_sequences=["}"]
-    )
+    except StorageException as e:
+        span.error(f"Storage error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to upload file to storage")
+    except Exception as e:
+        span.error(f"Unexpected error: {str(e)}")
+        raise HTTPException(status_code=500, detail="An unexpected error occurred")
 
-    summary = response.completion
-    print(f"Summary: {summary}")
-    await Om.update(upload_id, {"summary": summary, "status": OmStatus.completed}, DATABASE)
-    await DATABASE.commit()
-
-
-
+@APP.get("/api/v0/oms")
+async def api_get_oms(
+    user: User = Depends(require_logged_in_user),
+    span: RequestSpan = Depends(span),
+    db: AsyncSession = Depends(async_db)
+):
+    try:
+        oms = await Om.read_by_user_id(user_id=user.id, session=db, span=span)
+        return [om.dict() for om in oms]
+    except Exception as e:
+        span.error(f"Error fetching OMs: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch OMs")
 
 # Run
 

@@ -44,6 +44,11 @@ class Storage:
             secure=parsed_url.scheme == 'https'
         )
 
+        # Create buckets if they don't exist
+        for bucket in StorageBucket:
+            if not self.client.bucket_exists(bucket.value):
+                self.client.make_bucket(bucket.value)
+
     def get_object(
             self,
             bucket: StorageBucket,
@@ -59,7 +64,16 @@ class Storage:
         ):
         try:
             upload_id = str(uuid.uuid4())
-            self.client.put_object(bucket.value, upload_id, stream, stream_len)
+            match bucket:
+                case StorageBucket.oms:
+                    content_type = "application/pdf"
+            self.client.put_object(
+                bucket_name=bucket.value, 
+                object_name=upload_id, 
+                data=stream, 
+                length=stream_len,
+                content_type=content_type
+            )
             return upload_id
         except S3Error as e:
             raise StorageException.from_s3_error(e)
