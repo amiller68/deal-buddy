@@ -4,8 +4,9 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
+
 # NOTE (amiller68): import our models and os
-from app.database.database import SyncDatabase, Base 
+from app.database.database import SyncDatabase, Base
 from dotenv import load_dotenv
 
 import os
@@ -41,12 +42,13 @@ for table in Base.metadata.tables:
 # for 'autogenerate' support
 # from myapp import mymodel
 # NOTE (amiller68): enable our models
-target_metadata = None 
+target_metadata = None
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode."""
@@ -61,18 +63,18 @@ def run_migrations_offline() -> None:
     with context.begin_transaction():
         context.run_migrations()
 
+
 def run_migrations_online():
     engine = engine_from_config(
-                config.get_section(config.config_ini_section), prefix='sqlalchemy.')
+        config.get_section(config.config_ini_section), prefix="sqlalchemy."
+    )
 
     with engine.connect() as connection:
-        context.configure(
-                    connection=connection,
-                    target_metadata=target_metadata
-                    )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()
+
 
 def process_revision_directives(context, revision, directives):
     # This function will be called for each migration script that's generated.
@@ -82,6 +84,7 @@ def process_revision_directives(context, revision, directives):
         if script.upgrade_ops.is_empty():
             directives[:] = []
             print("No changes detected; no migration script generated.")
+
 
 if context.is_offline_mode():
     run_migrations_offline()

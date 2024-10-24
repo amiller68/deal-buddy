@@ -29,6 +29,7 @@ class Secrets:
         # Load the environment variables
         load_dotenv()
 
+
 # TODO: getopt() for cmd line arguments
 class Config:
     dev_mode: bool
@@ -56,7 +57,7 @@ class Config:
         self.listen_port = int(os.getenv("LISTEN_PORT", 8000))
 
         self.database_path = os.getenv("DATABASE_PATH", ":memory:")
-        
+
         self.minio_endpoint = os.getenv("MINIO_ENDPOINT", "http://localhost:9000")
 
         # Set the log path

@@ -5,7 +5,6 @@ import uuid
 from sqlalchemy.future import select
 from typing import Dict, Any
 import sys
-from enum import Enum as PyEnum
 from sqlalchemy.orm import relationship
 
 
@@ -19,7 +18,9 @@ class User(Base):
     __tablename__ = "users"
 
     # Unique identifier
-    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()), nullable=False)
+    id = Column(
+        String, primary_key=True, default=lambda: str(uuid.uuid4()), nullable=False
+    )
 
     # email
     email = Column(String, unique=True, nullable=False)
@@ -29,11 +30,11 @@ class User(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     def dict(self):
-         return {
+        return {
             "id": self.id,
             "email": self.email,
             "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "updated_at": self.updated_at.isoformat(),
         }
 
     @staticmethod
@@ -63,7 +64,9 @@ class User(Base):
             raise db_e
 
     @staticmethod
-    async def read_by_email(email: str, session: AsyncSession, span: RequestSpan | None = None):
+    async def read_by_email(
+        email: str, session: AsyncSession, span: RequestSpan | None = None
+    ):
         try:
             result = await session.execute(select(User).filter_by(email=email))
             return result.scalars().first()
@@ -73,19 +76,21 @@ class User(Base):
             db_e = DatabaseException.from_sqlalchemy_error(e)
             raise db_e
 
-class OmStatus(PyEnum):
-    pending = "uploading"
-    processing = "processing"
-    complete = "complete"
 
 class Om(Base):
     __tablename__ = "oms"
 
-    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()), nullable=False)
+    id = Column(
+        String, primary_key=True, default=lambda: str(uuid.uuid4()), nullable=False
+    )
 
     user_id = Column(String, ForeignKey("users.id"), nullable=False)
 
     upload_id = Column(String, nullable=False)
+
+    title = Column(String, nullable=False)
+
+    description = Column(String, nullable=True)
 
     summary = Column(String, nullable=True)
 
@@ -95,20 +100,43 @@ class Om(Base):
 
     @staticmethod
     async def create(
-        user_id: str, upload_id: str, session: AsyncSession, span: RequestSpan | None = None
+        user_id: str,
+        upload_id: str,
+        title: str,
+        description: str,
+        summary: str,
+        session: AsyncSession,
+        span: RequestSpan | None = None,
     ):
-        om = Om(upload_id=upload_id, user_id=user_id)
-        session.add(om)
-        await session.flush()
-        return om
-    
+        try:
+            om = Om(
+                user_id=user_id,
+                upload_id=upload_id,
+                title=title,
+                description=description,
+                summary=summary,
+            )
+            session.add(om)
+            await session.flush()
+            return om
+        except Exception as e:
+            if span:
+                span.error(f"database::models::Om::create: {e}")
+            db_e = DatabaseException.from_sqlalchemy_error(e)
+            raise db_e
+
     @staticmethod
     async def read(id: str, session: AsyncSession, span: RequestSpan | None = None):
         result = await session.execute(select(Om).filter_by(id=id))
         return result.scalars().first()
 
     @staticmethod
-    async def update(id: str, update_data: Dict[str, Any], session: AsyncSession, span: RequestSpan | None = None):
+    async def update(
+        id: str,
+        update_data: Dict[str, Any],
+        session: AsyncSession,
+        span: RequestSpan | None = None,
+    ):
         try:
             # First, check if the Om exists
             result = await session.execute(select(Om).filter_by(id=id))
@@ -117,15 +145,11 @@ class Om(Base):
                 raise ValueError(f"Om with id {id} not found")
 
             # Update the Om
-            stmt = (
-                update(Om)
-                .where(Om.id == id)
-                .values(**update_data)
-                .returning(Om)
-            )
+            stmt = update(Om).where(Om.id == id).values(**update_data).returning(Om)
             result = await session.execute(stmt)
             updated_om = result.scalars().first()
-
+            if not updated_om:
+                raise ValueError(f"Om with id {id} not found")
             await session.commit()
             return updated_om
         except Exception as e:
@@ -135,18 +159,19 @@ class Om(Base):
             raise db_e
 
     @staticmethod
-    async def update_summary(id: str, summary: str, session: AsyncSession, span: RequestSpan | None = None):
+    async def update_summary(
+        id: str, summary: str, session: AsyncSession, span: RequestSpan | None = None
+    ):
         return await Om.update(id, {"summary": summary}, session, span)
 
-    @staticmethod
-    async def update_status(id: str, status: OmStatus, session: AsyncSession, span: RequestSpan | None = None):
-        return await Om.update(id, {"status": status}, session, span)
-
     @classmethod
-    async def read_by_user_id(cls, user_id: str, session: AsyncSession, span: RequestSpan):
+    async def read_by_user_id(
+        cls, user_id: str, session: AsyncSession, span: RequestSpan
+    ):
         query = select(cls).where(cls.user_id == user_id)
         result = await session.execute(query)
         return result.scalars().all()
+
 
 # class Chat(Base):
 #     __tablename__ = "chat"
@@ -169,7 +194,7 @@ class Om(Base):
 #     async def create(
 #         user_id,
 #         message: telebot_types.Message,
-#         session, 
+#         session,
 #         span=None
 #     ):
 #         """
@@ -208,7 +233,7 @@ class Om(Base):
 #     # ['active', 'inactive', 'complete']
 #     state = Column(Enum(ConversationState))
 
-#     # The messages within the conversation 
+#     # The messages within the conversation
 #     messages = relationship("Message", backref="conversation")
 
 #     # timestamps
@@ -348,7 +373,7 @@ class Om(Base):
 
 #     # Unique identifier
 #     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()), nullable=False)
-    
+
 #     telegram_message_id = Column(Integer, nullable=False, unique=True)
 
 #     # The conveursation this message belongs to
@@ -439,5 +464,3 @@ class Om(Base):
 #                 span.error(f"Message::read_all(): Error reading message: {e}")
 #             e = DatabaseException.from_sqlalchemy_error(e)
 #             raise e
-
-

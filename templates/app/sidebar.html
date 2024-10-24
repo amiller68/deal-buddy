@@ -1,7 +1,7 @@
 {% block sidebar %}
 <div class="flex flex-col h-screen bg-beige border-r-2 border-black w-64">
   <!-- Logo at the top -->
-  <div class="flex items-center border-b-2 border-black w-48">
+  <div class="flex items-center border-b-2 border-black w-full">
     <a href="/" class="flex items-center px-4 py-2 hover:bg-dark-beige w-full">
       <img src="/static/icon.svg" alt="Icon" class="h-8 mr-2">
       <div class="flex flex-col">
@@ -15,7 +15,7 @@
   <nav class="flex-grow">
       <a 
         href="/app/index"
-        class="block py-2.5 px-4 text-black hover:bg-orange transition duration-200"
+        class="block py-2.5 px-4 text-black hover:bg-orange transition duration-200 text-center border-b-2 border-l border-black"
           hx-get="/app/content/dashboard" hx-target="#content">
           Dashboard
       </a>

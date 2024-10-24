@@ -57,16 +57,68 @@ class SyncDatabase:
         Base.metadata.create_all(self.engine)
 
 
+from sqlalchemy.pool import StaticPool
+
+from sqlalchemy import text
+from contextlib import asynccontextmanager
+
+
 class AsyncDatabase:
     def __init__(self, database_path):
+        self.database_path = database_path
         database_url = f"sqlite+aiosqlite:///{database_path}"
-        self.engine = create_async_engine(database_url)
+
+        # Configure engine with more conservative settings
+        self.engine = create_async_engine(
+            database_url,
+            connect_args={
+                "check_same_thread": False,
+                "timeout": 30,
+                "isolation_level": "IMMEDIATE",  # This helps prevent some locking issues
+            },
+            poolclass=StaticPool,  # StaticPool maintains a single connection
+            echo=False,
+        )
+
         self.AsyncSession = sessionmaker(
             self.engine, expire_on_commit=False, class_=AsyncSession
         )
-        # If this is an in-memory database, we need to create the tables
-        if database_path == ":memory:":
-            asyncio.run(self.create_tables())
+
+    async def initialize(self):
+        # Create tables first
+        async with self.engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+
+        # Try to set pragmas with retries
+        max_retries = 3
+        retry_delay = 1  # seconds
+
+        for attempt in range(max_retries):
+            try:
+                async with self.engine.connect() as conn:
+                    # Set pragmas one at a time
+                    await conn.execute(text("PRAGMA busy_timeout = 5000"))
+                    await conn.commit()
+
+                    await conn.execute(text("PRAGMA journal_mode = WAL"))
+                    await conn.commit()
+
+                    await conn.execute(text("PRAGMA synchronous = NORMAL"))
+                    await conn.commit()
+
+                    break  # If we get here, everything worked
+            except Exception as e:
+                if attempt == max_retries - 1:  # Last attempt
+                    raise  # Re-raise the exception if all retries failed
+                await asyncio.sleep(retry_delay)
+
+    @asynccontextmanager
+    async def session(self):
+        session = self.AsyncSession()
+        try:
+            yield session
+        finally:
+            await session.close()
 
     async def create_tables(self):
         async with self.engine.begin() as conn:

@@ -4,21 +4,27 @@
     <!-- Upload new OM section -->
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h2 class="text-xl font-semibold mb-4">Upload New OM</h2>
-        <form hx-post="/api/v0/om" hx-encoding="multipart/form-data" hx-swap="outerHTML">
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="om-file">
-                    Select PDF File
-                </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                       id="om-file" type="file" name="file" accept=".pdf" required>
-            </div>
-            <div class="flex items-center justify-between">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+        <form id="upload-form" hx-post="/api/v0/om" hx-encoding="multipart/form-data" hx-swap="outerHTML">
+            <div class="flex items-center mb-4">
+                <div class="relative flex-grow mr-4">
+                    <input class="hidden" id="om-file" type="file" name="file" accept=".pdf" required>
+                    <div class="bg-gray-100 border border-gray-300 rounded-lg py-2 px-4 w-full cursor-pointer flex items-center">
+                        <span id="file-name" class="text-gray-500">No file chosen</span>
+                    </div>
+                    <button type="button" onclick="document.getElementById('om-file').click();" class="absolute right-0 top-0 bottom-0 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-r-lg">
+                        Select
+                    </button>
+                </div>
+                <button id="upload-button" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline" 
                         type="submit">
                     Upload OM
                 </button>
             </div>
         </form>
+        <div id="loading-spinner" class="hidden mt-4">
+            <div class="spinner"></div>
+            <p class="text-center mt-2">Processing your OM...</p>
+        </div>
     </div>
 
     <!-- List of available OMs -->
@@ -30,3 +36,37 @@
         </div>
     </div>
 </div>
+
+<style>
+    .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+<script>
+    document.getElementById('om-file').addEventListener('change', function(e) {
+        var fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+        document.getElementById('file-name').textContent = fileName;
+    });
+
+    document.getElementById('upload-form').addEventListener('htmx:beforeRequest', function(event) {
+        document.getElementById('upload-button').disabled = true;
+        document.getElementById('loading-spinner').classList.remove('hidden');
+    });
+
+    document.getElementById('upload-form').addEventListener('htmx:afterRequest', function(event) {
+        document.getElementById('upload-button').disabled = false;
+        document.getElementById('loading-spinner').classList.add('hidden');
+    });
+</script>

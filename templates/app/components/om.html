@@ -2,17 +2,13 @@
     {% if error %}
         <p style="color: red;">{{ error }}</p>
     {% elif oms %}
-        <h2>Your oms</h2>
+        <h2>Existong OMs</h2>
         <ul>
             {% for om in oms %}
-                <li>
-                    <strong>{{ om.name }}</strong> ({{ om.subtype }})
-                    <br>
-                    Balance: ${{ "%.2f"|format(om.balances.current) }} {{ om.balances.iso_currency_code }}
-                </li>
+                
             {% endfor %}
         </ul>
     {% else %}
-        <p>No oms linked yet. Click the "Connect Bank om" button to get started.</p>
+        <p>No OMs uploaded yet!</p>
     {% endif %}
 </div>

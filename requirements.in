@@ -18,6 +18,7 @@ minio
 PyPDF2
 python-multipart
 black
+tenacity
 
 # Dev dependencies
 

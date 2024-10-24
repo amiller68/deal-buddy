@@ -18,6 +18,7 @@ class RequestFormatter(logging.Formatter):
             record.url = "N/A"
         return super().format(record)
 
+
 class Logger:
     logger: logging.Logger
     handler: logging.Handler
@@ -64,6 +65,7 @@ class Logger:
         )
         self.handler.setFormatter(formatter)
         return RequestSpan(self.logger, request)
+
 
 class RequestSpan:
     def __init__(self, logger, request: Request):

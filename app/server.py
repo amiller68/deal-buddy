@@ -1,4 +1,14 @@
-from fastapi import Depends, FastAPI, Request, Response, Security, Path, UploadFile, File
+from fastapi import (
+    Depends,
+    FastAPI,
+    Request,
+    Response,
+    Security,
+    Path,
+    UploadFile,
+    File,
+)
+from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel
 from fastapi.templating import Jinja2Templates
@@ -14,10 +24,19 @@ import datetime
 import io
 import anthropic
 import PyPDF2
+import json
+import asyncio
+from tenacity import (
+    retry,
+    stop_after_attempt,
+    wait_exponential,
+    retry_if_exception_type,
+)
 
-from database.models import Om, OmStatus
+from database.models import Om
 from database.database import AsyncSession
 from storage import Storage, StorageBucket
+
 
 def extract_text_from_pdf_stream(pdf_stream):
     reader = PyPDF2.PdfReader(pdf_stream)
@@ -40,9 +59,7 @@ from database.database import (
     DatabaseException,
     DatabaseExceptionType as db_e_type,
 )
-from database.models import (
-    User
-)
+from database.models import User
 from config import Config
 from logger import Logger, RequestSpan
 from storage import Storage, StorageBucket, StorageException
@@ -74,6 +91,15 @@ except Exception as e:
     exit(1)
 
 
+@APP.on_event("startup")
+async def startup_event():
+    try:
+        await DATABASE.initialize()
+    except Exception as e:
+        print(f"Failed to initialize database: {e}")
+        raise
+
+
 # Exceptions
 
 
@@ -97,17 +123,19 @@ async def http_exception_handler(request: Request, exc: HTTPException):
 # Middleware
 
 
+# Update your middleware to use the new session context manager
 @APP.middleware("http")
 async def async_db_middleware(request: Request, call_next):
-    try:
-        async with DATABASE.AsyncSession() as session:
-            request.state.db = session
+    async with DATABASE.session() as session:
+        request.state.db = session
+        try:
             response = await call_next(request)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail="Internal server error") from e
-    finally:
-        await request.state.db.close()
-    return response
+            return response
+        except Exception as e:
+            await session.rollback()
+            raise
+        finally:
+            await session.close()
 
 
 @APP.middleware("http")
@@ -133,6 +161,7 @@ def google_sso():
         allow_insecure_http=True,
     )
 
+
 def async_db(request: Request):
     return request.state.db
 
@@ -140,10 +169,11 @@ def async_db(request: Request):
 def span(request: Request):
     return request.state.span
 
+
 async def get_logged_in_user(
     cookie: str = Security(APIKeyCookie(name=SESION_COOKIE_NAME)),
     async_db: AsyncSession = Depends(async_db),
-    span: RequestSpan = Depends(span)
+    span: RequestSpan = Depends(span),
 ) -> User:
     try:
         claims = jwt.decode(
@@ -151,22 +181,24 @@ async def get_logged_in_user(
         )
         openid = OpenID(**claims["pld"])
 
-         # Check if user exists in database
+        # Check if user exists in database
         user = await User.read_by_email(email=openid.email, session=async_db, span=span)
         if not user:
             span.info(f"server::get_logged_in_user::creating new user:  {openid.email}")
             # User doesn't exist, create a new one
             user = await User.create(email=openid.email, session=async_db, span=span)
             await async_db.commit()
-        
+
         return user
     except Exception as error:
         raise HTTPException(status_code=401, detail="Unauthorized") from error
+
 
 async def require_logged_in_user(user: User = Depends(get_logged_in_user)):
     if not user:
         raise HTTPException(status_code=401, detail="Unauthorized")
     return user
+
 
 # Auth Routes
 
@@ -216,18 +248,20 @@ app_templates = Jinja2Templates(directory="templates/app")
 
 ### APP PAGES
 
+
 @APP.get("/app", response_class=HTMLResponse)
 def app_index(request: Request, user: User = Depends(get_logged_in_user)):
     user_info = user.dict()
     return app_templates.TemplateResponse(
         "index.html",
         {
-            "request": request, 
-            "user": user_info, 
+            "request": request,
+            "user": user_info,
             "auth_logout_url": "/auth/logout",
-            "initial_content": "dashboard.html"  # Add this line
+            "initial_content": "dashboard.html",  # Add this line
         },
     )
+
 
 @APP.get("/app/settings", response_class=HTMLResponse)
 def app_index(request: Request, user: User = Depends(get_logged_in_user)):
@@ -236,28 +270,30 @@ def app_index(request: Request, user: User = Depends(get_logged_in_user)):
         {"request": request, "auth_logout_url": "/auth/logout"},
     )
 
+
 ### APP Content
 
+
 @APP.get("/app/content/{content}", response_class=HTMLResponse)
-def app_content(request: Request, content: str = Path(...), user: User = Depends(get_logged_in_user)):
+def app_content(
+    request: Request, content: str = Path(...), user: User = Depends(get_logged_in_user)
+):
     try:
         # NOTE: this seems kinda janky, but generally i expect content / components
         #  to be filled in with server rendered data, so I suppose I'll do so here.
         #   I should find a batter way to do this at the very least
-        data = { "request": request }
+        data = {"request": request}
         if content == "index":
             print(user.dict())
             data["user"] = user.dict()
-        return app_templates.TemplateResponse(
-            f"content/{content}.html",
-            data
-        )
+        return app_templates.TemplateResponse(f"content/{content}.html", data)
     except Exception as error:
         print(error)
         raise HTTPException(status_code=404, detail="Not Found") from error
 
+
 ### APP Components
-    
+
 ### APP LOGIN
 
 
@@ -286,6 +322,7 @@ def home_index(request: Request):
         )
     return home_templates.TemplateResponse("index.html", {"request": request})
 
+
 ## Header Menu
 
 ### About Page
@@ -297,12 +334,13 @@ def home_about(request: Request):
     if request.headers.get("HX-Request"):
         return home_templates.TemplateResponse(
             # TODO: make this the actual about page
-            "todo_content.html", {"request": request}
+            "todo_content.html",
+            {"request": request},
         )
-    return home_templates.TemplateResponse("index.html", {
-        "request": request,
-        "initial_content": "todo_content.html"
-    })
+    return home_templates.TemplateResponse(
+        "index.html", {"request": request, "initial_content": "todo_content.html"}
+    )
+
 
 ### Blog Page
 
@@ -313,12 +351,12 @@ def home_blog(request: Request):
     if request.headers.get("HX-Request"):
         return home_templates.TemplateResponse(
             # TODO: make this the actual blog page
-            "todo_content.html", {"request": request}
+            "todo_content.html",
+            {"request": request},
         )
-    return home_templates.TemplateResponse("index.html", {
-        "request": request,
-        "initial_content": "todo_content.html"
-    })
+    return home_templates.TemplateResponse(
+        "index.html", {"request": request, "initial_content": "todo_content.html"}
+    )
 
 
 # Static Files
@@ -332,68 +370,139 @@ API_PATH = f"api/{API_VERSION}"
 
 ### Om
 
+
+# @retry(
+#     stop=stop_after_attempt(3),
+#     wait=wait_exponential(multiplier=1, min=4, max=10),
+#     retry=retry_if_exception_type((ValueError, json.JSONDecodeError)),
+#     reraise=True
+# )
+async def generate_summary(pdf_text: str) -> str:
+    prompt = """You are a real estate expert. Analyze the following real estate deal information and provide three sections:
+
+1. Title: Either the property address or a short descriptor of the property (1 line)
+2. Description: A short description of the property that can fit in a blurb (2-3 sentences)
+3. Summary: A 500-1000 word summary of the key features and relevant extractable data from the offering memorandum, including:
+   - Property type and location
+   - Size and key features
+   - Current occupancy and major tenants
+   - Financial highlights (e.g., asking price, NOI, cap rate)
+   - Unique selling points or challenges
+   - Market analysis
+   - Investment highlights
+   - Any other relevant information
+
+Here's the text to analyze:
+
+{pdf_text}
+
+Provide your response in JSON format with keys "title", "description", and "summary".
+"""
+
+    try:
+        response = ANTHROPIC_CLIENT.messages.create(
+            model="claude-3-sonnet-20240229",
+            max_tokens=1500,
+            messages=[{"role": "user", "content": prompt.format(pdf_text=pdf_text)}],
+        )
+
+        # Parse the JSON response
+        result = response.content[0].text.strip()
+
+        # # Ensure all required keys are present
+        # required_keys = ["title", "description", "summary"]
+        # for key in required_keys:
+        #     if key not in result:
+        #         raise ValueError(f"Missing required key in response: {key}")
+
+        # return json.dumps(result)
+        return result
+    except json.JSONDecodeError as e:
+        print(f"JSON decode error: {e}")
+        raise
+    except ValueError as e:
+        print(f"Value error: {e}")
+        raise
+    except Exception as e:
+        print(f"Unexpected error in generate_summary: {e}")
+        raise
+
+
 @APP.post("/api/v0/om")
 async def api_om(
     file: UploadFile = File(...),
     user: User = Depends(require_logged_in_user),
     span: RequestSpan = Depends(span),
-    db: AsyncSession = Depends(async_db)
+    db: AsyncSession = Depends(async_db),
 ):
-    if file.content_type != "application/pdf":
-        raise HTTPException(status_code=400, detail="Only PDF files are allowed")
+    async with db.begin():
+        try:
+            # Read the file content
+            content = await file.read()
+            file_size = len(content)
 
-    try:
-        # Read the file content
-        content = await file.read()
-        file_size = len(content)
+            # Upload to MinIO
+            upload_id = STORAGE.put_object(
+                stream=io.BytesIO(content),
+                stream_len=file_size,
+                bucket=StorageBucket.oms,
+            )
 
-        # Upload to MinIO
-        upload_id = STORAGE.put_object(
-            stream=io.BytesIO(content),
-            stream_len=file_size,
-            bucket=StorageBucket.oms
-        )
+            # Extract text and generate summary
+            pdf_text = extract_text_from_pdf_stream(io.BytesIO(content))
+            summary = await generate_summary(pdf_text)
 
-        # Extract text from PDF
-        pdf_text = extract_text_from_pdf_stream(io.BytesIO(content))
+            print(summary)
 
-        user_id = user.id
-        print(f"user_id: {user_id}")
-        # Create Om record in database
-        om = await Om.create(
-            user_id=user.id,
-            upload_id=upload_id,
-            session=db,
-            span=span
-        )
-        await db.commit()
+            # Create Om record
+            om = await Om.create(
+                user_id=user.id,
+                upload_id=upload_id,
+                title="Bachelor Pad",
+                description="A sick bachelor pad -- just 2 mil down!",
+                summary=summary,
+                session=db,
+                span=span,
+            )
 
-        # TODO: Process the PDF text (e.g., send to AI for analysis)
+            return {"message": "Om uploaded successfully", "om_id": om.id}
+        except Exception as e:
+            span.error(f"Unexpected error: {str(e)}")
+            raise HTTPException(status_code=500, detail="An unexpected error occurred")
 
-        return {"message": "Om uploaded successfully", "om_id": om.id}
 
-    except StorageException as e:
-        span.error(f"Storage error: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to upload file to storage")
-    except Exception as e:
-        span.error(f"Unexpected error: {str(e)}")
-        raise HTTPException(status_code=500, detail="An unexpected error occurred")
+class OmResponse(BaseModel):
+    id: str
+    user_id: str
+    upload_id: str
+
 
 @APP.get("/api/v0/oms")
 async def api_get_oms(
     user: User = Depends(require_logged_in_user),
     span: RequestSpan = Depends(span),
-    db: AsyncSession = Depends(async_db)
+    db: AsyncSession = Depends(async_db),
 ):
     try:
         oms = await Om.read_by_user_id(user_id=user.id, session=db, span=span)
-        return [om.dict() for om in oms]
+        return [
+            OmResponse(
+                id=om.id,
+                user_id=om.user_id,
+                upload_id=om.upload_id,
+            )
+            for om in oms
+        ]
     except Exception as e:
         span.error(f"Error fetching OMs: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to fetch OMs")
+
 
 # Run
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(APP, host=CONFIG.listen_address, port=CONFIG.listen_port,  proxy_headers=True)
+
+    uvicorn.run(
+        APP, host=CONFIG.listen_address, port=CONFIG.listen_port, proxy_headers=True
+    )
