@@ -48,7 +48,7 @@ class Config:
         # Load the environment variables
         load_dotenv()
 
-        self.dev_mode = os.getenv("DEV_MODE", "false") == "true"
+        self.dev_mode = os.getenv("DEV_MODE", "False") == "True"
 
         self.host_name = os.getenv("HOST_NAME", "http://localhost:9000")
 
@@ -68,3 +68,6 @@ class Config:
         self.debug = debug == "True"
 
         self.secrets = Secrets()
+
+    def show(self):
+        print(self.__dict__)

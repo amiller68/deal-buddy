@@ -5,7 +5,9 @@ import uuid
 from enum import Enum as PyEnum
 from urllib.parse import urlparse
 
-from config import Config
+# Local imports
+
+from app.config import Config
 
 
 class StorageBucket(PyEnum):
@@ -48,6 +50,7 @@ class Storage:
             secure=parsed_url.scheme == "https",
         )
 
+    async def initialize(self):
         # Create buckets if they don't exist
         for bucket in StorageBucket:
             if not self.client.bucket_exists(bucket.value):

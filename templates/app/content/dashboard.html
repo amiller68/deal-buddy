@@ -4,7 +4,12 @@
     <!-- Upload new OM section -->
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h2 class="text-xl font-semibold mb-4">Upload New OM</h2>
-        <form id="upload-form" hx-post="/api/v0/om" hx-encoding="multipart/form-data" hx-swap="outerHTML">
+        <form id="upload-form" 
+              hx-post="/api/v0/oms" 
+              hx-encoding="multipart/form-data" 
+              hx-swap="outerHTML"
+              hx-on::before-request="console.log('Sending request:', event.detail.requestConfig)"
+              hx-on::after-request="console.log('Response:', event.detail.xhr.status, event.detail.xhr.responseText)">
             <div class="flex items-center mb-4">
                 <div class="relative flex-grow mr-4">
                     <input class="hidden" id="om-file" type="file" name="file" accept=".pdf" required>
@@ -68,5 +73,33 @@
     document.getElementById('upload-form').addEventListener('htmx:afterRequest', function(event) {
         document.getElementById('upload-button').disabled = false;
         document.getElementById('loading-spinner').classList.add('hidden');
+    });
+
+    // Add these debug event listeners
+    document.getElementById('upload-form').addEventListener('htmx:beforeSend', function(event) {
+        console.log('Form data being sent:', event.detail.requestConfig.parameters);
+    });
+
+    document.getElementById('upload-form').addEventListener('htmx:responseError', function(event) {
+        console.log('Error response:', event.detail.xhr.status, event.detail.xhr.responseText);
+    });
+
+    // Validate file before upload
+    document.getElementById('upload-form').addEventListener('submit', function(event) {
+        const fileInput = document.getElementById('om-file');
+        if (!fileInput.files.length) {
+            event.preventDefault();
+            alert('Please select a file');
+            return;
+        }
+        
+        const file = fileInput.files[0];
+        if (!file.type.includes('pdf')) {
+            event.preventDefault();
+            alert('Please select a PDF file');
+            return;
+        }
+        
+        console.log('Uploading file:', file.name, 'Type:', file.type, 'Size:', file.size);
     });
 </script>

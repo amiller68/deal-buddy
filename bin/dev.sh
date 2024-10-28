@@ -25,13 +25,14 @@ export MINIO_ENDPOINT=http://localhost:9000
 export MINIO_ACCESS_KEY=minioadmin
 export MINIO_SECRET_KEY=minioadmin
 export DEBUG=True
+export DEV_MODE=True
 export LOG_PATH=
 
 # Add the project root to PYTHONPATH
 export PYTHONPATH="$PYTHONPATH:$(pwd)"
 
 # Run the server with verbose output
-python ./app/server.py
+python -m app
 
 # Deactivate the virtual environment
 deactivate
