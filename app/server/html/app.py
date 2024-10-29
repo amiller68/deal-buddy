@@ -3,13 +3,14 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 
 from app.database.models import User
-from ..deps import require_logged_in_user
+from app.state import AppState
+from ..deps import require_logged_in_user, state
 
 router = APIRouter()
 templates = Jinja2Templates(directory="templates/app")
 
 @router.get("", response_class=HTMLResponse)  # Will match /app
-def index(request: Request, user: User = Depends(require_logged_in_user)):
+def index(request: Request, user: User = Depends(require_logged_in_user), _state: AppState = Depends(state)):
     print(user)
     return templates.TemplateResponse(
         "index.html",

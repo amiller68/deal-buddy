@@ -19,6 +19,8 @@ PyPDF2
 python-multipart
 black
 tenacity
+watchfiles
+sse-starlette
 
 # Dev dependencies
 

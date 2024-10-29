@@ -25,6 +25,7 @@ class AppStateException(Exception):
 
 @dataclass
 class AppState:
+    config: Config
     google_sso: GoogleSSO
     anthropic_client: anthropic.Client
     storage: Storage
@@ -35,6 +36,7 @@ class AppState:
     @classmethod
     def from_config(cls, config: Config):
         return cls(
+            config=config,
             google_sso=GoogleSSO(
                 config.secrets.google_client_id,
                 config.secrets.google_client_secret,

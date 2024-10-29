@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import RedirectResponse, JSONResponse
-from starlette.exceptions import HTTPException  # Use Starlette's HTTPException
+from starlette.exceptions import HTTPException 
 from starlette import status
 from contextlib import asynccontextmanager
 
@@ -73,6 +73,35 @@ def create_app(state: AppState) -> FastAPI:
     app.middleware("http")(anthropic_client_middleware)
     app.middleware("http")(span_middleware)
     app.middleware("http")(db_middleware)
+
+    # TODO: hot reloading
+    # if state.config.dev_mode:
+    #     dev_router = APIRouter()
+    #     @dev_router.get("/dev/reload")
+    #     async def reload_html():
+            
+    #         async def event_generator():
+    #             template_dir = Path("templates")
+    #             try:
+    #                 watcher = awatch(template_dir)
+    #                 async for changes in watcher:
+    #                     if changes:
+    #                         yield {
+    #                             "event": "reload",
+    #                             "data": "reload"
+    #                         }
+    #             except asyncio.CancelledError:
+    #                 print("Generator cancelled")
+    #                 raise
+    #             finally:
+    #                 print("Generator cleanup")
+            
+    #         return EventSourceResponse(
+    #             event_generator(),
+    #             background=BackgroundTask(lambda: print("Connection closed")),
+    #         )
+        
+    #     app.include_router(dev_router)
     
     # Mount static files
     app.mount("/static", StaticFiles(directory="static"), name="static")
