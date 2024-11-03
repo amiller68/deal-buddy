@@ -5,7 +5,7 @@ from starlette import status
 from contextlib import asynccontextmanager
 
 from fastapi.staticfiles import StaticFiles
-from app.state import AppState
+from src.state import AppState
 from .html import router as html_router
 from .auth import router as auth_router
 from .api import router as api_router

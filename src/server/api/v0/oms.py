@@ -8,15 +8,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel
 import io
 
-from anthropic import Anthropic
-
-from app.database.models import User, Om
-from app.logger import RequestSpan
-from app.storage import Storage, StorageBucket
-from app.utils import extract_text_from_pdf_stream
-from app.llm.om import generate_summary
-
-from ...deps import require_logged_in_user, span, async_db, storage, anthropic_client
+from src.database.models import User, Om
+from src.logger import RequestSpan
+from src.storage import Storage, StorageBucket
+from src.task_manager import TaskManager, TaskPriority
+from ...deps import require_logged_in_user, span, async_db, storage, task_manager
 
 router = APIRouter()
 
@@ -27,16 +23,15 @@ async def create_om(
     span: RequestSpan = Depends(span),
     db: AsyncSession = Depends(async_db),
     storage: Storage = Depends(storage),
-    anthropic_client: Anthropic = Depends(anthropic_client),
+    task_manager: TaskManager = Depends(task_manager),
 ):
     span.info(f"handling create_om: user_id={user.id}")
     try:
-        # Add file validation
+        # Validate file
         if not file.filename or not file.filename.lower().endswith('.pdf'):
             raise HTTPException(status_code=422, detail="Only PDF files are allowed")
         
-        span.info("before file.read")
-        # Read the file content with error handling
+        # Read file
         try:
             content = await file.read()
             if not content:
@@ -45,45 +40,37 @@ async def create_om(
             span.error(f"File read error: {str(e)}")
             raise HTTPException(status_code=422, detail="Error reading uploaded file")
 
-        span.info("before file_size")
-        file_size = len(content)
-
-        print(file_size)
-
-        # Upload to MinIO
+        # Upload to storage
         upload_id = storage.put_object(
             stream=io.BytesIO(content),
-            stream_len=file_size,
+            stream_len=len(content),
             bucket=StorageBucket.oms,
         )
 
-        print(upload_id)
-
-        # Extract text and generate summary
-        pdf_text = extract_text_from_pdf_stream(io.BytesIO(content))
-
-
-
-        print(pdf_text)
-        summary = await generate_summary(
-            anthropic_client=anthropic_client,
-            pdf_text=pdf_text
-        )
-
-        print(summary)
-
-        # Create Om record
+        # Create initial Om record
         om = await Om.create(
             user_id=user.id,
             upload_id=upload_id,
-            title="Bachelor Pad",
-            description="A sick bachelor pad -- just 2 mil down!",
-            summary=summary,
+            title="Pending Processing",  # Placeholder
+            description="Processing...",  # Placeholder
+            summary="",  # Will be filled by background task
             session=db,
             span=span,
         )
 
-        return {"message": "Om uploaded successfully", "om_id": om.id}
+        # Trigger background processing
+        task_result = task_manager.execute_task(
+            "process_om",
+            om.id,
+            priority=TaskPriority.HIGH
+        )
+
+        return {
+            "message": "Om created and processing started", 
+            "om_id": om.id,
+            "task_id": task_result.task_id
+        }
+        
     except Exception as e:
         span.error(f"Unexpected error: {str(e)}")
         raise HTTPException(status_code=500, detail="An unexpected error occurred")

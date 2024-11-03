@@ -32,7 +32,7 @@ export LOG_PATH=
 export PYTHONPATH="$PYTHONPATH:$(pwd)"
 
 # Run the server with verbose output
-python -m app
+python -m src
 
 # Deactivate the virtual environment
 deactivate

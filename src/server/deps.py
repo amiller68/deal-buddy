@@ -5,9 +5,10 @@ from fastapi_sso.sso.base import OpenID
 from jose import jwt
 from anthropic import Anthropic
 
-from app.database.models import User
-from app.storage import Storage
-from app.logger import RequestSpan
+from src.database.models import User
+from src.storage import Storage
+from src.logger import RequestSpan
+from src.task_manager import TaskManager
 
 SESION_COOKIE_NAME = "session"
 
@@ -25,6 +26,9 @@ def storage(request: Request) -> Storage:
 
 def anthropic_client(request: Request) -> Anthropic:
     return request.state.anthropic_client
+
+def task_manager(request: Request) -> TaskManager:
+    return request.state.task_manager
 
 async def get_logged_in_user(
     cookie: str = Security(APIKeyCookie(name=SESION_COOKIE_NAME)),

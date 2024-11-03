@@ -36,6 +36,7 @@ class Config:
     host_name: str
     listen_address: str
     listen_port: int
+    redis_url: str
     minio_endpoint: str
     minio_bucket: str
     database_path: str
@@ -57,6 +58,8 @@ class Config:
         self.listen_port = int(os.getenv("LISTEN_PORT", 8000))
 
         self.database_path = os.getenv("DATABASE_PATH", ":memory:")
+
+        self.redis_url = os.getenv("REDIS_URL", "redis://localhost:6379")
 
         self.minio_endpoint = os.getenv("MINIO_ENDPOINT", "http://localhost:9000")
 

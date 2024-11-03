@@ -7,7 +7,7 @@ from urllib.parse import urlparse
 
 # Local imports
 
-from app.config import Config
+from src.config import Config
 
 
 class StorageBucket(PyEnum):

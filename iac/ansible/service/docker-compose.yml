@@ -17,6 +17,9 @@ services:
     # Source the .env file
     env_file:
       - .env
+    depends_on:
+      - redis
+      - minio
 
   swag:
     image: ghcr.io/linuxserver/swag
@@ -47,7 +50,7 @@ services:
     volumes:
       # Replace this with the correct path to your data directory
       #  of your properly mounted volume
-      - /mnt/deal buddy_volume_nyc1_02:/data
+      - /mnt/deal-buddy_volume_nyc1_02/minio:/data
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -59,6 +62,17 @@ services:
     networks:
       - internal_net
       - swag_net
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - /mnt/deal-buddy_volume_nyc1_02/redis:/data
+    command: redis-server --appendonly yes --save 900 1 --save 300 10 --save 60 10000
+    restart: unless-stopped
+    networks:
+      - internal_net
 
 networks:
   internal_net:

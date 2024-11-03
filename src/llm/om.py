@@ -2,7 +2,7 @@ import anthropic
 import json
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
-from app.llm import LLMException, LLMExceptionType
+from src.llm import LLMException, LLMExceptionType
 
 @retry(
     stop=stop_after_attempt(3),

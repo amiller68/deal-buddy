@@ -6,7 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 # NOTE (amiller68): import our models and os
-from app.database.database import SyncDatabase, Base
+from src.database.database import SyncDatabase, Base
 from dotenv import load_dotenv
 
 import os

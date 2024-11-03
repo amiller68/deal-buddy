@@ -6,14 +6,16 @@ from dataclasses import dataclass
 from fastapi_sso.sso.google import GoogleSSO
 import anthropic
 from enum import Enum as PyEnum
+from typing import Optional
 
 
-from app.database import (
+from src.database import (
     AsyncDatabase,
 )
-from app.config import Config, Secrets
-from app.logger import Logger
-from app.storage import Storage
+from src.config import Config, Secrets
+from src.logger import Logger
+from src.storage import Storage
+from src.task_manager import TaskManager
 
 class AppStateExceptionType(PyEnum):
     startup_failed = "startup_failed" # raised when startup fails
@@ -32,10 +34,11 @@ class AppState:
     database: AsyncDatabase
     logger: Logger
     secrets: Secrets
+    task_manager: Optional[TaskManager] = None  # Optional to avoid circular reference issues
 
     @classmethod
     def from_config(cls, config: Config):
-        return cls(
+        state = cls(
             config=config,
             google_sso=GoogleSSO(
                 config.secrets.google_client_id,
@@ -47,8 +50,18 @@ class AppState:
             storage=Storage(config),
             database=AsyncDatabase(config.database_path),
             logger=Logger(config.log_path, config.debug),
-            secrets=config.secrets
+            secrets=config.secrets,
         )
+        
+        # Create task manager
+        task_manager = TaskManager(config.redis_url, state)
+        
+        # Register all tasks
+        from src.task_manager.tasks import process_om
+        task_manager.register_task(process_om)
+        
+        state.task_manager = task_manager
+        return state
     
     async def startup(self):
         """run any startup logic here"""

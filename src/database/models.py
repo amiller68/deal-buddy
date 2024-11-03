@@ -10,7 +10,7 @@ from sqlalchemy.orm import relationship
 
 sys.path.append("..")
 
-from app.logger import RequestSpan
+from src.logger import RequestSpan
 from .database import Base, DatabaseException
 
 
