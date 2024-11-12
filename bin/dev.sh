@@ -58,8 +58,9 @@ APP_PID=$!
 # Run the ARQ worker if requested
 if [ "$WORKER" = true ]; then
     echo "Starting ARQ worker..."
-    arq src.task_manager.worker.WorkerSettings --watch src/task_manager &
+    arq src.task_manager.worker.WorkerSettings --watch src/task_manager --verbose &
     WORKER_PID=$!
+    echo "Worker started with PID: $WORKER_PID"
     wait $APP_PID $WORKER_PID
 else
     wait $APP_PID

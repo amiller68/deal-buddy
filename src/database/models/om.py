@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import Column, String, DateTime, update, ForeignKey
-from datetime import datetime
+from datetime import datetime, UTC
 import uuid
 from sqlalchemy.future import select
 from typing import Dict, Any
@@ -12,7 +12,7 @@ from src.logger import RequestSpan
 from ..database import Base, DatabaseException
 
 class OmStatus(str, Enum):
-    UPLOADING = "uploading"
+    UPLOADED = "uploaded"
     PROCESSING = "processing"
     PROCESSED = "processed"
     FAILED = "failed"
@@ -34,12 +34,12 @@ class Om(Base):
 
     summary = Column(String, nullable=True)
 
-    status = Column(SQLAlchemyEnum(OmStatus), nullable=False, default=OmStatus.UPLOADING)
+    status = Column(SQLAlchemyEnum(OmStatus), nullable=False, default=OmStatus.UPLOADED)
     processed_at = Column(DateTime)
 
     # timestamps
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.now(UTC))
+    updated_at = Column(DateTime, default=datetime.now(UTC), onupdate=datetime.now(UTC))
 
     @staticmethod
     async def create(

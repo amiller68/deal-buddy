@@ -38,8 +38,6 @@ class Storage:
         # Parse the endpoint URL
         parsed_url = urlparse(config.minio_endpoint)
 
-        config.show()
-
         # Extract host and port
         host = parsed_url.hostname
         port = parsed_url.port or (80 if parsed_url.scheme == "http" else 443)

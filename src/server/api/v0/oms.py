@@ -8,7 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel
 import io
 
-from src.database.models import User, Om
+from src.database.models import OmStatus, User, Om
 from src.logger import RequestSpan
 from src.storage import Storage, StorageBucket
 from src.task_manager import TaskManager, TaskPriority
@@ -82,6 +82,7 @@ class OmResponse(BaseModel):
     id: str
     user_id: str
     upload_id: str
+    status: OmStatus
 
 
 @router.get("")

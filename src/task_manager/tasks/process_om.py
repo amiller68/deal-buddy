@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime
+from datetime import datetime, UTC
 import io
 from src.database.models import Om, OmStatus
 from src.storage import StorageBucket
@@ -22,13 +22,14 @@ async def process_om(ctx, om_id: str):
             await session.commit()
 
             try:
-                file_content = await ctx['storage'].get_object(
+                response = ctx['storage'].get_object(
                     bucket=StorageBucket.oms,
-                    object_id=om.upload_id
+                    object_name=om.upload_id
                 )
+                file_content = response.data  # Use .data instead of .read() for MinIO
                 
-                pdf_text = await extract_text_from_pdf_stream(io.BytesIO(file_content))
-                summary = await generate_summary(
+                pdf_text = extract_text_from_pdf_stream(io.BytesIO(file_content))
+                summary = generate_summary(
                     anthropic_client=ctx['anthropic'],
                     pdf_text=pdf_text
                 )
@@ -36,7 +37,7 @@ async def process_om(ctx, om_id: str):
                 # Update with success
                 om.summary = summary
                 om.status = OmStatus.PROCESSED
-                om.processed_at = datetime.now(datetime.UTC)
+                om.processed_at = datetime.now(UTC)
                 
             except Exception as e:
                 om.status = OmStatus.FAILED

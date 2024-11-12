@@ -12,7 +12,7 @@ async def startup(ctx):
     ctx['database'] = AsyncDatabase(config.database_path)
     ctx['storage'] = Storage(config)
     ctx['anthropic'] = Anthropic(api_key=config.secrets.anthropic_api_key)
-    ctx['logger'] = Logger(config.log_path, config.debug, worker=True)
+    ctx['logger'] = Logger(config.log_path, config.debug)
     await ctx['database'].initialize()
     await ctx['storage'].initialize()
 

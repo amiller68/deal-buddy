@@ -4,13 +4,13 @@ from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_excep
 
 from src.llm import LLMException, LLMExceptionType
 
-@retry(
-    stop=stop_after_attempt(3),
-    wait=wait_exponential(multiplier=1, min=4, max=10),
-    retry=retry_if_exception_type((ValueError, json.JSONDecodeError)),
-    reraise=True
-)
-async def generate_summary(
+# @retry(
+#     stop=stop_after_attempt(3),
+#     wait=wait_exponential(multiplier=1, min=4, max=10),
+#     retry=retry_if_exception_type((ValueError, json.JSONDecodeError)),
+#     reraise=True
+# )
+def generate_summary(
         anthropic_client: anthropic.Client,
         pdf_text: str
 ) -> str:
