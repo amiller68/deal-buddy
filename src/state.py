@@ -6,7 +6,6 @@ from dataclasses import dataclass
 from fastapi_sso.sso.google import GoogleSSO
 import anthropic
 from enum import Enum as PyEnum
-from typing import Optional
 
 
 from src.database import (
@@ -34,7 +33,7 @@ class AppState:
     database: AsyncDatabase
     logger: Logger
     secrets: Secrets
-    task_manager: Optional[TaskManager] = None  # Optional to avoid circular reference issues
+    task_manager: TaskManager
 
     @classmethod
     def from_config(cls, config: Config):
@@ -51,29 +50,24 @@ class AppState:
             database=AsyncDatabase(config.database_path),
             logger=Logger(config.log_path, config.debug),
             secrets=config.secrets,
+            task_manager=TaskManager(config.redis_url, None)
         )
-        
-        # Create task manager
-        task_manager = TaskManager(config.redis_url, state)
-        
-        # Register all tasks
-        from src.task_manager.tasks import process_om
-        task_manager.register_task(process_om)
-        
-        state.task_manager = task_manager
         return state
-    
+
     async def startup(self):
         """run any startup logic here"""
         try:
             await self.database.initialize()
             await self.storage.initialize()
+            if self.task_manager:
+                await self.task_manager.initialize()
         except Exception as e:
             raise AppStateException(AppStateExceptionType.startup_failed, str(e)) from e
 
     async def shutdown(self):
         """run any shutdown logic here"""
-        pass
+        if self.task_manager:
+            await self.task_manager.shutdown()
 
     def set_on_request(self, request: Request):
         """set any request-specific state here"""

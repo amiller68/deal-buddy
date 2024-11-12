@@ -72,5 +72,11 @@ class Config:
 
         self.secrets = Secrets()
 
-    def show(self):
-        print(self.__dict__)
+    def show(self, deep: bool = False):
+        if deep:
+            secrets = self.secrets.__dict__
+            secrets.pop("service_secret")
+            print(self.__dict__)
+            print(secrets)
+        else:
+            print(self.__dict__)

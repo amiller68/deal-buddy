@@ -1,40 +1,35 @@
-from typing import Callable, Any
+from arq import create_pool
+from arq.connections import RedisSettings
 from enum import Enum
-import celery
-from celery.signals import task_prerun
+from typing import Any
 
 class TaskPriority(Enum):
-    LOW = 0
-    MEDIUM = 1
-    HIGH = 2
+    LOW = 10
+    MEDIUM = 5
+    HIGH = 1
 
 class TaskManager:
     def __init__(self, redis_url: str, app_state: Any):
-        self.app = celery.Celery(
-            'tasks',
-            broker=redis_url,
-            backend=redis_url
-        )
-        self.app_state = app_state
+        self.redis_settings = RedisSettings.from_dsn(redis_url)
+        self.redis_pool = None
         
-        # Inject app_state into all tasks using task_prerun signal
-        @task_prerun.connect
-        def init_task(task, **kwargs):
-            task.request.app_state = self.app_state
+    async def initialize(self):
+        """Initialize Redis pool for enqueueing jobs"""
+        self.redis_pool = await create_pool(self.redis_settings)
 
-    def register_task(self, task_func: Callable):
-        """Register a task with Celery"""
-        name = task_func._task_name
-        return self.app.task(name=name)(task_func)
+    async def shutdown(self):
+        """Cleanup Redis pool"""
+        if self.redis_pool:
+            await self.redis_pool.close()
 
-    def execute_task(self, task_name: str, *args, priority: TaskPriority = TaskPriority.MEDIUM, **kwargs):
-        """Execute a registered task"""
-        task = self.app.tasks.get(task_name)
-        if not task:
-            raise ValueError(f"Task {task_name} not registered")
+    # TODO: some sort of priority queue?
+    async def process_om(self, om_id: str):
+        """Enqueue an OM processing job"""
+        if not self.redis_pool:
+            raise RuntimeError("TaskManager not initialized")
             
-        return task.apply_async(
-            args=args,
-            kwargs=kwargs,
-            priority=priority.value
+        return await self.redis_pool.enqueue_job(
+            'process_om',  # Must match function name in worker
+            om_id,
+            _job_try=3
         )

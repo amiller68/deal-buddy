@@ -30,17 +30,18 @@ def main() -> int:
             return 1
         
         print(f"✓ Configuration loaded from environment")
+        
         print("✓ FastAPI application created")
         
         # Start server
         print(f"Starting server on {config.listen_address}:{config.listen_port}")
         uvicorn.run(
-            "app.__main__:app",
+            "src.__main__:app",
             host=config.listen_address,
             port=config.listen_port,
             proxy_headers=True,
             reload=config.dev_mode,
-            reload_dirs=["app"]
+            reload_dirs=["src"]
         )
         return 0
         

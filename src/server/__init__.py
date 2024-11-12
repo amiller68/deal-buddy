@@ -13,7 +13,7 @@ from .api import router as api_router
 def create_app(state: AppState) -> FastAPI:
     @asynccontextmanager
     async def lifespan(app: FastAPI):
-        await state.database.initialize()
+        await state.startup()
         yield
         await state.shutdown()
 
@@ -27,6 +27,10 @@ def create_app(state: AppState) -> FastAPI:
 
     async def anthropic_client_middleware(request: Request, call_next):
         request.state.anthropic_client = state.anthropic_client
+        return await call_next(request)
+
+    async def task_manager_middleware(request: Request, call_next):
+        request.state.task_manager = state.task_manager
         return await call_next(request)
 
     async def span_middleware(request: Request, call_next):
@@ -73,6 +77,7 @@ def create_app(state: AppState) -> FastAPI:
     app.middleware("http")(anthropic_client_middleware)
     app.middleware("http")(span_middleware)
     app.middleware("http")(db_middleware)
+    app.middleware("http")(task_manager_middleware)
 
     # TODO: hot reloading
     # if state.config.dev_mode:

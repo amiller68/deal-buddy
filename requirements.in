@@ -21,7 +21,7 @@ black
 tenacity
 watchfiles
 sse-starlette
-celery
+arq
 
 # Dev dependencies
 

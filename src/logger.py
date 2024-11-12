@@ -58,6 +58,14 @@ class Logger:
 
         self.logger = logger
 
+    # TODO: be better about this
+    def get_worker_logger(self):
+        formatter = logging.Formatter(
+            "[worker] %(asctime)s - %(name)s - %(levelname)s - %(message)s"
+        )
+        self.handler.setFormatter(formatter)
+        return self.logger
+
     def get_request_span(self, request: Request):
         # Set the log formatter
         formatter = RequestFormatter(

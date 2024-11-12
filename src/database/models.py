@@ -6,6 +6,8 @@ from sqlalchemy.future import select
 from typing import Dict, Any
 import sys
 from sqlalchemy.orm import relationship
+from enum import Enum
+from sqlalchemy import Enum as SQLAlchemyEnum
 
 
 sys.path.append("..")
@@ -77,6 +79,12 @@ class User(Base):
             raise db_e
 
 
+class OmStatus(str, Enum):
+    UPLOADING = "uploading"
+    PROCESSING = "processing"
+    PROCESSED = "processed"
+    FAILED = "failed"
+
 class Om(Base):
     __tablename__ = "oms"
 
@@ -93,6 +101,9 @@ class Om(Base):
     description = Column(String, nullable=True)
 
     summary = Column(String, nullable=True)
+
+    status = Column(SQLAlchemyEnum(OmStatus), nullable=False, default=OmStatus.UPLOADING)
+    processed_at = Column(DateTime)
 
     # timestamps
     created_at = Column(DateTime, default=datetime.utcnow)

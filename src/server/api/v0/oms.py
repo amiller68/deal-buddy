@@ -58,17 +58,19 @@ async def create_om(
             span=span,
         )
 
+        await db.commit()
+
+        print(f"om id: {om.id}")
+
         # Trigger background processing
-        task_result = task_manager.execute_task(
-            "process_om",
-            om.id,
-            priority=TaskPriority.HIGH
+        task_result = await task_manager.process_om(
+            om_id=om.id,
         )
 
         return {
             "message": "Om created and processing started", 
             "om_id": om.id,
-            "task_id": task_result.task_id
+            "task_id": task_result.job_id
         }
         
     except Exception as e:
