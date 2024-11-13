@@ -51,26 +51,22 @@ async def create_om(
         om = await Om.create(
             user_id=user.id,
             upload_id=upload_id,
-            title="Pending Processing",  # Placeholder
-            description="Processing...",  # Placeholder
-            summary="",  # Will be filled by background task
             session=db,
             span=span,
         )
 
         await db.commit()
 
-        print(f"om id: {om.id}")
 
+        # TODO: i should probably do something with the task_result
         # Trigger background processing
-        task_result = await task_manager.process_om(
+        _task_result = await task_manager.process_om(
             om_id=om.id,
         )
 
         return {
-            "message": "Om created and processing started", 
             "om_id": om.id,
-            "task_id": task_result.job_id
+            "status": om.status,
         }
         
     except Exception as e:
@@ -81,8 +77,10 @@ async def create_om(
 class OmResponse(BaseModel):
     id: str
     user_id: str
-    upload_id: str
     status: OmStatus
+    title: str | None = None
+    description: str | None = None
+    summary: str | None = None
 
 
 @router.get("")
@@ -92,15 +90,38 @@ async def get_oms(
     db: AsyncSession = Depends(async_db),
 ):
     try:
-        oms = await Om.read_by_user_id(user_id=user.id, session=db, span=span)
+        oms = await Om.read_by_user_id(user_id=user.id, session=db, span=span, status=OmStatus.PROCESSED)
         return [
             OmResponse(
                 id=om.id,
                 user_id=om.user_id,
-                upload_id=om.upload_id,
+                status=om.status,
+                title=om.title,
+                description=om.description,
             )
             for om in oms
         ]
     except Exception as e:
         span.error(f"Error fetching OMs: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to fetch OMs")
+
+@router.get("/{om_id}")
+async def get_om(
+    om_id: str,
+    user: User = Depends(require_logged_in_user),
+    span: RequestSpan = Depends(span),
+    db: AsyncSession = Depends(async_db),
+):
+    om = await Om.read(id=om_id, session=db, span=span)
+    if not om:
+        raise HTTPException(status_code=404, detail="OM not found")
+    if om.user_id != user.id:
+        raise HTTPException(status_code=403, detail="You are not authorized to access this OM")
+    return OmResponse(
+        id=om.id,
+        user_id=om.user_id,
+        status=om.status,
+        title=om.title,
+        description=om.description,
+        summary=om.summary,
+    )

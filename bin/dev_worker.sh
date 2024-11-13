@@ -1,23 +1,5 @@
 #!/bin/bash
 
-# Parse arguments
-DB_DISK=true
-
-while [[ "$#" -gt 0 ]]; do
-    case $1 in
-        --db-disk) DB_DISK=true ;;
-        *) echo "Unknown parameter: $1"; exit 1 ;;
-    esac
-    shift
-done
-
-# Set database path
-if [ "$DB_DISK" = true ]; then
-    export DATABASE_PATH=./data/app.db
-else
-    export DATABASE_PATH=:memory:
-fi
-
 # Activate virtual environment
 source venv/bin/activate
 
@@ -36,5 +18,4 @@ export REDIS_URL=redis://localhost:6379
 # Add the project root to PYTHONPATH
 export PYTHONPATH="$PYTHONPATH:$(pwd)"
 
-# Run the FastAPI server in the background
-python -m src
+arq src.task_manager.worker.WorkerSettings --watch ./src/task_manager --verbose

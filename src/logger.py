@@ -59,9 +59,9 @@ class Logger:
         self.logger = logger
 
     # TODO: be better about this
-    def get_worker_logger(self):
+    def get_worker_logger(self, name: str = None, attempt: int = None):
         formatter = logging.Formatter(
-            "[worker] %(asctime)s - %(name)s - %(levelname)s - %(message)s"
+            f"[worker] %(asctime)s - {name} - {attempt} - %(levelname)s - %(message)s"
         )
         self.handler.setFormatter(formatter)
         return self.logger

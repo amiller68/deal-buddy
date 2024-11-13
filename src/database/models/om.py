@@ -12,9 +12,14 @@ from src.logger import RequestSpan
 from ..database import Base, DatabaseException
 
 class OmStatus(str, Enum):
+    # the om is uploaded but not yet processed
     UPLOADED = "uploaded"
+    # the om is being processed by the worker -- marked by the worker
     PROCESSING = "processing"
+    # the om is processed -- marked by the worker
     PROCESSED = "processed"
+    # TODO: would be cool to have way to record why it failed
+    # the om processing failed -- marked by the worker
     FAILED = "failed"
 
 class Om(Base):
@@ -28,14 +33,13 @@ class Om(Base):
 
     upload_id = Column(String, nullable=False)
 
-    title = Column(String, nullable=False)
+    title = Column(String, nullable=True)
 
     description = Column(String, nullable=True)
 
     summary = Column(String, nullable=True)
 
     status = Column(SQLAlchemyEnum(OmStatus), nullable=False, default=OmStatus.UPLOADED)
-    processed_at = Column(DateTime)
 
     # timestamps
     created_at = Column(DateTime, default=datetime.now(UTC))
@@ -45,19 +49,15 @@ class Om(Base):
     async def create(
         user_id: str,
         upload_id: str,
-        title: str,
-        description: str,
-        summary: str,
         session: AsyncSession,
         span: RequestSpan | None = None,
     ):
         try:
+            if span:
+                span.debug(f"database::models::Om::create: {user_id} {upload_id}")
             om = Om(
                 user_id=user_id,
                 upload_id=upload_id,
-                title=title,
-                description=description,
-                summary=summary,
             )
             session.add(om)
             await session.flush()
@@ -68,9 +68,13 @@ class Om(Base):
             db_e = DatabaseException.from_sqlalchemy_error(e)
             raise db_e
 
+    # TODO: ugly filter implementation
     @staticmethod
     async def read(id: str, session: AsyncSession, span: RequestSpan | None = None):
-        result = await session.execute(select(Om).filter_by(id=id))
+        if span:
+            span.debug(f"database::models::Om::read: {id}")
+        query = select(Om).filter_by(id=id)
+        result = await session.execute(query)
         return result.scalars().first()
 
     @staticmethod
@@ -81,6 +85,8 @@ class Om(Base):
         span: RequestSpan | None = None,
     ):
         try:
+            if span:
+                span.debug(f"database::models::Om::update: {id}")
             # First, check if the Om exists
             result = await session.execute(select(Om).filter_by(id=id))
             om = result.scalars().first()
@@ -101,16 +107,14 @@ class Om(Base):
             db_e = DatabaseException.from_sqlalchemy_error(e)
             raise db_e
 
-    @staticmethod
-    async def update_summary(
-        id: str, summary: str, session: AsyncSession, span: RequestSpan | None = None
-    ):
-        return await Om.update(id, {"summary": summary}, session, span)
-
     @classmethod
     async def read_by_user_id(
-        cls, user_id: str, session: AsyncSession, span: RequestSpan
+        cls, user_id: str, session: AsyncSession, status: OmStatus | None = None, span: RequestSpan | None = None
     ):
+        if span:
+            span.debug(f"database::models::Om::read_by_user_id: {user_id}")
         query = select(cls).where(cls.user_id == user_id)
+        if status:
+            query = query.filter(cls.status == status)
         result = await session.execute(query)
         return result.scalars().all()

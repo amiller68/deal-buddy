@@ -1,3 +1,4 @@
+<!-- templates/app/content/dashboard.html -->
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-bold mb-6">Your OMs Dashboard</h1>
 
@@ -6,22 +7,37 @@
         <h2 class="text-xl font-semibold mb-4">Upload New OM</h2>
         <form id="upload-form" 
               hx-post="/api/v0/oms" 
-              hx-encoding="multipart/form-data" 
-              hx-swap="outerHTML"
-              hx-on::before-request="console.log('Sending request:', event.detail.requestConfig)"
-              hx-on::after-request="console.log('Response:', event.detail.xhr.status, event.detail.xhr.responseText)">
+              hx-encoding="multipart/form-data">
             <div class="flex items-center mb-4">
                 <div class="relative flex-grow mr-4">
-                    <input class="hidden" id="om-file" type="file" name="file" accept=".pdf" required>
-                    <div class="bg-gray-100 border border-gray-300 rounded-lg py-2 px-4 w-full cursor-pointer flex items-center">
-                        <span id="file-name" class="text-gray-500">No file chosen</span>
-                    </div>
-                    <button type="button" onclick="document.getElementById('om-file').click();" class="absolute right-0 top-0 bottom-0 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-r-lg">
+                    <input 
+                        class="hidden" 
+                        id="om-file" 
+                        type="file" 
+                        name="file" 
+                        accept=".pdf" 
+                        required
+                    >
+                    <input 
+                        type="text"
+                        id="file-name"
+                        class="w-full pl-4 pr-24 py-3 text-gray-700 bg-gray-100 border border-gray-300 rounded-full focus:outline-none focus:border-blue-500"
+                        placeholder="No file chosen"
+                        readonly
+                    >
+                    <button
+                        type="button"
+                        onclick="document.getElementById('om-file').click();"
+                        class="absolute right-0 h-full px-6 text-white bg-blue-500 rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition-colors"
+                    >
                         Select
                     </button>
                 </div>
-                <button id="upload-button" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline" 
-                        type="submit">
+                <button 
+                    id="upload-button"
+                    class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 transition-colors"
+                    type="submit"
+                >
                     Upload OM
                 </button>
             </div>
@@ -36,56 +52,46 @@
     <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
         <h2 class="text-xl font-semibold mb-4">Your Available OMs</h2>
         <div id="om-list" hx-get="/api/v0/oms" hx-trigger="load">
-            <!-- This will be populated by the API call -->
             <p>Loading your OMs...</p>
         </div>
     </div>
 </div>
 
-<style>
-    .spinner {
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #3498db;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-        margin: 0 auto;
-    }
-
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-</style>
-
 <script>
-    document.getElementById('om-file').addEventListener('change', function(e) {
-        var fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
-        document.getElementById('file-name').textContent = fileName;
+    // For dashboard.html
+    document.getElementById('upload-form')?.addEventListener('htmx:afterOnLoad', function(event) {
+        console.log('htmx:afterOnLoad');
+        try {
+            console.log('event.detail.xhr.responseText', event.detail.xhr);
+            const response = JSON.parse(event.detail.xhr.responseText);
+            console.log('response', response);
+            if (response.om_id) {
+                window.location.href = `/app/om/${response.om_id}`;
+            }
+        } catch (e) {
+            console.error('Error parsing response:', e);
+        }
     });
 
-    document.getElementById('upload-form').addEventListener('htmx:beforeRequest', function(event) {
+    // File input handler
+    document.getElementById('om-file')?.addEventListener('change', function(e) {
+        var fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+        document.getElementById('file-name').value = fileName;
+    });
+
+    // Loading state handlers
+    document.getElementById('upload-form')?.addEventListener('htmx:beforeRequest', function(event) {
         document.getElementById('upload-button').disabled = true;
         document.getElementById('loading-spinner').classList.remove('hidden');
     });
 
-    document.getElementById('upload-form').addEventListener('htmx:afterRequest', function(event) {
+    document.getElementById('upload-form')?.addEventListener('htmx:afterRequest', function(event) {
         document.getElementById('upload-button').disabled = false;
         document.getElementById('loading-spinner').classList.add('hidden');
     });
 
-    // Add these debug event listeners
-    document.getElementById('upload-form').addEventListener('htmx:beforeSend', function(event) {
-        console.log('Form data being sent:', event.detail.requestConfig.parameters);
-    });
-
-    document.getElementById('upload-form').addEventListener('htmx:responseError', function(event) {
-        console.log('Error response:', event.detail.xhr.status, event.detail.xhr.responseText);
-    });
-
-    // Validate file before upload
-    document.getElementById('upload-form').addEventListener('submit', function(event) {
+    // File validation
+    document.getElementById('upload-form')?.addEventListener('submit', function(event) {
         const fileInput = document.getElementById('om-file');
         if (!fileInput.files.length) {
             event.preventDefault();
@@ -99,7 +105,21 @@
             alert('Please select a PDF file');
             return;
         }
-        
-        console.log('Uploading file:', file.name, 'Type:', file.type, 'Size:', file.size);
     });
 </script>
+
+<style>
+    .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>

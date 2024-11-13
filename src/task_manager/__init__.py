@@ -31,5 +31,4 @@ class TaskManager:
         return await self.redis_pool.enqueue_job(
             'process_om',  # Must match function name in worker
             om_id,
-            _job_try=3
         )

@@ -22,7 +22,9 @@ tenacity
 watchfiles
 sse-starlette
 arq
+redis
 
 # Dev dependencies
 
 pytailwindcss
+pytest
