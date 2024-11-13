@@ -7,9 +7,10 @@ def generate_summary(
 ) -> dict:
     prompt = """You are a real estate expert. Analyze the following real estate deal information and provide three sections:
 
-1. Title: Either the property address or a short descriptor of the property (1 line)
-2. Description: A short description of the property that can fit in a blurb (2-3 sentences)
-3. Summary: A 500-1000 word summary of the key features and relevant extractable data from the offering memorandum, including:
+1. Address: The property address
+2. Title: A short descriptor of the property (1 line)
+3. Description: A short description of the property that can fit in a blurb (2-3 sentences)
+4. Summary: A 500-1000 word summary of the key features and relevant extractable data from the offering memorandum, including:
    - Property type and location
    - Size and key features
    - Current occupancy and major tenants
@@ -27,7 +28,8 @@ Modern industrial facility located in Southwest Phoenix Industrial Park. Propert
 
 Output:
 {{
-    \"title\": \"Amazon-Leased Industrial Facility - Phoenix, AZ\",
+    \"address\": \"789 Industrial Way, Phoenix, AZ\",
+    \"title\": \"Amazon-Leased Industrial Facility\",
     \"description\": \"Modern 150,000 SF industrial facility in Southwest Phoenix, built in 2020 and fully leased to Amazon. Features 32' clear height, 20 loading docks, and significant trailer parking in prime location near major highways.\",
     \"summary\": \"This institutional-quality industrial asset represents a secure investment opportunity in Phoenix's thriving Southwest industrial submarket. The 150,000 square foot facility was constructed in 2020 to modern specifications, featuring 32-foot clear heights, ESFR sprinkler systems, and 20 loading docks. The property sits on a generous parcel that includes 2.5 acres dedicated to trailer parking, a crucial amenity for major logistics operators. The facility is 100% leased to Amazon (S&P: AA) with 8 years remaining on a triple-net lease structure, providing stable, predictable cash flow with minimal landlord responsibilities. The asking price of $25 million, coupled with the current NOI of $1.5 million, represents a 6% cap rate, which is competitive for the market and credit quality. Located within the Southwest Phoenix Industrial Park, the property benefits from excellent transportation access via I-10 and Loop 202, crucial arteries for regional distribution. The Phoenix industrial market has seen robust growth, driven by population expansion, supply chain reorganization, and the continued rise of e-commerce. This submarket in particular has attracted numerous national logistics and distribution users. Investment highlights include: - Long-term lease to credit tenant - Modern construction with state-of-the-art features - Strategic location in growing industrial submarket - Triple-net lease structure minimizing owner responsibilities - Potential for rent growth at lease expiration given market trends. The Phoenix industrial market has maintained strong fundamentals with vacancy rates below 5% and consistent rent growth over the past five years. This property's location, tenant quality, and physical characteristics position it well to maintain its value and potentially capture additional upside as the market continues to mature.\"
 }}
@@ -36,7 +38,7 @@ Now analyze this new property:
 
 {pdf_text}
 
-Provide your response in JSON format with keys "title", "description", and "summary". Important: The summary should be a single line of text with no line breaks."""
+Provide your response in JSON format with keys address, title, description, and summary. Important: The summary should be a single line of text with no line breaks."""
 
     try:
         response = anthropic_client.messages.create(
@@ -56,7 +58,7 @@ Provide your response in JSON format with keys "title", "description", and "summ
         result = json.loads(result)
 
         # Ensure all required keys are present
-        required_keys = ["title", "description", "summary"]
+        required_keys = ["address", "title", "description", "summary"]
         for key in required_keys:
             if key not in result:
                 raise ValueError(f"Missing required key in response: {key}")

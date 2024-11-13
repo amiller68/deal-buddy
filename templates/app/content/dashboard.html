@@ -1,10 +1,11 @@
 <!-- templates/app/content/dashboard.html -->
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-6">Your OMs Dashboard</h1>
+<div class="dashboard-container">
+    <h1 class="text-3xl font-bold mb-6">Dashboard</h1>
 
     <!-- Upload new OM section -->
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h2 class="text-xl font-semibold mb-4">Upload New OM</h2>
+    <div class="bg-dark-beige shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h2 class="text-xl font-semibold mb-4">Analyze a new property</h2>
+        <p class="text-gray-600 mb-4">Upload a PDF of a property's Offering Memorandum (OM) to get started.</p>
         <form id="upload-form" 
               hx-post="/api/v0/oms" 
               hx-encoding="multipart/form-data">
@@ -35,8 +36,9 @@
                 </div>
                 <button 
                     id="upload-button"
-                    class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50 transition-colors"
+                    class="bg-orange hover:bg-dark-orange text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50 transition-colors"
                     type="submit"
+                    disabled
                 >
                     Upload OM
                 </button>
@@ -49,9 +51,15 @@
     </div>
 
     <!-- List of available OMs -->
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
+    <div class="bg-dark-beige shadow-md rounded px-8 pt-6 pb-8">
         <h2 class="text-xl font-semibold mb-4">Your Available OMs</h2>
-        <div id="om-list" hx-get="/api/v0/oms" hx-trigger="load">
+        <div 
+            id="oms-container"
+            hx-get="/api/v0/oms" 
+            hx-trigger="load"
+            hx-target="this"
+            class="overflow-x-hidden"
+        >
             <p>Loading your OMs...</p>
         </div>
     </div>
@@ -75,8 +83,20 @@
 
     // File input handler
     document.getElementById('om-file')?.addEventListener('change', function(e) {
-        var fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+        const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+        const uploadButton = document.getElementById('upload-button');
         document.getElementById('file-name').value = fileName;
+        
+        // Enable/disable button based on file presence
+        console.log('e.target.files[0]', !e.target.files[0]);
+        uploadButton.disabled = !e.target.files[0];
+    });
+
+    // Initialize button state on page load
+    window.addEventListener('load', function() {
+        const fileInput = document.getElementById('om-file');
+        const uploadButton = document.getElementById('upload-button');
+        uploadButton.disabled = !fileInput.files.length;
     });
 
     // Loading state handlers
@@ -95,7 +115,7 @@
         const fileInput = document.getElementById('om-file');
         if (!fileInput.files.length) {
             event.preventDefault();
-            alert('Please select a file');
+            showToast();
             return;
         }
         
@@ -106,6 +126,15 @@
             return;
         }
     });
+
+    // Add toast function
+    function showToast() {
+        const toast = document.getElementById('toast');
+        toast.style.opacity = '1';
+        setTimeout(() => {
+            toast.style.opacity = '0';
+        }, 3000);
+    }
 </script>
 
 <style>
@@ -121,5 +150,11 @@
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
+    }
+
+    #toast {
+        background-color: #ef4444 !important; /* Bright red */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        min-width: 200px;
     }
 </style>

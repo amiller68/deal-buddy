@@ -9,15 +9,27 @@
 }
 
 @layer base {
-  html,
+  html {
+    @apply bg-beige;
+    height: 100%;
+  }
+  
   body {
-    @apply w-full h-full bg-white font-roboto;
+    @apply w-full font-roboto;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
   }
 }
 
 .dashboard-container {
-  padding: 2rem;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 800px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: stretch;
   margin: 0 auto;
 }
 
@@ -44,12 +56,9 @@
 }
 
 .upload-button {
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+  @apply bg-blue-500 text-white border-none rounded-full px-6 py-3 cursor-pointer
+  hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 
+  focus:ring-blue-400 focus:ring-opacity-50;
 }
 
 .spinner-container {
@@ -74,12 +83,8 @@
 }
 
 .om-card {
-  background: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  cursor: pointer;
-  transition: transform 0.2s;
+  @apply rounded-lg p-6 shadow hover:shadow-lg cursor-pointer
+  transition-all duration-200;
 }
 
 .om-card:hover {
@@ -89,4 +94,34 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.sidebar-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 16rem;
+    background-color: var(--beige);
+    display: flex;
+    flex-direction: column;
+    z-index: 50;
+    height: 100vh;
+}
+
+.main-content {
+    margin-left: 16rem;
+    width: calc(100% - 16rem);
+    min-height: 100%;
+    padding: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.main-content #content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 5rem;
+    position: relative;
 }

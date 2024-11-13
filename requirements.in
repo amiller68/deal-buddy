@@ -28,3 +28,4 @@ redis
 
 pytailwindcss
 pytest
+pytest-asyncio

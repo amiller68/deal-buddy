@@ -1,14 +1,20 @@
-<div id="oms-list">
+<div id="oms-list" class="overflow-y-auto">
     {% if error %}
-        <p style="color: red;">{{ error }}</p>
+        <p class="text-red-500">{{ error }}</p>
     {% elif oms %}
-        <h2>Existong OMs</h2>
-        <ul>
+        <div class="grid grid-cols-1 gap-4">
             {% for om in oms %}
-                
+                <a href="/app/om/{{ om.id }}" class="block hover:no-underline">
+                    <div class="bg-beige rounded-lg shadow p-6 break-words hover:shadow-lg transition-all duration-200 cursor-pointer">
+                        <h3 class="font-semibold text-xl mb-3 text-gray-900">{{ om.title or "Untitled OM" }}</h3>
+                        {% if om.description %}
+                            <p class="text-gray-600">{{ om.description }}</p>
+                        {% endif %}
+                    </div>
+                </a>
             {% endfor %}
-        </ul>
+        </div>
     {% else %}
-        <p>No OMs uploaded yet!</p>
+        <p class="text-gray-500">No OMs uploaded yet!</p>
     {% endif %}
 </div>

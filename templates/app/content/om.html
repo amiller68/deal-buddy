@@ -1,98 +1,45 @@
-<div class="container mx-auto px-4 py-8">
-    <div class="flex items-center mb-6">
-        <!-- set the href to the dashboard -->
-        <a href="/app" class="text-blue-500 hover:text-blue-600 mr-4 htmx-link">
-            ← Back to Dashboard
-        </a>
-        <h1 class="text-3xl font-bold">OM Details</h1>
-    </div>
+<div class="w-full">
+    {% if status != 'processed' %}
+        <div 
+            class="w-full"
+            hx-get="/app/om/{{ id }}?poll=true"
+            hx-trigger="load delay:2s, poll delay:2s from:body"
+            hx-target="#content">
+            <div class="p-8 max-w-3xl mx-auto">
+                <div class="flex flex-col items-center space-y-6">
+                    <div class="relative w-24 h-24">
+                        <div class="absolute inset-0 border-4 border-gray-200 rounded-full"></div>
+                        <div class="absolute inset-0 border-4 border-t-orange border-r-orange rounded-full animate-spin"></div>
+                        <div class="absolute inset-0 border-4 border-orange rounded-full animate-ping opacity-20"></div>
+                    </div>
 
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
-        <div id="om-status" 
-             hx-get="/api/v0/oms/{{ id }}" 
-             hx-trigger="load, every 2s until [data-status='processed']"
-             data-status="{{ status }}"
-             hx-on::after-swap="this.setAttribute('data-status', this.querySelector('.status-value').textContent.trim())">
-            <div class="space-y-4">
-                <!-- Status indicator -->
-                <div class="flex items-center">
-                    <div class="mr-3">
-                        <div class="spinner"></div>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-semibold">Status: <span class="status-value text-blue-500">{{ status }}</span></h3>
-                        <p class="text-gray-600">
-                            {% if status == "uploaded" %}
-                                Waiting to begin processing...
-                            {% elif status == "processing" %}
-                                Processing your OM. This may take a few minutes...
-                            {% elif status == "processed" %}
-                                Processing complete!
-                            {% elif status == "failed" %}
-                                Processing failed. Please try uploading again.
-                            {% endif %}
-                        </p>
-                    </div>
-                </div>
-
-                {% if status == "processed" %}
-                <div class="space-y-4">
-                    {% if title %}
-                    <div class="mb-4">
-                        <h4 class="font-semibold text-gray-700">Title</h4>
-                        <p class="text-gray-900">{{ title }}</p>
-                    </div>
-                    {% endif %}
-
-                    {% if description %}
-                    <div class="mb-4">
-                        <h4 class="font-semibold text-gray-700">Description</h4>
-                        <p class="text-gray-900">{{ description }}</p>
-                    </div>
-                    {% endif %}
-
-                    {% if summary %}
-                    <div>
-                        <h4 class="font-semibold text-gray-700">Summary</h4>
-                        <div class="bg-gray-50 p-4 rounded mt-2">
-                            <p class="text-gray-900 whitespace-pre-wrap">{{ summary }}</p>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-                {% elif status == "failed" %}
-                <div class="bg-red-50 border-l-4 border-red-400 p-4 mt-4">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-sm text-red-700">
-                                Processing failed. Please try uploading your OM again.
-                            </p>
+                    <div class="text-center">
+                        <div class="text-xl font-bold mb-2">Processing your document</div>
+                        <div class="text-gray-600 flex items-center justify-center">
+                            Please wait
+                            <span class="inline-flex ml-2">
+                                <span class="animate-bounce">.</span>
+                                <span class="animate-bounce delay-100">.</span>
+                                <span class="animate-bounce delay-200">.</span>
+                            </span>
                         </div>
                     </div>
                 </div>
-                {% endif %}
             </div>
         </div>
-    </div>
+    {% else %}
+        <div class="w-full p-4 max-w-3xl mx-auto animate-fade-in">
+            {% if address %}
+                <h1 class="text-4xl font-bold mb-4 text-left">{{ address }}</h1>
+            {% endif %}
+            {% if title %}
+                <h1 class="text-2xl font-bold mb-4 text-left">{{ title }}</h1>
+            {% endif %}
+            <div class="bg-dark-beige rounded-lg shadow-lg p-6">
+                <div class="prose">
+                    {{ summary | safe }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
 </div>
-
-<style>
-    .spinner {
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #3498db;
-        border-radius: 50%;
-        width: 24px;
-        height: 24px;
-        animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-</style>

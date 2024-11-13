@@ -33,6 +33,8 @@ class Om(Base):
 
     upload_id = Column(String, nullable=False)
 
+    address = Column(String, nullable=True)
+
     title = Column(String, nullable=True)
 
     description = Column(String, nullable=True)

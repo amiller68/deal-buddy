@@ -70,9 +70,14 @@ async def process_om(ctx, om_id: str, max_tries: int = 5):
                 )
 
                 # Update with success
-                om.summary = summary['summary']
+                print("setting address to", summary['address'])
+                om.address = summary['address']
+                print("setting title to", summary['title'])
                 om.title = summary['title']
+                print("setting description to", summary['description'])
                 om.description = summary['description']
+                print("setting summary to", summary['summary'])
+                om.summary = summary['summary']
                 om.status = OmStatus.PROCESSED
 
             except Exception as e:

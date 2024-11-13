@@ -1,5 +1,5 @@
 {% block sidebar %}
-<div class="flex flex-col h-screen bg-beige border-r-2 border-black w-64">
+<div class="sidebar-container border-r-2 border-black">
   <!-- Logo at the top -->
   <div class="flex items-center border-b-2 border-black w-full">
     <a href="/" class="flex items-center px-4 py-2 hover:bg-dark-beige w-full">
@@ -13,28 +13,21 @@
 
   <!-- Navigation items -->
   <nav class="flex-grow">
-      <a 
-        href="/app/index"
-        class="block py-2.5 px-4 text-black hover:bg-orange transition duration-200 text-center border-b-2 border-l border-black"
-          hx-get="/app/content/dashboard" hx-target="#content">
-          Dashboard
-      </a>
-      <!-- Add more navigation items as needed -->
+    <a 
+      href="#"
+      class="block py-2.5 px-4 text-black hover:bg-dark-beige transition duration-200 text-center border-b-2 border-l border-black"
+      hx-get="/app/content/dashboard" 
+      hx-target="#content"
+      hx-push-url="/app">
+        Dashboard
+    </a>
   </nav>
-  <!-- <nav class="flex-grow">
-      <a 
-        href="/app/settings" 
-        class="block py-2.5 px-4 text-black hover:bg-gray-200 transition duration-200 border-b border-black" 
-          hx-get="/app/content/settings" hx-target="#content">
-          Settings
-      </a>
-  </nav> -->
 
   <!-- Logout button at the bottom -->
   <div class="mt-auto border-t-2 border-black">
-      <a href="{{ auth_logout_url }}" class="block bottom-0 py-2.5 px-4 text-black bg-orange hover:bg-darkorange transition duration-200 text-center">
-          Logout
-      </a>
+    <a href="{{ auth_logout_url }}" class="block bottom-0 py-2.5 px-4 text-black bg-orange hover:bg-dark-orange transition duration-200 text-center">
+        Logout
+    </a>
   </div>
 </div>
 {% endblock %}

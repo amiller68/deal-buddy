@@ -29,6 +29,7 @@ def test_generate_summary():
         summary = generate_summary(anthropic_client, extracted_text)
 
         assert isinstance(summary, dict)
+        assert summary['address'] is not None
         assert summary['title'] is not None
         assert summary['description'] is not None
         assert summary['summary'] is not None
