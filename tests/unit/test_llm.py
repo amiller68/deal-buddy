@@ -11,7 +11,8 @@ from src.config import Config
 # Get the absolute path to the fixtures directory
 FIXTURES_DIR = Path(__file__).parent.parent / "fixtures"
 
-@pytest.mark.skip(reason="don't wanna eat anthropic credits")
+
+@pytest.mark.slow
 def test_generate_summary():
     # Open the sample PDF file
     pdf_path = FIXTURES_DIR / "om.pdf"
@@ -30,9 +31,9 @@ def test_generate_summary():
         summary = generate_summary(anthropic_client, extracted_text)
 
         assert isinstance(summary, dict)
-        assert summary['address'] is not None
-        assert summary['title'] is not None
-        assert summary['description'] is not None
-        assert summary['summary'] is not None
+        assert summary["address"] is not None
+        assert summary["title"] is not None
+        assert summary["description"] is not None
+        assert summary["summary"] is not None
 
         # assert "Expected Text" in extracted_text

@@ -1,10 +1,7 @@
-import pytest
 from io import BytesIO
 from pathlib import Path
-import anthropic
 
 from src.utils import extract_text_from_pdf_stream
-from src.config import Config
 
 # Get the absolute path to the fixtures directory
 FIXTURES_DIR = Path(__file__).parent.parent / "fixtures"

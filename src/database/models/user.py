@@ -1,9 +1,8 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import Column, String, DateTime, update, ForeignKey
+from sqlalchemy import Column, String, DateTime
 from datetime import datetime
 import uuid
 from sqlalchemy.future import select
-from typing import Dict, Any
 
 from src.logger import RequestSpan
 from ..database import Base, DatabaseException

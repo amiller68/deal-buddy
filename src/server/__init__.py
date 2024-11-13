@@ -49,7 +49,7 @@ def create_app(state: AppState) -> FastAPI:
             try:
                 response = await call_next(request)
                 return response
-            except Exception as e:
+            except Exception:
                 await session.rollback()
                 raise
             finally:

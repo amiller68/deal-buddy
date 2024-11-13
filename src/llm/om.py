@@ -45,8 +45,12 @@ Provide your response in JSON format with keys address, title, description, and 
             messages=[{"role": "user", "content": prompt.format(pdf_text=pdf_text)}],
         )
 
-        print(response.content[0].text)
-        result = response.content[0].text.strip()
+        # Handle different content block types
+        content = response.content[0]
+        if hasattr(content, "text"):
+            result = content.text.strip()  # type: ignore[union-attr]
+        else:
+            raise ValueError("Unexpected response format from Anthropic API")
 
         # Remove the markdown code block indicators if present
         if result.startswith("```json"):
@@ -62,6 +66,7 @@ Provide your response in JSON format with keys address, title, description, and 
                 raise ValueError(f"Missing required key in response: {key}")
 
         return result
+    # TODO: access the logger here
     except json.JSONDecodeError as e:
         print(f"JSON decode error: {e}")
         raise

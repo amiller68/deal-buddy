@@ -55,7 +55,7 @@ fi
 # Lint with Ruff
 print_header "Running Ruff Linter"
 if [ "$FIX" = true ]; then
-    ruff fix .
+    ruff check --fix .
 else
     ruff check .
 fi

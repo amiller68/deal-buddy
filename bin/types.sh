@@ -42,25 +42,11 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Format with Black
-print_header "Running Black Formatter"
-black . --check
-check_result "Black"
-
-# Lint with Ruff
-print_header "Running Ruff Linter"
-ruff check .
-check_result "Ruff"
-
 # Type check with MyPy
 print_header "Running MyPy Type Checker"
+# ignore venv folder
 mypy . --exclude venv
 check_result "MyPy"
-
-# Run tests with pytest
-print_header "Running Tests"
-pytest -v
-check_result "Pytest"
 
 # Final summary
 print_header "Summary"

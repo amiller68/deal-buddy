@@ -49,6 +49,9 @@ async def get_logged_in_user(
         )
         openid = OpenID(**claims["pld"])
 
+        if not openid.email:
+            raise ValueError("Email is required")
+
         user = await User.read_by_email(email=openid.email, session=async_db, span=span)
         if not user:
             span.info(f"Creating new user: {openid.email}")

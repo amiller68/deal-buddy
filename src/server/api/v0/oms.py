@@ -1,19 +1,17 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi import (
-    Depends,
     UploadFile,
     File,
 )
 from sqlalchemy.ext.asyncio import AsyncSession
 from pydantic import BaseModel
 import io
-from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from src.database.models import OmStatus, User, Om
 from src.logger import RequestSpan
 from src.storage import Storage, StorageBucket
-from src.task_manager import TaskManager, TaskPriority
+from src.task_manager import TaskManager
 from ...deps import require_logged_in_user, span, async_db, storage, task_manager
 
 router = APIRouter()
@@ -54,7 +52,7 @@ async def create_om(
 
         # Create initial Om record
         om = await Om.create(
-            user_id=user.id,
+            user_id=str(user.id),
             upload_id=upload_id,
             session=db,
             span=span,
@@ -96,7 +94,7 @@ async def get_oms(
 ):
     try:
         oms = await Om.read_by_user_id(
-            user_id=user.id, session=db, span=span, status=OmStatus.PROCESSED
+            user_id=str(user.id), session=db, span=span, status=OmStatus.PROCESSED
         )
         om_responses = [
             OmResponse(

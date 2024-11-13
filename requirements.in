@@ -10,6 +10,7 @@ starlette
 uvicorn
 jinja2
 python-jose[cryptography]
+types-python-jose
 itsdangerous==2.1.2
 werkzeug==3.0.1
 greenlet

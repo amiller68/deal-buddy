@@ -1,9 +1,12 @@
 from sqlalchemy import (
     create_engine,
+    text,
 )
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import StaticPool
+from contextlib import asynccontextmanager
 import asyncio
 from enum import Enum as PyEnum
 
@@ -57,12 +60,6 @@ class SyncDatabase:
         Base.metadata.create_all(self.engine)
 
 
-from sqlalchemy.pool import StaticPool
-
-from sqlalchemy import text
-from contextlib import asynccontextmanager
-
-
 class AsyncDatabase:
     def __init__(self, database_path):
         self.database_path = database_path
@@ -107,7 +104,7 @@ class AsyncDatabase:
                     await conn.commit()
 
                     break  # If we get here, everything worked
-            except Exception as e:
+            except Exception:
                 if attempt == max_retries - 1:  # Last attempt
                     raise  # Re-raise the exception if all retries failed
                 await asyncio.sleep(retry_delay)

@@ -1,6 +1,5 @@
 from dotenv import load_dotenv
 import os
-from typing import List
 
 
 def empty_to_none(field):

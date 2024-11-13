@@ -49,12 +49,6 @@ async def om(
                 status_code=403, detail="You are not authorized to access this OM"
             )
 
-        # print out the om
-        print(om.title)
-        print(om.address)
-        print(om.description)
-        print(om.summary)
-
         # For HTMX polling requests
         if request.headers.get("HX-Request") and poll:
             if om.status != OmStatus.PROCESSED:

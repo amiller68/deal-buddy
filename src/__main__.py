@@ -32,7 +32,7 @@ def main() -> int:
             print("✗ Failed to initialize application")
             return 1
 
-        print(f"✓ Configuration loaded from environment")
+        print("✓ Configuration loaded from environment")
 
         print("✓ FastAPI application created")
 

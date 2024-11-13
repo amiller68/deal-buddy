@@ -1,0 +1,32 @@
+name: Python CI 🐍
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Set up virtualenv
+      run: |
+        pip install virtualenv
+        virtualenv venv
+        source venv/bin/activate
+        
+    - name: Install dependencies
+      run: |
+        bash bin/install.sh
+        
+    - name: Run quality checks
+      run: |
+        bash bin/check.sh

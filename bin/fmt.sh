@@ -44,7 +44,7 @@ fi
 
 # Format with Black
 print_header "Running Black Formatter"
-black src/
+black .
 check_result "Black"
 
 # Final summary

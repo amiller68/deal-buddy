@@ -1,6 +1,7 @@
 import logging
 import os
 from fastapi import Request
+from typing import Optional
 
 
 # Used to log events that span a request on our server
@@ -59,7 +60,9 @@ class Logger:
         self.logger = logger
 
     # TODO: be better about this
-    def get_worker_logger(self, name: str = None, attempt: int = None):
+    def get_worker_logger(
+        self, name: Optional[str] = None, attempt: Optional[int] = None
+    ):
         formatter = logging.Formatter(
             f"[worker] %(asctime)s - {name} - {attempt} - %(levelname)s - %(message)s"
         )

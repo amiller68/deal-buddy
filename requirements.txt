@@ -211,6 +211,10 @@ tokenizers==0.20.1
     # via anthropic
 tqdm==4.66.5
     # via huggingface-hub
+types-pyasn1==0.6.0.20240913
+    # via types-python-jose
+types-python-jose==3.3.4.20240106
+    # via -r requirements.in
 typing-extensions==4.12.2
     # via
     #   aiosqlite

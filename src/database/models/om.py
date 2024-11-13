@@ -7,7 +7,6 @@ from typing import Dict, Any
 from enum import Enum
 from sqlalchemy import Enum as SQLAlchemyEnum
 
-
 from src.logger import RequestSpan
 from ..database import Base, DatabaseException
 
@@ -43,7 +42,9 @@ class Om(Base):
 
     summary = Column(String, nullable=True)
 
-    status = Column(SQLAlchemyEnum(OmStatus), nullable=False, default=OmStatus.UPLOADED)
+    status: Column[OmStatus] = Column(
+        SQLAlchemyEnum(OmStatus), nullable=False, default=OmStatus.UPLOADED
+    )
 
     # timestamps
     created_at = Column(DateTime, default=datetime.now(UTC))
@@ -123,6 +124,6 @@ class Om(Base):
             span.debug(f"database::models::Om::read_by_user_id: {user_id}")
         query = select(cls).where(cls.user_id == user_id)
         if status:
-            query = query.filter(cls.status == status)
+            query = query.where(cls.status == status)
         result = await session.execute(query)
         return result.scalars().all()
