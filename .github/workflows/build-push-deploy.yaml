@@ -26,6 +26,15 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/deal-buddy:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/deal-buddy:${{ github.sha }}
 
+      - name: Build and push worker image
+        uses: docker/build-push-action@v4
+        with:
+          context: Dockerfile.worker
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/deal-buddy:latest-worker
+            ${{ secrets.DOCKERHUB_USERNAME }}/deal-buddy:${{ github.sha }}-worker
+
   deploy:
     needs: [build-and-push]
     runs-on: ubuntu-latest

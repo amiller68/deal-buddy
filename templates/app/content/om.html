@@ -1,0 +1,45 @@
+<div class="w-full">
+    {% if status != 'processed' %}
+        <div 
+            class="w-full"
+            hx-get="/app/om/{{ id }}?poll=true"
+            hx-trigger="load delay:2s, poll delay:2s from:body"
+            hx-target="#content">
+            <div class="p-8 max-w-3xl mx-auto">
+                <div class="flex flex-col items-center space-y-6">
+                    <div class="relative w-24 h-24">
+                        <div class="absolute inset-0 border-4 border-gray-200 rounded-full"></div>
+                        <div class="absolute inset-0 border-4 border-t-orange border-r-orange rounded-full animate-spin"></div>
+                        <div class="absolute inset-0 border-4 border-orange rounded-full animate-ping opacity-20"></div>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="text-xl font-bold mb-2">Processing your document</div>
+                        <div class="text-gray-600 flex items-center justify-center">
+                            Please wait
+                            <span class="inline-flex ml-2">
+                                <span class="animate-bounce">.</span>
+                                <span class="animate-bounce delay-100">.</span>
+                                <span class="animate-bounce delay-200">.</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="w-full p-4 max-w-3xl mx-auto animate-fade-in">
+            {% if address %}
+                <h1 class="text-4xl font-bold mb-4 text-left">{{ address }}</h1>
+            {% endif %}
+            {% if title %}
+                <h1 class="text-2xl font-bold mb-4 text-left">{{ title }}</h1>
+            {% endif %}
+            <div class="bg-dark-beige rounded-lg shadow-lg p-6">
+                <div class="prose">
+                    {{ summary | safe }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>

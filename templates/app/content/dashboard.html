@@ -1,0 +1,160 @@
+<!-- templates/app/content/dashboard.html -->
+<div class="dashboard-container">
+    <h1 class="text-3xl font-bold mb-6">Dashboard</h1>
+
+    <!-- Upload new OM section -->
+    <div class="bg-dark-beige shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h2 class="text-xl font-semibold mb-4">Analyze a new property</h2>
+        <p class="text-gray-600 mb-4">Upload a PDF of a property's Offering Memorandum (OM) to get started.</p>
+        <form id="upload-form" 
+              hx-post="/api/v0/oms" 
+              hx-encoding="multipart/form-data">
+            <div class="flex items-center mb-4">
+                <div class="relative flex-grow mr-4">
+                    <input 
+                        class="hidden" 
+                        id="om-file" 
+                        type="file" 
+                        name="file" 
+                        accept=".pdf" 
+                        required
+                    >
+                    <input 
+                        type="text"
+                        id="file-name"
+                        class="w-full pl-4 pr-24 py-3 text-gray-700 bg-gray-100 border border-gray-300 rounded-full focus:outline-none focus:border-blue-500"
+                        placeholder="No file chosen"
+                        readonly
+                    >
+                    <button
+                        type="button"
+                        onclick="document.getElementById('om-file').click();"
+                        class="absolute right-0 h-full px-6 text-white bg-blue-500 rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50 transition-colors"
+                    >
+                        Select
+                    </button>
+                </div>
+                <button 
+                    id="upload-button"
+                    class="bg-orange hover:bg-dark-orange text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50 transition-colors"
+                    type="submit"
+                    disabled
+                >
+                    Upload OM
+                </button>
+            </div>
+        </form>
+        <div id="loading-spinner" class="hidden mt-4">
+            <div class="spinner"></div>
+            <p class="text-center mt-2">Processing your OM...</p>
+        </div>
+    </div>
+
+    <!-- List of available OMs -->
+    <div class="bg-dark-beige shadow-md rounded px-8 pt-6 pb-8">
+        <h2 class="text-xl font-semibold mb-4">Your Available OMs</h2>
+        <div 
+            id="oms-container"
+            hx-get="/api/v0/oms" 
+            hx-trigger="load"
+            hx-target="this"
+            class="overflow-x-hidden"
+        >
+            <p>Loading your OMs...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // For dashboard.html
+    document.getElementById('upload-form')?.addEventListener('htmx:afterOnLoad', function(event) {
+        console.log('htmx:afterOnLoad');
+        try {
+            console.log('event.detail.xhr.responseText', event.detail.xhr);
+            const response = JSON.parse(event.detail.xhr.responseText);
+            console.log('response', response);
+            if (response.om_id) {
+                window.location.href = `/app/om/${response.om_id}`;
+            }
+        } catch (e) {
+            console.error('Error parsing response:', e);
+        }
+    });
+
+    // File input handler
+    document.getElementById('om-file')?.addEventListener('change', function(e) {
+        const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+        const uploadButton = document.getElementById('upload-button');
+        document.getElementById('file-name').value = fileName;
+        
+        // Enable/disable button based on file presence
+        console.log('e.target.files[0]', !e.target.files[0]);
+        uploadButton.disabled = !e.target.files[0];
+    });
+
+    // Initialize button state on page load
+    window.addEventListener('load', function() {
+        const fileInput = document.getElementById('om-file');
+        const uploadButton = document.getElementById('upload-button');
+        uploadButton.disabled = !fileInput.files.length;
+    });
+
+    // Loading state handlers
+    document.getElementById('upload-form')?.addEventListener('htmx:beforeRequest', function(event) {
+        document.getElementById('upload-button').disabled = true;
+        document.getElementById('loading-spinner').classList.remove('hidden');
+    });
+
+    document.getElementById('upload-form')?.addEventListener('htmx:afterRequest', function(event) {
+        document.getElementById('upload-button').disabled = false;
+        document.getElementById('loading-spinner').classList.add('hidden');
+    });
+
+    // File validation
+    document.getElementById('upload-form')?.addEventListener('submit', function(event) {
+        const fileInput = document.getElementById('om-file');
+        if (!fileInput.files.length) {
+            event.preventDefault();
+            showToast();
+            return;
+        }
+        
+        const file = fileInput.files[0];
+        if (!file.type.includes('pdf')) {
+            event.preventDefault();
+            alert('Please select a PDF file');
+            return;
+        }
+    });
+
+    // Add toast function
+    function showToast() {
+        const toast = document.getElementById('toast');
+        toast.style.opacity = '1';
+        setTimeout(() => {
+            toast.style.opacity = '0';
+        }, 3000);
+    }
+</script>
+
+<style>
+    .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    #toast {
+        background-color: #ef4444 !important; /* Bright red */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        min-width: 200px;
+    }
+</style>

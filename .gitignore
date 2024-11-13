@@ -6,3 +6,4 @@ data/*
 **/out
 **/__pycache__
 venv/
+*_cache

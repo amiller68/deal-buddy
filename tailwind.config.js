@@ -2,13 +2,13 @@
 module.exports = {
   content: [
     "./templates/**/*.html",
-    "./app/**/*.py",
+    "./src/**/*.py",
   ],
   theme: {
     extend: {
       colors: {
         'beige': '#f0e7d5',
-        'dark-beige': '#e0d7c5',
+        'dark-beige': '#d4ccba',
         'orange': '#ff6600',
         'dark-orange': '#d64b07',
         'black': '#000000',
@@ -22,6 +22,15 @@ module.exports = {
       borderWidth: {
         '2': '2px',
       },
+      keyframes: {
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' }
+        }
+      },
+      animation: {
+        'fade-in': 'fade-in 0.5s ease-out'
+      }
     },
   },
   plugins: [],

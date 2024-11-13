@@ -6,7 +6,7 @@ if ! [ -x "$(command -v virtualenv)" ]; then
 	exit 1
 fi
 
-virtualenv venv
+virtualenv venv --python=python3.12
 
 source venv/bin/activate
 pip install pip-tools

@@ -23,7 +23,7 @@ COPY requirements.in .
 RUN /app/bin/install.sh
 
 # Copy the application code
-COPY app/ ./app/
+COPY src/ ./src/
 
 # Copy the alembic artifacts
 COPY alembic/ ./alembic/
@@ -35,6 +35,7 @@ COPY static/ ./static/
 # Copy the html templates
 COPY templates/ ./templates/
 
+# NOTE: you must set the DATABASE_PATH environment variable to the path to the database file
 # Create a startup script
 RUN echo '#!/bin/bash' > /app/start.sh && \
     echo '/app/bin/migrate.sh' >> /app/start.sh && \

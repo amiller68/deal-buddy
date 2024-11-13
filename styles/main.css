@@ -9,8 +9,119 @@
 }
 
 @layer base {
-  html,
-  body {
-    @apply w-full h-full bg-white font-roboto;
+  html {
+    @apply bg-beige;
+    height: 100%;
   }
+  
+  body {
+    @apply w-full font-roboto;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.dashboard-container {
+  width: 100%;
+  max-width: 800px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: stretch;
+  margin: 0 auto;
+}
+
+.upload-section {
+  margin-bottom: 2rem;
+}
+
+.upload-bar {
+  display: flex;
+  align-items: center;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  background: white;
+}
+
+.upload-prompt {
+  flex: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #666;
+}
+
+.upload-button {
+  @apply bg-blue-500 text-white border-none rounded-full px-6 py-3 cursor-pointer
+  hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 
+  focus:ring-blue-400 focus:ring-opacity-50;
+}
+
+.spinner-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+.oms-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.om-card {
+  @apply rounded-lg p-6 shadow hover:shadow-lg cursor-pointer
+  transition-all duration-200;
+}
+
+.om-card:hover {
+  transform: translateY(-2px);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.sidebar-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 16rem;
+    background-color: var(--beige);
+    display: flex;
+    flex-direction: column;
+    z-index: 50;
+    height: 100vh;
+}
+
+.main-content {
+    margin-left: 16rem;
+    width: calc(100% - 16rem);
+    min-height: 100%;
+    padding: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.main-content #content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 5rem;
+    position: relative;
 }
