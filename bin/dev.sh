@@ -45,3 +45,6 @@ fi
 
 # Deactivate virtual environment
 deactivate
+
+# Exit the script
+exit 0

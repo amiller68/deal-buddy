@@ -21,6 +21,27 @@ services:
       - redis
       - minio
 
+  deal-buddy-worker:
+    image: amiller68/deal-buddy:latest-worker
+    # worker needs access to the database
+    volumes:
+      - ./data:/data
+    environment:
+      - DATABASE_PATH=/data/app.db
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=minioadmin
+      - MINIO_SECRET_KEY=minioadmin
+    # Source the .env file
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - internal_net
+    depends_on:
+      # deal-buddy container handles database migrations, 
+      #  so this service needs to wait for it
+      - deal-buddy
+
   swag:
     image: ghcr.io/linuxserver/swag
     container_name: swag
@@ -61,7 +82,6 @@ services:
     restart: unless-stopped
     networks:
       - internal_net
-      - swag_net
 
   redis:
     image: redis

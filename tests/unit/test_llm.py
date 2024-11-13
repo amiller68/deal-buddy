@@ -2,6 +2,7 @@ from io import BytesIO
 from pathlib import Path
 
 import anthropic
+import pytest
 
 from src.utils import extract_text_from_pdf_stream
 from src.llm.om import generate_summary
@@ -10,7 +11,7 @@ from src.config import Config
 # Get the absolute path to the fixtures directory
 FIXTURES_DIR = Path(__file__).parent.parent / "fixtures"
 
-
+@pytest.mark.skip(reason="don't wanna eat anthropic credits")
 def test_generate_summary():
     # Open the sample PDF file
     pdf_path = FIXTURES_DIR / "om.pdf"

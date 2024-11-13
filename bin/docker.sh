@@ -22,8 +22,16 @@ function build {
 	ensure-image
 }
 
+function build-worker {
+	ensure-worker-image
+}
+
 function ensure-image {
 	docker build -t ${IMAGE_NAME} .
+}
+
+function ensure-worker-image {
+	docker build -t ${IMAGE_NAME}-worker -f Dockerfile.worker .
 }
 
 function start-container {
@@ -38,6 +46,16 @@ function start-container {
 		--volume ${PWD}/data:/data \
 		--detach \
 		${IMAGE_NAME}
+}
+
+function start-worker-container {
+	ensure-worker-image
+	${CONTAINER_RUNTIME} run \
+		--name ${CONTAINER_NAME}-worker \
+		--env-file .env.docker \
+		--volume ${PWD}/data:/data \
+		--detach \
+		${IMAGE_NAME}-worker
 }
 
 function clean {
