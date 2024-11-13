@@ -20,6 +20,7 @@ router = APIRouter()
 
 templates = Jinja2Templates(directory="templates")
 
+
 @router.post("")
 async def create_om(
     file: UploadFile = File(...),
@@ -32,9 +33,9 @@ async def create_om(
     span.info(f"handling create_om: user_id={user.id}")
     try:
         # Validate file
-        if not file.filename or not file.filename.lower().endswith('.pdf'):
+        if not file.filename or not file.filename.lower().endswith(".pdf"):
             raise HTTPException(status_code=422, detail="Only PDF files are allowed")
-        
+
         # Read file
         try:
             content = await file.read()
@@ -61,7 +62,6 @@ async def create_om(
 
         await db.commit()
 
-
         # TODO: i should probably do something with the task_result
         # Trigger background processing
         _task_result = await task_manager.process_om(
@@ -72,7 +72,7 @@ async def create_om(
             "om_id": om.id,
             "status": om.status,
         }
-        
+
     except Exception as e:
         span.error(f"Unexpected error: {str(e)}")
         raise HTTPException(status_code=500, detail="An unexpected error occurred")
@@ -95,7 +95,9 @@ async def get_oms(
     db: AsyncSession = Depends(async_db),
 ):
     try:
-        oms = await Om.read_by_user_id(user_id=user.id, session=db, span=span, status=OmStatus.PROCESSED)
+        oms = await Om.read_by_user_id(
+            user_id=user.id, session=db, span=span, status=OmStatus.PROCESSED
+        )
         om_responses = [
             OmResponse(
                 id=om.id,
@@ -106,20 +108,20 @@ async def get_oms(
             )
             for om in oms
         ]
-        
+
         # Check if request is from HTMX
         if request.headers.get("HX-Request"):
             return templates.TemplateResponse(
-                "app/components/oms.html",
-                {"request": request, "oms": om_responses}
+                "app/components/oms.html", {"request": request, "oms": om_responses}
             )
-        
+
         # Return JSON for regular API requests
         return om_responses
-        
+
     except Exception as e:
         span.error(f"Error fetching OMs: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to fetch OMs")
+
 
 @router.get("/{om_id}")
 async def get_om(
@@ -134,7 +136,9 @@ async def get_om(
     if not om:
         raise HTTPException(status_code=404, detail="OM not found")
     if om.user_id != user.id:
-        raise HTTPException(status_code=403, detail="You are not authorized to access this OM")
+        raise HTTPException(
+            status_code=403, detail="You are not authorized to access this OM"
+        )
 
     # Convert to response model
     om_response = OmResponse(
@@ -150,21 +154,19 @@ async def get_om(
     if request.headers.get("HX-Request") and poll:
         if om.status != OmStatus.PROCESSED:
             return templates.TemplateResponse(
-                "app/components/om.html",
-                {"request": request, "om": om_response}
+                "app/components/om.html", {"request": request, "om": om_response}
             )
         # If processed, return the content component
         return templates.TemplateResponse(
-            "app/components/om.html",
-            {"request": request, "om": om_response}
+            "app/components/om.html", {"request": request, "om": om_response}
         )
 
     # For full page requests, render the page template
     return templates.TemplateResponse(
         "app/index.html",
         {
-            "request": request, 
+            "request": request,
             "initial_content": "app/content/om.html",
-            "om": om_response
-        }
+            "om": om_response,
+        },
     )

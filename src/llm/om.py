@@ -1,10 +1,8 @@
 import anthropic
 import json
 
-def generate_summary(
-        anthropic_client: anthropic.Client,
-        pdf_text: str
-) -> dict:
+
+def generate_summary(anthropic_client: anthropic.Client, pdf_text: str) -> dict:
     prompt = """You are a real estate expert. Analyze the following real estate deal information and provide three sections:
 
 1. Address: The property address
@@ -49,11 +47,11 @@ Provide your response in JSON format with keys address, title, description, and 
 
         print(response.content[0].text)
         result = response.content[0].text.strip()
-        
+
         # Remove the markdown code block indicators if present
         if result.startswith("```json"):
-            result = result[7:-3]  # Remove ```json and ``` 
-        
+            result = result[7:-3]  # Remove ```json and ```
+
         result = result.strip()
         result = json.loads(result)
 

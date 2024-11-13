@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import RedirectResponse, JSONResponse
-from starlette.exceptions import HTTPException 
+from starlette.exceptions import HTTPException
 from starlette import status
 from contextlib import asynccontextmanager
 
@@ -9,6 +9,7 @@ from src.state import AppState
 from .html import router as html_router
 from .auth import router as auth_router
 from .api import router as api_router
+
 
 def create_app(state: AppState) -> FastAPI:
     @asynccontextmanager
@@ -59,18 +60,22 @@ def create_app(state: AppState) -> FastAPI:
     # Exception handler using the correct decorator syntax
     @app.exception_handler(HTTPException)
     async def http_exception_handler(request: Request, exc: HTTPException):
-        print(f"Exception handler called: {exc.status_code} - {request.url.path}")  # Debug
+        print(
+            f"Exception handler called: {exc.status_code} - {request.url.path}"
+        )  # Debug
         if request.url.path.startswith("/app"):
-            if exc.status_code in [status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN]:
+            if exc.status_code in [
+                status.HTTP_401_UNAUTHORIZED,
+                status.HTTP_403_FORBIDDEN,
+            ]:
                 return RedirectResponse(
-                    url="/app/login",
-                    status_code=status.HTTP_302_FOUND
+                    url="/app/login", status_code=status.HTTP_302_FOUND
                 )
         return JSONResponse(
             status_code=exc.status_code,
             content={"detail": exc.detail},
         )
-    
+
     # Add middleware
     app.middleware("http")(state_middleware)
     app.middleware("http")(storage_middleware)
@@ -84,7 +89,7 @@ def create_app(state: AppState) -> FastAPI:
     #     dev_router = APIRouter()
     #     @dev_router.get("/dev/reload")
     #     async def reload_html():
-            
+
     #         async def event_generator():
     #             template_dir = Path("templates")
     #             try:
@@ -100,23 +105,24 @@ def create_app(state: AppState) -> FastAPI:
     #                 raise
     #             finally:
     #                 print("Generator cleanup")
-            
+
     #         return EventSourceResponse(
     #             event_generator(),
     #             background=BackgroundTask(lambda: print("Connection closed")),
     #         )
-        
+
     #     app.include_router(dev_router)
-    
+
     # Mount static files
     app.mount("/static", StaticFiles(directory="static"), name="static")
-    
+
     # Include the HTML router
     app.include_router(html_router)
     app.include_router(auth_router, prefix="/auth")
     app.include_router(api_router, prefix="/api")
 
     return app
+
 
 # This instance is used by uvicorn
 app = None

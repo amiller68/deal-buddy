@@ -11,6 +11,7 @@ from sqlalchemy import Enum as SQLAlchemyEnum
 from src.logger import RequestSpan
 from ..database import Base, DatabaseException
 
+
 class OmStatus(str, Enum):
     # the om is uploaded but not yet processed
     UPLOADED = "uploaded"
@@ -21,6 +22,7 @@ class OmStatus(str, Enum):
     # TODO: would be cool to have way to record why it failed
     # the om processing failed -- marked by the worker
     FAILED = "failed"
+
 
 class Om(Base):
     __tablename__ = "oms"
@@ -111,7 +113,11 @@ class Om(Base):
 
     @classmethod
     async def read_by_user_id(
-        cls, user_id: str, session: AsyncSession, status: OmStatus | None = None, span: RequestSpan | None = None
+        cls,
+        user_id: str,
+        session: AsyncSession,
+        status: OmStatus | None = None,
+        span: RequestSpan | None = None,
     ):
         if span:
             span.debug(f"database::models::Om::read_by_user_id: {user_id}")

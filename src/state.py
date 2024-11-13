@@ -16,13 +16,16 @@ from src.logger import Logger
 from src.storage import Storage
 from src.task_manager import TaskManager
 
+
 class AppStateExceptionType(PyEnum):
-    startup_failed = "startup_failed" # raised when startup fails
+    startup_failed = "startup_failed"  # raised when startup fails
+
 
 class AppStateException(Exception):
     def __init__(self, type: AppStateExceptionType, message: str):
         self.message = message
         self.type = type
+
 
 @dataclass
 class AppState:
@@ -50,7 +53,7 @@ class AppState:
             database=AsyncDatabase(config.database_path),
             logger=Logger(config.log_path, config.debug),
             secrets=config.secrets,
-            task_manager=TaskManager(config.redis_url, None)
+            task_manager=TaskManager(config.redis_url, None),
         )
         return state
 
@@ -76,4 +79,3 @@ class AppState:
     def get_on_request(self, request: Request):
         """get any request-specific state here"""
         return request.state.app_state
-

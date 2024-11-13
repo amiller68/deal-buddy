@@ -8,6 +8,7 @@ from ..deps import state
 router = APIRouter()
 templates = Jinja2Templates(directory="templates/home")
 
+
 @router.get("/", response_class=HTMLResponse)
 def index(request: Request, _state: AppState = Depends(state)):
     # TODO: re-implement hot reloading
@@ -16,20 +17,20 @@ def index(request: Request, _state: AppState = Depends(state)):
         return templates.TemplateResponse("index_content.html", {"request": request})
     return templates.TemplateResponse("index.html", {"request": request})
 
+
 @router.get("/about", response_class=HTMLResponse)
 def about(request: Request):
     if request.headers.get("HX-Request"):
         return templates.TemplateResponse("todo_content.html", {"request": request})
     return templates.TemplateResponse(
-        "index.html", 
-        {"request": request, "initial_content": "todo_content.html"}
+        "index.html", {"request": request, "initial_content": "todo_content.html"}
     )
+
 
 @router.get("/blog", response_class=HTMLResponse)
 def blog(request: Request):
     if request.headers.get("HX-Request"):
         return templates.TemplateResponse("todo_content.html", {"request": request})
     return templates.TemplateResponse(
-        "index.html", 
-        {"request": request, "initial_content": "todo_content.html"}
+        "index.html", {"request": request, "initial_content": "todo_content.html"}
     )

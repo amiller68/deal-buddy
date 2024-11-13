@@ -8,6 +8,7 @@ from typing import Dict, Any
 from src.logger import RequestSpan
 from ..database import Base, DatabaseException
 
+
 class User(Base):
     __tablename__ = "users"
 
@@ -69,4 +70,3 @@ class User(Base):
                 span.error(f"database::models::User::read_by_email: {e}")
             db_e = DatabaseException.from_sqlalchemy_error(e)
             raise db_e
-
