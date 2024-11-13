@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
 
+# TODO: I should probably add a dry run on PRs
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -29,7 +30,8 @@ jobs:
       - name: Build and push worker image
         uses: docker/build-push-action@v4
         with:
-          context: Dockerfile.worker
+          context: .
+          file: ./Dockerfile.worker
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/deal-buddy:latest-worker
