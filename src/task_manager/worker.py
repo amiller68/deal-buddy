@@ -32,7 +32,7 @@ class WorkerSettings:
     functions = [process_om]
     on_startup = startup
     on_shutdown = shutdown
-    redis_settings = RedisSettings.from_dsn("redis://localhost:6379")
+    redis_settings = RedisSettings.from_dsn(Config().redis_url)
 
     # Worker configuration
     max_jobs = 10
