@@ -39,7 +39,10 @@ services:
       - .env
     restart: unless-stopped
     networks:
+      # so we can talk to the redis container
       - internal_net
+      # so we can talk to the outside world
+      - swag_net
     depends_on:
       # deal-buddy container handles database migrations, 
       #  so this service needs to wait for it
