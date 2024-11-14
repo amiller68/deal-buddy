@@ -1,3 +1,5 @@
+# TODO: i wouldn't need a separate Dockerfile for the worker
+#  if I specified the run command in the docker-compose file
 # Use an official Python runtime as the base image
 FROM python:3.12-slim
 
