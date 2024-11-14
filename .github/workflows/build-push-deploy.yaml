@@ -57,7 +57,7 @@ jobs:
         run: |
           mkdir -p ./iac
           echo "ADMIN_KEY_PATH=~/.ssh/deal-buddy/admin" > ./iac/.env
-          echo "INVENTORY_PATH=./hosts/digitalOcean/deal-buddy-production" >> ./iac/.env
+          echo "INVENTORY_PATH=./hosts/digitalOcean/production" >> ./iac/.env
 
       - name: Create an .env.prod to pass our secrets to the container
         env:

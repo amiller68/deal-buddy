@@ -3,7 +3,7 @@ set -o errexit
 set -o nounset
 
 IMAGE_NAME="deal-buddy"
-CONTAINER_NAME="deal-buddy"
+CONTAINER_NAME="deal-buddy-server"
 CONTAINER_RUNTIME="docker"
 
 # if podman, use podman instead of docker
@@ -35,20 +35,24 @@ function ensure-worker-image {
 }
 
 function start-container {
-	if ${CONTAINER_RUNTIME} ps -a | grep ${IMAGE_NAME} &>/dev/null; then
-		echo "Container already exists"
-		return
-	fi
+	# if ${CONTAINER_RUNTIME} ps -a | grep ${IMAGE_NAME} &>/dev/null; then
+	# 	echo "Container already exists"
+	# 	return
+	# fi
 	${CONTAINER_RUNTIME} run \
 		--name ${CONTAINER_NAME} \
 		--publish 8000:8000 \
 		--env-file .env.docker \
 		--volume ${PWD}/data:/data \
-		--detach \
 		${IMAGE_NAME}
+		# --detach \
 }
 
 function start-worker-container {
+	# if ${CONTAINER_RUNTIME} ps -a | grep ${IMAGE_NAME}-worker &>/dev/null; then
+	# 	echo "Worker container already exists"
+	# 	return
+	# fi
 	ensure-worker-image
 	${CONTAINER_RUNTIME} run \
 		--name ${CONTAINER_NAME}-worker \
