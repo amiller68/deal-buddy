@@ -50,7 +50,7 @@ class Config:
 
         self.dev_mode = os.getenv("DEV_MODE", "False") == "True"
 
-        self.host_name = os.getenv("HOST_NAME", "http://localhost:9000")
+        self.host_name = os.getenv("HOST_NAME", "http://localhost:8000")
 
         self.listen_address = os.getenv("LISTEN_ADDRESS", "0.0.0.0")
 

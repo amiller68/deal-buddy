@@ -11,9 +11,11 @@ services:
       - swag_net
     environment:
       - DATABASE_PATH=/data/app.db
-      - MINIO_ENDPOINT=minio:9000
+      - HOST_NAME=https://deal-buddy.xyz
+      - MINIO_ENDPOINT=http://minio:9000
       - MINIO_ACCESS_KEY=minioadmin
       - MINIO_SECRET_KEY=minioadmin
+      - REDIS_URL=redis://redis:6379
     # Source the .env file
     env_file:
       - .env
@@ -28,9 +30,10 @@ services:
       - ./data:/data
     environment:
       - DATABASE_PATH=/data/app.db
-      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ENDPOINT=http://minio:9000
       - MINIO_ACCESS_KEY=minioadmin
       - MINIO_SECRET_KEY=minioadmin
+      - REDIS_URL=redis://redis:6379
     # Source the .env file
     env_file:
       - .env

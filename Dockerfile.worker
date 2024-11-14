@@ -10,6 +10,10 @@ RUN apt-get update && apt-get install -y \
     virtualenv \
     && rm -rf /var/lib/apt/lists/*
 
+# TODO: because the way the project is structured, we need to copy 
+#  the static stuff that is just meant for the web server. This is really
+#  annoying and I should fix it someday.
+
 # Copy the bin scripts
 COPY bin/ ./bin/
 
@@ -24,6 +28,16 @@ RUN /app/bin/install.sh
 
 # Copy the application code
 COPY src/ ./src/
+
+# Copy the alembic artifacts
+COPY alembic/ ./alembic/
+COPY alembic.ini ./alembic.ini
+
+# Copy the static assets
+COPY static/ ./static/
+
+# Copy the html templates
+COPY templates/ ./templates/
 
 # Create a startup script
 RUN echo '#!/bin/bash' > /app/start.sh && \
