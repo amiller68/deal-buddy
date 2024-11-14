@@ -64,10 +64,12 @@ jobs:
           SERVICE_SECRET: ${{ secrets.SERVICE_SECRET }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           echo "SERVICE_SECRET=$SERVICE_SECRET" > .env.prod
           echo "GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID" >> .env.prod
           echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> .env.prod
+          echo "ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY" >> .env.prod
 
       - name: Install dependencies
         run: |
