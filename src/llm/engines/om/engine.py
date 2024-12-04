@@ -216,6 +216,7 @@ class OmEngine:
         print("\n>>> Detecting tables")
         print(f"Current known tables: {list(context.tables.keys())}")
         
+        response_text = ""  # Initialize response_text
         try:
             # First try with a larger context window for complete extraction
             response_text = await self.generate(
@@ -224,7 +225,7 @@ class OmEngine:
                     known_tables=list(context.tables.keys())
                 ),
                 image=image,
-                max_tokens=16000  # Increased for larger tables
+                max_tokens=8000  # Stay within Claude's limits
             )
             
             # Write raw response for debugging
@@ -238,7 +239,7 @@ class OmEngine:
                     focused_response = await self.generate(
                         "Extract only the rent roll table data from this text. Return as JSON array:\n\n" + rent_roll_text,
                         image=image,
-                        max_tokens=16000
+                        max_tokens=8000
                     )
                     # Merge responses
                     response_text = self.merge_json_responses(response_text, focused_response, "rent_roll")
@@ -344,13 +345,19 @@ class OmEngine:
             return
             
         relevant_text = "\n".join(page.text for page in relevant_pages)
-        # Use the image from the first relevant page that has one
-        relevant_image = next((page.image for page in relevant_pages if page.image), None)
         
-        if not relevant_text.strip():
-            print("No relevant text in chunk, skipping")
-            return
-            
+        # Process tables in smaller chunks if text is large
+        if len(relevant_text) > 4000:
+            print("Large text detected, processing tables in chunks...")
+            chunks = self.split_text_into_chunks(relevant_text, 4000)
+            for chunk in chunks:
+                await self.detect_and_extract_tables(chunk, None, context)
+        else:
+            # Use the image from the first relevant page that has one
+            relevant_image = next((page.image for page in relevant_pages if page.image), None)
+            await self.detect_and_extract_tables(relevant_text, relevant_image, context)
+
+        # Process metadata and summary
         if not (context.title and context.address and context.description):
             print("Extracting metadata...")
             metadata = json.loads(await self.generate(METADATA_PROMPT.format(text=relevant_text)))
@@ -362,10 +369,28 @@ class OmEngine:
                 context.description = metadata.get('description')
             print(f"Current metadata - Title: {bool(context.title)}, Address: {bool(context.address)}, Description: {bool(context.description)}")
         
-        await asyncio.gather(
-            self.detect_and_extract_tables(relevant_text, relevant_image, context),
-            self.update_summary(relevant_text, context)
-        )
+        await self.update_summary(relevant_text, context)
+
+    def split_text_into_chunks(self, text: str, chunk_size: int) -> List[str]:
+        """Split text into chunks while trying to maintain table integrity"""
+        chunks = []
+        lines = text.split('\n')
+        current_chunk = []
+        current_size = 0
+        
+        for line in lines:
+            line_size = len(line) + 1  # +1 for newline
+            if current_size + line_size > chunk_size and current_chunk:
+                chunks.append('\n'.join(current_chunk))
+                current_chunk = []
+                current_size = 0
+            current_chunk.append(line)
+            current_size += line_size
+            
+        if current_chunk:
+            chunks.append('\n'.join(current_chunk))
+            
+        return chunks
 
     async def process_pdf(self, pdf_stream: BinaryIO):
         """Process a PDF document and extract structured data"""
