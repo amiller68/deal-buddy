@@ -1,0 +1,327 @@
+
+================================================== 2024-12-03T23:13:19.697207 ==================================================
+Error in generate: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'max_tokens: 8000 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:13:20.759001 ==================================================
+Error in generate: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'max_tokens: 8000 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:13:22.829451 ==================================================
+Error in generate: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'max_tokens: 8000 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:13:26.891181 ==================================================
+Error in generate: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'max_tokens: 8000 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:13:27.958188 ==================================================
+Error in generate: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'max_tokens: 8000 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:13:29.019394 ==================================================
+Error in generate: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'max_tokens: 8000 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:13:31.082613 ==================================================
+Error in generate: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'max_tokens: 8000 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:13:35.143274 ==================================================
+Error in generate: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'max_tokens: 8000 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:13:37.247940 ==================================================
+Error in generate: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'max_tokens: 8000 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:13:38.318622 ==================================================
+Error in generate: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'max_tokens: 8000 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:13:40.378798 ==================================================
+Error in generate: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'max_tokens: 8000 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:13:44.434762 ==================================================
+Error in generate: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'max_tokens: 8000 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:13:44.435221 ==================================================
+Error during processing: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'max_tokens: 8000 > 4096, which is the maximum allowed number of output tokens for claude-3-sonnet-20240229'}}

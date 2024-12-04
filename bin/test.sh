@@ -11,10 +11,12 @@ ERRORS=0
 
 # Rename SKIPPED to RUN_ALL
 RUN_ALL=false
+NO_CAPTURE=false
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         --all) RUN_ALL=true ;;
+        --no-capture) NO_CAPTURE=true ;;
         *) echo "Unknown parameter: $1"; exit 1 ;;
     esac
     shift
@@ -50,15 +52,16 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-print_header "Running pytest"
-if [ "$RUN_ALL" = false ]; then
-    pytest -v tests/
-else
-    # TODO: not exactly sure what i would name this option,
-    #  I was following a tutorial that used --run-slow
-    #  This works for now
-    pytest -v tests/ --run-slow
+FLAGS="--tb=native"
+if [ "$NO_CAPTURE" = true ]; then
+    FLAGS="$FLAGS -s"
 fi
+if [ "$RUN_ALL" = true ]; then
+    FLAGS="$FLAGS --run-slow"
+fi
+
+print_header "Running pytest"
+pytest -v tests/ $FLAGS
 check_result "Pytest"
 
 # Final summary

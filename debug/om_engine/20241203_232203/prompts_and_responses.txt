@@ -1,0 +1,2030 @@
+
+================================================== 2024-12-03T23:22:08.447303 ==================================================
+PROMPT:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "is_relevant": false,
+    "has_confidential": true,
+    "confidence": 0.9,
+    "reason": "Page only contains confidentiality header with no substantive property or financial information"
+}
+
+================================================== 2024-12-03T23:22:11.186073 ==================================================
+PROMPT:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CHRIS VARJAN
+Executive Managing Director
+212.776.1272
+cvarjan@lee-associates.com
+GEORGE STEFFANI
+Director
+212.776.1207
+gsteffani@lee-associates.com JONATHAN BRAUN
+Director
+212.776.4341
+jbraun@lee-associates.com
+KJERSTEN ANGELL 
+Transaction Manager
+212.776.1261
+kangell@lee-associates.com
+The information contained in this offering memorandum (“Offering Memorandum”) is proprietary and strictly 
+confidential. This Offering Memorandum was prepared by and is the property of Lee & Associates NYC LLC (“L&A”) 
+and has been reviewed by the owner (the “Owner”) of the Property. It is furnished solely for the purpose of review 
+by a prospective purchaser of the Property and is not to be used for any other purposes or made available to any 
+person without the express written consent of the Owner or L&A. By accepting this Offering Memorandum, the party 
+in possession hereof agrees to return it to L&A immediately upon request of L&A or Owner. No portion of this Offering 
+Memorandum may be copied or otherwise reproduced or disclosed to anyone without the prior written authorization of 
+L&A and Owner. Each prospective purchaser and/or broker proceeds at his, her or its own risk.
+You have the obligation to keep this Offering Memorandum, and any various papers, documents, legal instruments, 
+studies, leases, brochures, computer output, and other materials concerning the Property (all of the aforementioned 
+information is collectively referred to as “Evaluation Material”) confidential. Certain Evaluation Materials, including any 
+leases, are described in summary form. The summaries do not purport to be complete nor accurate descriptions of the 
+full agreements involved, nor do they constitute a legal analysis of such documents. 
+The information in this Offering Memorandum has been compiled from sources deemed to be reliable and does not 
+purport to be all-inclusive or to contain all of the information which a prospective purchaser may desire. Neither L&A 
+nor the Owner makes any representation or warranty whatsoever regarding the accuracy, veracity, or completeness of 
+the information provided herein and each of Owner and L&A (and their agents, advisors and representatives) expressly 
+disclaim any and all liability for representations or warranties, express or implied, contained in this Offering Memorandum 
+or the Evaluation Material or for omissions therefrom. 
+Financial projections and information contained herein and in any Evaluation Material, shall not be relied upon, are 
+provided for general reference purposes only, and are based on assumptions relating to (and subject to) the general 
+economy, market conditions, competition, and other factors beyond control and, therefore, are subject to material 
+change, volatility or variation. A prospective purchaser must make its own independent investigations, projections, and 
+conclusions regarding the acquisition of the Property. This includes legal, tax, environmental, engineering and other as 
+deemed necessary relative to a purchase of the Property. This Offering Memorandum does not constitute an offer to 
+accept any investment proposal but is merely a solicitation of interest with respect to the investment described herein. 
+This Offering Memorandum does not constitute an offer of securities.
+The Owner expressly reserves the right, at its sole discretion, to reject any offer to purchase the Property or to terminate 
+any negotiations with any party, at any time, with or without written notice. The Owner and L&A reserve the right 
+to negotiate with one or more prospective purchasers at any time. This Offering Memorandum is subject to errors, 
+omissions, changes or withdrawal without notice and does not constitute a recommendation, endorsement or advice 
+as to the value of the Property by L&A. Only a fully executed real estate purchase and sale agreement, approved by the 
+Owner, and executed and delivered to Owner and a prospective purchaser shall bind the Property. In no event shall a 
+prospective purchaser have any claims against the Owner or L&A or any of their affiliates, officers, shareholders, owners, 
+employees, or agents for any damages, liability, or causes of action relating to this solicitation process or the marketing 
+or sale of the Property. 
+The terms and conditions set forth above apply to this Offering Memorandum in its entirety.
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "is_relevant": false,
+    "has_confidential": true,
+    "confidence": 0.95,
+    "reason": "This is a standard confidentiality disclaimer page with contact information for brokers. Contains no property data, financials or key property information - only legal disclaimers and confidentiality notices."
+}
+
+================================================== 2024-12-03T23:22:13.110552 ==================================================
+PROMPT:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: EXECUTIVE SUMMARY
+THE OFFERING
+Lee & Associates NYC is pleased to exclusively offer for sale the office building 
+located at 20 West 37th Street, New York, NY 10018. (the “Property”). Situated in 
+the heart of Midtown Manhattan, the Property is at the vortex of some of New York 
+City’s main transportation arteries including Bryant Park, Grand Central Station, 
+and Penn Station. The current layout includes basement, ground and mezzanine 
+level retail space, delivered vacant, with 11 floors of office space above featuring 
+four current tenants on single floors. The Property features an assumable loan 
+with a maturity of January 10, 2027 at an interest rate of approximately 4.7%. 20 
+West 37th Street represents the opportunity for an investor to own a mixed-use 
+asset in a prime submarket of Manhattan at below replacement cost with in-
+place financing at an extremely competitive rate, or offers a potential user the 
+opportunity for a New York City flagship location. 
+ATTRACTIVE ASSUMABLE FINANCING AT A RATE 
+SUB- 5%
+DELIVERED SIGNIFICANTLY VACANT, ALLOWING FOR 
+EASE OF EXECUTION FOR ANY BUSINESS PLAN 
+INCLUDING OWNER-OCCUPANCY
+FANTASTIC PROXIMITY TO NEW YORK CITY’S 
+COMMUTING HUBS
+ASKING:  $32,500,000
+5 4
+Lee & Associates
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "is_relevant": true,
+    "has_confidential": false,
+    "confidence": 0.9,
+    "reason": "Contains key property information including address (20 West 37th St), asking price ($32.5M), financing details (4.7% assumable loan), tenant status (4 current tenants), and property description (mixed-use building with retail and 11 floors of office space)"
+}
+
+================================================== 2024-12-03T23:22:15.673090 ==================================================
+PROMPT:
+Extract key property metadata from this text.
+Only extract fields if you are confident they are correct.
+Leave fields empty if uncertain.
+
+Return valid JSON in this format:
+{
+    "title": "Official property name/title",
+    "address": "Complete property address",
+    "description": "2-3 sentence property overview",
+    "property_type": "Type of property (e.g. multifamily, office)",
+    "year_built": "Construction year if mentioned"
+}
+
+Text: EXECUTIVE SUMMARY
+THE OFFERING
+Lee & Associates NYC is pleased to exclusively offer for sale the office building 
+located at 20 West 37th Street, New York, NY 10018. (the “Property”). Situated in 
+the heart of Midtown Manhattan, the Property is at the vortex of some of New York 
+City’s main transportation arteries including Bryant Park, Grand Central Station, 
+and Penn Station. The current layout includes basement, ground and mezzanine 
+level retail space, delivered vacant, with 11 floors of office space above featuring 
+four current tenants on single floors. The Property features an assumable loan 
+with a maturity of January 10, 2027 at an interest rate of approximately 4.7%. 20 
+West 37th Street represents the opportunity for an investor to own a mixed-use 
+asset in a prime submarket of Manhattan at below replacement cost with in-
+place financing at an extremely competitive rate, or offers a potential user the 
+opportunity for a New York City flagship location. 
+ATTRACTIVE ASSUMABLE FINANCING AT A RATE 
+SUB- 5%
+DELIVERED SIGNIFICANTLY VACANT, ALLOWING FOR 
+EASE OF EXECUTION FOR ANY BUSINESS PLAN 
+INCLUDING OWNER-OCCUPANCY
+FANTASTIC PROXIMITY TO NEW YORK CITY’S 
+COMMUTING HUBS
+ASKING:  $32,500,000
+5 4
+Lee & Associates
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "title": "20 West 37th Street",
+    "address": "20 West 37th Street, New York, NY 10018",
+    "description": "Mixed-use building in Midtown Manhattan featuring retail space in the basement, ground floor and mezzanine level, plus 11 floors of office space above. The property is located near major transportation hubs including Bryant Park, Grand Central Station, and Penn Station.",
+    "property_type": "mixed-use",
+    "year_built": ""
+}
+
+================================================== 2024-12-03T23:22:17.617904 ==================================================
+PROMPT:
+Identify and extract any tables from this text. 
+Known table types: rent_roll, expenses, units, occupancy
+
+For each table found, normalize the data into a consistent format.
+If you find a new table type, use an appropriate descriptive name.
+
+Previous table types found: []
+Text: EXECUTIVE SUMMARY
+THE OFFERING
+Lee & Associates NYC is pleased to exclusively offer for sale the office building 
+located at 20 West 37th Street, New York, NY 10018. (the “Property”). Situated in 
+the heart of Midtown Manhattan, the Property is at the vortex of some of New York 
+City’s main transportation arteries including Bryant Park, Grand Central Station, 
+and Penn Station. The current layout includes basement, ground and mezzanine 
+level retail space, delivered vacant, with 11 floors of office space above featuring 
+four current tenants on single floors. The Property features an assumable loan 
+with a maturity of January 10, 2027 at an interest rate of approximately 4.7%. 20 
+West 37th Street represents the opportunity for an investor to own a mixed-use 
+asset in a prime submarket of Manhattan at below replacement cost with in-
+place financing at an extremely competitive rate, or offers a potential user the 
+opportunity for a New York City flagship location. 
+ATTRACTIVE ASSUMABLE FINANCING AT A RATE 
+SUB- 5%
+DELIVERED SIGNIFICANTLY VACANT, ALLOWING FOR 
+EASE OF EXECUTION FOR ANY BUSINESS PLAN 
+INCLUDING OWNER-OCCUPANCY
+FANTASTIC PROXIMITY TO NEW YORK CITY’S 
+COMMUTING HUBS
+ASKING:  $32,500,000
+5 4
+Lee & Associates
+
+Respond with JSON in format:
+{
+    "table_type": [
+        {normalized table rows as objects}
+    ]
+}
+
+Return valid JSON only.
+
+RESPONSE:
+I don't see any tables in the provided text that match the known table types (rent_roll, expenses, units, occupancy) or that contain structured data that could be normalized into a table format. The text appears to be a narrative executive summary describing a property offering.
+
+{
+}
+
+================================================== 2024-12-03T23:22:20.587064 ==================================================
+PROMPT:
+Given the current summary and new text, update the summary.
+Add any new relevant information while maintaining coherence.
+Avoid redundancy and maintain a clear narrative flow.
+
+Current summary: 
+New text: EXECUTIVE SUMMARY
+THE OFFERING
+Lee & Associates NYC is pleased to exclusively offer for sale the office building 
+located at 20 West 37th Street, New York, NY 10018. (the “Property”). Situated in 
+the heart of Midtown Manhattan, the Property is at the vortex of some of New York 
+City’s main transportation arteries including Bryant Park, Grand Central Station, 
+and Penn Station. The current layout includes basement, ground and mezzanine 
+level retail space, delivered vacant, with 11 floors of office space above featuring 
+four current tenants on single floors. The Property features an assumable loan 
+with a maturity of January 10, 2027 at an interest rate of approximately 4.7%. 20 
+West 37th Street represents the opportunity for an investor to own a mixed-use 
+asset in a prime submarket of Manhattan at below replacement cost with in-
+place financing at an extremely competitive rate, or offers a potential user the 
+opportunity for a New York City flagship location. 
+ATTRACTIVE ASSUMABLE FINANCING AT A RATE 
+SUB- 5%
+DELIVERED SIGNIFICANTLY VACANT, ALLOWING FOR 
+EASE OF EXECUTION FOR ANY BUSINESS PLAN 
+INCLUDING OWNER-OCCUPANCY
+FANTASTIC PROXIMITY TO NEW YORK CITY’S 
+COMMUTING HUBS
+ASKING:  $32,500,000
+5 4
+Lee & Associates
+
+Provide only the updated summary text.
+
+RESPONSE:
+20 West 37th Street is a mixed-use office building located in Midtown Manhattan, strategically positioned near major transportation hubs including Bryant Park, Grand Central Station, and Penn Station. The property consists of basement, ground, and mezzanine level retail space (currently vacant), plus 11 floors of office space with four existing single-floor tenants. The building features an assumable loan maturing January 10, 2027, with an approximately 4.7% interest rate. Listed at $32,500,000, the property presents an opportunity for investors to acquire a mixed-use asset below replacement cost with favorable financing, or for potential users seeking a flagship location in New York City.
+
+================================================== 2024-12-03T23:22:22.736661 ==================================================
+PROMPT:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: INVESTMENT 
+HIGHLIGHTS
+ Value-add office asset ideally 
+located in the heart of Midtown
+ Near-term vacancies ideal 
+for immediate renovation and 
+rapid execution of planned 
+capital improvements
+ Proximity to one of New York 
+City’s premier transit hubs: 
+Grand Central Terminal
+ Floor plan allows for easily 
+divisible spaces to serve a 
+wide range of tenant needs
+ Immediate vacancy allows for 
+users to capitalize on owner-
+occupying spacePROPERTY SUMMARY
+Address20 West 37th Street, New 
+York, NY 10018
+DescriptionFrontage on West 37th 
+Street between 5th Avenue 
+and 6th Avenue
+Lot SF 6,315
+Lot Dimensions 63.92' x 98.75'
+Building Dimensions 63.91' x 96.00'
+Block / Lot 838 - 62
+Gross SF 69,718
+Rentable SF. 82,350
+Floors 12
+Zoning M1-6
+Max FAR Commercial 10.00
+Facility 10.00
+As-Built SF 69,718 (Overbuilt)
+Max ZFA 63,150
+Tax Class 4
+Real Estate Taxes (22/23) $672,825 
+7 6
+Lee & Associates
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "is_relevant": true,
+    "has_confidential": false,
+    "confidence": 0.95,
+    "reason": "Contains detailed property information including address, dimensions, square footage, zoning details, tax information and investment highlights for an office building at 20 West 37th Street, NYC"
+}
+
+================================================== 2024-12-03T23:22:31.133173 ==================================================
+PROMPT:
+Identify and extract any tables from this text. 
+Known table types: rent_roll, expenses, units, occupancy
+
+For each table found, normalize the data into a consistent format.
+If you find a new table type, use an appropriate descriptive name.
+
+Previous table types found: []
+Text: INVESTMENT 
+HIGHLIGHTS
+ Value-add office asset ideally 
+located in the heart of Midtown
+ Near-term vacancies ideal 
+for immediate renovation and 
+rapid execution of planned 
+capital improvements
+ Proximity to one of New York 
+City’s premier transit hubs: 
+Grand Central Terminal
+ Floor plan allows for easily 
+divisible spaces to serve a 
+wide range of tenant needs
+ Immediate vacancy allows for 
+users to capitalize on owner-
+occupying spacePROPERTY SUMMARY
+Address20 West 37th Street, New 
+York, NY 10018
+DescriptionFrontage on West 37th 
+Street between 5th Avenue 
+and 6th Avenue
+Lot SF 6,315
+Lot Dimensions 63.92' x 98.75'
+Building Dimensions 63.91' x 96.00'
+Block / Lot 838 - 62
+Gross SF 69,718
+Rentable SF. 82,350
+Floors 12
+Zoning M1-6
+Max FAR Commercial 10.00
+Facility 10.00
+As-Built SF 69,718 (Overbuilt)
+Max ZFA 63,150
+Tax Class 4
+Real Estate Taxes (22/23) $672,825 
+7 6
+Lee & Associates
+
+Respond with JSON in format:
+{
+    "table_type": [
+        {normalized table rows as objects}
+    ]
+}
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "property_summary": [
+        {
+            "attribute": "Address",
+            "value": "20 West 37th Street, New York, NY 10018"
+        },
+        {
+            "attribute": "Description", 
+            "value": "Frontage on West 37th Street between 5th Avenue and 6th Avenue"
+        },
+        {
+            "attribute": "Lot SF",
+            "value": "6,315"
+        },
+        {
+            "attribute": "Lot Dimensions",
+            "value": "63.92' x 98.75'"
+        },
+        {
+            "attribute": "Building Dimensions",
+            "value": "63.91' x 96.00'"
+        },
+        {
+            "attribute": "Block / Lot",
+            "value": "838 - 62"
+        },
+        {
+            "attribute": "Gross SF",
+            "value": "69,718"
+        },
+        {
+            "attribute": "Rentable SF",
+            "value": "82,350"
+        },
+        {
+            "attribute": "Floors",
+            "value": "12"
+        },
+        {
+            "attribute": "Zoning",
+            "value": "M1-6"
+        },
+        {
+            "attribute": "Max FAR Commercial",
+            "value": "10.00"
+        },
+        {
+            "attribute": "Facility",
+            "value": "10.00"
+        },
+        {
+            "attribute": "As-Built SF",
+            "value": "69,718 (Overbuilt)"
+        },
+        {
+            "attribute": "Max ZFA",
+            "value": "63,150"
+        },
+        {
+            "attribute": "Tax Class",
+            "value": "4"
+        },
+        {
+            "attribute": "Real Estate Taxes (22/23)",
+            "value": "$672,825"
+        }
+    ]
+}
+
+================================================== 2024-12-03T23:22:34.998659 ==================================================
+PROMPT:
+Given the current summary and new text, update the summary.
+Add any new relevant information while maintaining coherence.
+Avoid redundancy and maintain a clear narrative flow.
+
+Current summary: 20 West 37th Street is a mixed-use office building located in Midtown Manhattan, strategically positioned near major transportation hubs including Bryant Park, Grand Central Station, and Penn Station. The property consists of basement, ground, and mezzanine level retail space (currently vacant), plus 11 floors of office space with four existing single-floor tenants. The building features an assumable loan maturing January 10, 2027, with an approximately 4.7% interest rate. Listed at $32,500,000, the property presents an opportunity for investors to acquire a mixed-use asset below replacement cost with favorable financing, or for potential users seeking a flagship location in New York City.
+New text: INVESTMENT 
+HIGHLIGHTS
+ Value-add office asset ideally 
+located in the heart of Midtown
+ Near-term vacancies ideal 
+for immediate renovation and 
+rapid execution of planned 
+capital improvements
+ Proximity to one of New York 
+City’s premier transit hubs: 
+Grand Central Terminal
+ Floor plan allows for easily 
+divisible spaces to serve a 
+wide range of tenant needs
+ Immediate vacancy allows for 
+users to capitalize on owner-
+occupying spacePROPERTY SUMMARY
+Address20 West 37th Street, New 
+York, NY 10018
+DescriptionFrontage on West 37th 
+Street between 5th Avenue 
+and 6th Avenue
+Lot SF 6,315
+Lot Dimensions 63.92' x 98.75'
+Building Dimensions 63.91' x 96.00'
+Block / Lot 838 - 62
+Gross SF 69,718
+Rentable SF. 82,350
+Floors 12
+Zoning M1-6
+Max FAR Commercial 10.00
+Facility 10.00
+As-Built SF 69,718 (Overbuilt)
+Max ZFA 63,150
+Tax Class 4
+Real Estate Taxes (22/23) $672,825 
+7 6
+Lee & Associates
+
+Provide only the updated summary text.
+
+RESPONSE:
+20 West 37th Street is a mixed-use office building located in Midtown Manhattan, strategically positioned between 5th and 6th Avenues near major transportation hubs including Bryant Park, Grand Central Terminal, and Penn Station. The 12-story property spans 82,350 rentable square feet, featuring basement, ground, and mezzanine level retail space (currently vacant), plus office space with four existing single-floor tenants. The building features an assumable loan maturing January 10, 2027, with an approximately 4.7% interest rate. Listed at $32,500,000, this value-add asset offers flexible floor plans that can be easily divided to accommodate various tenant needs. The property's immediate vacancies present opportunities for renovation and capital improvements, making it attractive for both investors seeking an asset below replacement cost with favorable financing, and potential users interested in owner-occupancy in a flagship New York City location. The building's annual real estate taxes (2022/23) are $672,825.
+
+================================================== 2024-12-03T23:22:36.254314 ==================================================
+PROMPT:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: 9 8
+Lee & Associates
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "is_relevant": false,
+    "has_confidential": false,
+    "confidence": 0.95,
+    "reason": "Page appears to only contain page numbers and company name 'Lee & Associates' without any property data, financials or other relevant information"
+}
+
+================================================== 2024-12-03T23:22:38.198821 ==================================================
+PROMPT:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: STACKING PLAN
+12Matrix New World
+7,100 RSF
+11/1/27
+Vacant
+6,500 RSF11
+Vacant
+6,500 RSF10
+Vacant
+6,500 RSF9
+New York Cue Club Inc.
+6,500 RSF
+1/10/298
+Vacant
+6,500 RSF7
+JTTC JV - TC ELECTRIC
+6,500 RSF
+1/31/266
+Vacant
+6,500 RSF5
+Vacant
+6,500 RSF4
+Tri Center
+6,500 RSF
+8/1/293
+Vacant
+6,500 RSF2
+Vacant
+10,250 RSF1
+FLOOR 1FLOOR 2FLOOR 3FLOOR 4FLOOR 5FLOOR 6FLOOR 7FLOOR 8FLOOR 9FLOOR 10FLOOR 11FLOOR 12
+11 10
+Lee & Associates
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "is_relevant": true,
+    "has_confidential": false,
+    "confidence": 0.95,
+    "reason": "Contains detailed stacking plan with tenant information, square footage, and lease expiration dates for a 12-floor building. Shows occupied and vacant spaces with specific tenant names and RSF measurements."
+}
+
+================================================== 2024-12-03T23:22:39.838111 ==================================================
+PROMPT:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: FLOOR PLANS
+UPPER FLOORS LOWER FLOORS
+TOILET TOILETA/C UP
+DN
+UPDN
+fireTOILET
+PANTRY
+OFFICEOFFICE
+IT ROOM20 WEST 37th STREETUP
+DN
+UPDNOFFICEWORKSTATIONS
+AC ROOMCONFERENCE
+CONFERENCE
+OFFICEOFFICEOFFICEOFFICE
+13 12
+Lee & Associates
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "is_relevant": true,
+    "has_confidential": false,
+    "confidence": 0.9,
+    "reason": "Contains property floor plan layout showing office spaces, workstations, conference rooms, utilities and building address (20 West 37th Street). This is relevant property information useful for understanding the asset's physical characteristics."
+}
+
+================================================== 2024-12-03T23:22:49.378952 ==================================================
+PROMPT:
+Identify and extract any tables from this text. 
+Known table types: rent_roll, expenses, units, occupancy
+
+For each table found, normalize the data into a consistent format.
+If you find a new table type, use an appropriate descriptive name.
+
+Previous table types found: ['property_summary']
+Text: STACKING PLAN
+12Matrix New World
+7,100 RSF
+11/1/27
+Vacant
+6,500 RSF11
+Vacant
+6,500 RSF10
+Vacant
+6,500 RSF9
+New York Cue Club Inc.
+6,500 RSF
+1/10/298
+Vacant
+6,500 RSF7
+JTTC JV - TC ELECTRIC
+6,500 RSF
+1/31/266
+Vacant
+6,500 RSF5
+Vacant
+6,500 RSF4
+Tri Center
+6,500 RSF
+8/1/293
+Vacant
+6,500 RSF2
+Vacant
+10,250 RSF1
+FLOOR 1FLOOR 2FLOOR 3FLOOR 4FLOOR 5FLOOR 6FLOOR 7FLOOR 8FLOOR 9FLOOR 10FLOOR 11FLOOR 12
+11 10
+Lee & Associates
+FLOOR PLANS
+UPPER FLOORS LOWER FLOORS
+TOILET TOILETA/C UP
+DN
+UPDN
+fireTOILET
+PANTRY
+OFFICEOFFICE
+IT ROOM20 WEST 37th STREETUP
+DN
+UPDNOFFICEWORKSTATIONS
+AC ROOMCONFERENCE
+CONFERENCE
+OFFICEOFFICEOFFICEOFFICE
+13 12
+Lee & Associates
+
+Respond with JSON in format:
+{
+    "table_type": [
+        {normalized table rows as objects}
+    ]
+}
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "stacking_plan": [
+        {
+            "floor": 12,
+            "tenant": "Matrix New World",
+            "rsf": 7100,
+            "lease_end": "11/1/27"
+        },
+        {
+            "floor": 11,
+            "tenant": "Vacant",
+            "rsf": 6500,
+            "lease_end": null
+        },
+        {
+            "floor": 10,
+            "tenant": "Vacant", 
+            "rsf": 6500,
+            "lease_end": null
+        },
+        {
+            "floor": 9,
+            "tenant": "Vacant",
+            "rsf": 6500,
+            "lease_end": null
+        },
+        {
+            "floor": 8,
+            "tenant": "New York Cue Club Inc.",
+            "rsf": 6500,
+            "lease_end": "1/10/29"
+        },
+        {
+            "floor": 7,
+            "tenant": "Vacant",
+            "rsf": 6500,
+            "lease_end": null
+        },
+        {
+            "floor": 6,
+            "tenant": "JTTC JV - TC ELECTRIC",
+            "rsf": 6500,
+            "lease_end": "1/31/26"
+        },
+        {
+            "floor": 5,
+            "tenant": "Vacant",
+            "rsf": 6500,
+            "lease_end": null
+        },
+        {
+            "floor": 4,
+            "tenant": "Vacant",
+            "rsf": 6500,
+            "lease_end": null
+        },
+        {
+            "floor": 3,
+            "tenant": "Tri Center",
+            "rsf": 6500,
+            "lease_end": "8/1/29"
+        },
+        {
+            "floor": 2,
+            "tenant": "Vacant",
+            "rsf": 6500,
+            "lease_end": null
+        },
+        {
+            "floor": 1,
+            "tenant": "Vacant",
+            "rsf": 10250,
+            "lease_end": null
+        }
+    ]
+}
+
+================================================== 2024-12-03T23:22:54.997327 ==================================================
+PROMPT:
+Given the current summary and new text, update the summary.
+Add any new relevant information while maintaining coherence.
+Avoid redundancy and maintain a clear narrative flow.
+
+Current summary: 20 West 37th Street is a mixed-use office building located in Midtown Manhattan, strategically positioned between 5th and 6th Avenues near major transportation hubs including Bryant Park, Grand Central Terminal, and Penn Station. The 12-story property spans 82,350 rentable square feet, featuring basement, ground, and mezzanine level retail space (currently vacant), plus office space with four existing single-floor tenants. The building features an assumable loan maturing January 10, 2027, with an approximately 4.7% interest rate. Listed at $32,500,000, this value-add asset offers flexible floor plans that can be easily divided to accommodate various tenant needs. The property's immediate vacancies present opportunities for renovation and capital improvements, making it attractive for both investors seeking an asset below replacement cost with favorable financing, and potential users interested in owner-occupancy in a flagship New York City location. The building's annual real estate taxes (2022/23) are $672,825.
+New text: STACKING PLAN
+12Matrix New World
+7,100 RSF
+11/1/27
+Vacant
+6,500 RSF11
+Vacant
+6,500 RSF10
+Vacant
+6,500 RSF9
+New York Cue Club Inc.
+6,500 RSF
+1/10/298
+Vacant
+6,500 RSF7
+JTTC JV - TC ELECTRIC
+6,500 RSF
+1/31/266
+Vacant
+6,500 RSF5
+Vacant
+6,500 RSF4
+Tri Center
+6,500 RSF
+8/1/293
+Vacant
+6,500 RSF2
+Vacant
+10,250 RSF1
+FLOOR 1FLOOR 2FLOOR 3FLOOR 4FLOOR 5FLOOR 6FLOOR 7FLOOR 8FLOOR 9FLOOR 10FLOOR 11FLOOR 12
+11 10
+Lee & Associates
+FLOOR PLANS
+UPPER FLOORS LOWER FLOORS
+TOILET TOILETA/C UP
+DN
+UPDN
+fireTOILET
+PANTRY
+OFFICEOFFICE
+IT ROOM20 WEST 37th STREETUP
+DN
+UPDNOFFICEWORKSTATIONS
+AC ROOMCONFERENCE
+CONFERENCE
+OFFICEOFFICEOFFICEOFFICE
+13 12
+Lee & Associates
+
+Provide only the updated summary text.
+
+RESPONSE:
+20 West 37th Street is a mixed-use office building located in Midtown Manhattan, strategically positioned between 5th and 6th Avenues near major transportation hubs including Bryant Park, Grand Central Terminal, and Penn Station. The 12-story property spans 82,350 rentable square feet, featuring basement, ground, and mezzanine level retail space (currently vacant), plus office space. The building's current occupancy includes Matrix New World (7,100 RSF through 11/1/27), New York Cue Club Inc. (6,500 RSF through 1/10/29), JTTC JV - TC ELECTRIC (6,500 RSF through 1/31/26), and Tri Center (6,500 RSF through 8/1/29), with several floors currently vacant. The property features an assumable loan maturing January 10, 2027, with an approximately 4.7% interest rate. Listed at $32,500,000, this value-add asset offers flexible floor plans that can be easily divided, with typical floors including workstations, conference rooms, private offices, pantry, and IT facilities. The property's significant vacancies present opportunities for renovation and capital improvements, making it attractive for both investors seeking an asset below replacement cost with favorable financing, and potential users interested in owner-occupancy in a flagship New York City location. The building's annual real estate taxes (2022/23) are $672,825.
+
+================================================== 2024-12-03T23:22:57.143373 ==================================================
+PROMPT:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: LOCATION OVERVIEW
+Midtown Manhattan is home to two of the largest commuter hubs in the borough, 
+Port Authority Bus Terminal and Penn Station, as well as major landmarks including 
+Madison Square Garden, Herald Square, and the Empire State Building. The link 
+between Amtrack, Port Authority, and the LIRR, the Penn Station area is one of the 
+most connected neighborhoods within New York City, responsible for nearly 1,000 
+people per second reaching various destinations. 
+15 14
+Lee & Associates
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "is_relevant": true,
+    "has_confidential": false,
+    "confidence": 0.8,
+    "reason": "Contains relevant location and market analysis information about Midtown Manhattan property area, including key transit hubs and landmarks that affect property value and foot traffic"
+}
+
+================================================== 2024-12-03T23:22:58.751883 ==================================================
+PROMPT:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: 40th Street
+39th Street
+38th Street
+37th Street
+36th Street
+35th Street
+33rd Street
+32nd Street43rd Street
+41st Street
+31st Street42nd Street
+34th StreetBroadw
+ayAvenue of the AmeicasMadison A venuePark A venue
+Seventh A venue 
+Eighth A venue 
+NY Public
+LibraryGrand
+Centr al
+Terminal
+Bryant P ark
+Empire State
+Building
+Pennslyv ania
+StationMadison Square
+GardenPort Authority
+Bus T erminal
+James A
+Farley
+Building
+TRANSIT TRIANGLE
+17 16
+Lee & Associates
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "is_relevant": false,
+    "has_confidential": false,
+    "confidence": 0.9,
+    "reason": "Page appears to be a simple street map/diagram of Midtown Manhattan showing major landmarks and streets. No property data, financials or key analytical information present."
+}
+
+================================================== 2024-12-03T23:23:00.590644 ==================================================
+PROMPT:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: Existing Loan Summary As of 9/1/2024 
+Origination Date 12/8/16
+Original Principal $27,500,000
+Outstanding Principal $27,500,000
+Interest Rate 4.7315%
+Loan Maturity 1/10/27
+Amortization Interest Only
+Monthly Payment (P&I) $112,045
+Annual Payment (P&I) $1,344,540
+68%
+VACANT SF32%
+OCCUPIED SFLOAN OVERVIEW
+19 18
+Lee & Associates
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "is_relevant": true,
+    "has_confidential": false,
+    "confidence": 0.9,
+    "reason": "Contains specific loan details including principal amount ($27.5M), interest rate (4.7315%), maturity date, and payment terms. Also includes occupancy metrics showing 68% vacant and 32% occupied space."
+}
+
+================================================== 2024-12-03T23:23:04.105586 ==================================================
+PROMPT:
+Identify and extract any tables from this text. 
+Known table types: rent_roll, expenses, units, occupancy
+
+For each table found, normalize the data into a consistent format.
+If you find a new table type, use an appropriate descriptive name.
+
+Previous table types found: ['property_summary', 'stacking_plan']
+Text: LOCATION OVERVIEW
+Midtown Manhattan is home to two of the largest commuter hubs in the borough, 
+Port Authority Bus Terminal and Penn Station, as well as major landmarks including 
+Madison Square Garden, Herald Square, and the Empire State Building. The link 
+between Amtrack, Port Authority, and the LIRR, the Penn Station area is one of the 
+most connected neighborhoods within New York City, responsible for nearly 1,000 
+people per second reaching various destinations. 
+15 14
+Lee & Associates
+Existing Loan Summary As of 9/1/2024 
+Origination Date 12/8/16
+Original Principal $27,500,000
+Outstanding Principal $27,500,000
+Interest Rate 4.7315%
+Loan Maturity 1/10/27
+Amortization Interest Only
+Monthly Payment (P&I) $112,045
+Annual Payment (P&I) $1,344,540
+68%
+VACANT SF32%
+OCCUPIED SFLOAN OVERVIEW
+19 18
+Lee & Associates
+
+Respond with JSON in format:
+{
+    "table_type": [
+        {normalized table rows as objects}
+    ]
+}
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "loan_summary": [
+        {
+            "origination_date": "12/8/16",
+            "original_principal": 27500000,
+            "outstanding_principal": 27500000,
+            "interest_rate": 4.7315,
+            "loan_maturity": "1/10/27",
+            "amortization": "Interest Only",
+            "monthly_payment": 112045,
+            "annual_payment": 1344540
+        }
+    ],
+    "occupancy": [
+        {
+            "status": "Vacant",
+            "percentage": 32
+        },
+        {
+            "status": "Occupied",
+            "percentage": 68
+        }
+    ]
+}
+
+================================================== 2024-12-03T23:23:11.150234 ==================================================
+PROMPT:
+Given the current summary and new text, update the summary.
+Add any new relevant information while maintaining coherence.
+Avoid redundancy and maintain a clear narrative flow.
+
+Current summary: 20 West 37th Street is a mixed-use office building located in Midtown Manhattan, strategically positioned between 5th and 6th Avenues near major transportation hubs including Bryant Park, Grand Central Terminal, and Penn Station. The 12-story property spans 82,350 rentable square feet, featuring basement, ground, and mezzanine level retail space (currently vacant), plus office space. The building's current occupancy includes Matrix New World (7,100 RSF through 11/1/27), New York Cue Club Inc. (6,500 RSF through 1/10/29), JTTC JV - TC ELECTRIC (6,500 RSF through 1/31/26), and Tri Center (6,500 RSF through 8/1/29), with several floors currently vacant. The property features an assumable loan maturing January 10, 2027, with an approximately 4.7% interest rate. Listed at $32,500,000, this value-add asset offers flexible floor plans that can be easily divided, with typical floors including workstations, conference rooms, private offices, pantry, and IT facilities. The property's significant vacancies present opportunities for renovation and capital improvements, making it attractive for both investors seeking an asset below replacement cost with favorable financing, and potential users interested in owner-occupancy in a flagship New York City location. The building's annual real estate taxes (2022/23) are $672,825.
+New text: LOCATION OVERVIEW
+Midtown Manhattan is home to two of the largest commuter hubs in the borough, 
+Port Authority Bus Terminal and Penn Station, as well as major landmarks including 
+Madison Square Garden, Herald Square, and the Empire State Building. The link 
+between Amtrack, Port Authority, and the LIRR, the Penn Station area is one of the 
+most connected neighborhoods within New York City, responsible for nearly 1,000 
+people per second reaching various destinations. 
+15 14
+Lee & Associates
+Existing Loan Summary As of 9/1/2024 
+Origination Date 12/8/16
+Original Principal $27,500,000
+Outstanding Principal $27,500,000
+Interest Rate 4.7315%
+Loan Maturity 1/10/27
+Amortization Interest Only
+Monthly Payment (P&I) $112,045
+Annual Payment (P&I) $1,344,540
+68%
+VACANT SF32%
+OCCUPIED SFLOAN OVERVIEW
+19 18
+Lee & Associates
+
+Provide only the updated summary text.
+
+RESPONSE:
+20 West 37th Street is a mixed-use office building located in Midtown Manhattan, strategically positioned between 5th and 6th Avenues near major transportation hubs including Bryant Park, Grand Central Terminal, Penn Station, and Port Authority Bus Terminal. The area sees nearly 1,000 people per second due to its connectivity through Amtrak, Port Authority, and the LIRR. The 12-story property spans 82,350 rentable square feet, featuring basement, ground, and mezzanine level retail space (currently vacant), plus office space. The building's current occupancy includes Matrix New World (7,100 RSF through 11/1/27), New York Cue Club Inc. (6,500 RSF through 1/10/29), JTTC JV - TC ELECTRIC (6,500 RSF through 1/31/26), and Tri Center (6,500 RSF through 8/1/29), with approximately 68% of the space currently vacant. The property features an assumable loan originated on 12/8/16 with an outstanding principal of $27,500,000, maturing January 10, 2027, at a 4.7315% interest rate with interest-only monthly payments of $112,045. Listed at $32,500,000, this value-add asset offers flexible floor plans that can be easily divided, with typical floors including workstations, conference rooms, private offices, pantry, and IT facilities. The property's significant vacancies present opportunities for renovation and capital improvements, making it attractive for both investors seeking an asset below replacement cost with favorable financing, and potential users interested in owner-occupancy in a flagship New York City location. The building's annual real estate taxes (2022/23) are $672,825.
+
+================================================== 2024-12-03T23:23:13.031543 ==================================================
+PROMPT:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: FINANCIAL ANALYSIS
+RENT ROLL - COMMERCIAL
+In-Place Projected
+Unit # Use RSF TenantLease 
+Exp.Annual 
+RentMonthly 
+RentPSFAnnual 
+RentMonthly 
+RentPSF
+Retail E Retail 10,250 Vacant Vacant - - - $922,500 $76,875 $90.00
+2 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+3 Office 6,500 Tri Center 8/1/29 $263,250 $21,938 $40.50 $263,250 $21,938 $40.50
+4 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+5 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+6 Office 6,500 JTTC JV - TC Electric 1/31/26 $215,995 $18,000 $33.23 $215,995 $18,000 $33.23
+7 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+8 Office 6,500 New York Cue Club Inc. 1/10/29 $228,020 $19,002 $35.08 $228,020 $19,002 $35.08
+9 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+10 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+11 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+12 Office 7,100 Matrix New World 11/1/27 $298,200 $24,850 $42.00 $298,200 $24,850 $42.00
+Unit Totals 82,350 $1,005,465 $83,789 $12.21 $3,747,965 $312,330 $45.51INCOME & EXPENSE
+In-Place Projected
+Units RSFAnnual 
+RentPSFAnnual 
+RentPSF
+Retail Income 1 10,250 - - $922,500 $90.00
+Office Income 11 72,100 $1,005,465 $13.95 $2,825,465 $39.19
+Other Income - -
+Total Rental Income 12 82,350 $1,005,465 $12.21 $3,747,965 $45.51
+RE Tax Reimbursements Actual  $31,252  $31,252 
+Expense Reimbursements Actual  $27,157    $27,157 
+Effective Gross Revenue  $1,063,874  $3,806,374 
+Operating Expenses Annual$ / Gross 
+SF% of 
+EGIAnnual$ / Gross 
+SF% of 
+EGI
+Real Estate Taxes Actual  $672,825  $9.65 66.9%  $672,825  $9.65 18.0%
+Insurance Actual  $168,629  $2.42 16.8%  $139,436  $2.00 3.7%
+Utilities Actual  $145,961  $2.09 14.5%  $104,577  $1.50 2.8%
+Repairs & Maintenance Actual  $292,187  $4.19 29.1%  $114,191  $1.64 3.0%
+Payroll Actual  $186,923  $2.68 18.6%  $150,000  $2.15 4.0%
+General & Administrative Actual  $85,282  $1.22 8.5%  $76,127  $1.09 2.0%
+Management Projected  $31,916  $0.46 3.0%  $114,191  $1.64 3.0%
+Total Operating Expenses  $1,583,723  $22.72 157.5%  $1,371,348  $19.67 36.6%
+Net Operating Income  $(519,849)  $2,435,026 INCOME & EXPENSE
+In-Place Projected
+Units RSFAnnual 
+RentPSFAnnual 
+RentPSF
+Retail Income 1 10,250 - - $922,500 $90.00
+Office Income 11 72,100 $1,005,465 $13.95 $2,825,465 $39.19
+Other Income - -
+Total Rental Income 12 82,350 $1,005,465 $12.21 $3,747,965 $45.51
+RE Tax Reimbursements Actual  $31,252  $31,252 
+Expense Reimbursements Actual  $27,157    $27,157 
+Effective Gross Revenue  $1,063,874  $3,806,374 
+Operating Expenses Annual$ / Gross 
+SF% of 
+EGIAnnual$ / Gross 
+SF% of 
+EGI
+Real Estate Taxes Actual  $672,825  $9.65 66.9%  $672,825  $9.65 18.0%
+Insurance Actual  $168,629  $2.42 16.8%  $139,436  $2.00 3.7%
+Utilities Actual  $145,961  $2.09 14.5%  $104,577  $1.50 2.8%
+Repairs & Maintenance Actual  $292,187  $4.19 29.1%  $114,191  $1.64 3.0%
+Payroll Actual  $186,923  $2.68 18.6%  $150,000  $2.15 4.0%
+General & Administrative Actual  $85,282  $1.22 8.5%  $76,127  $1.09 2.0%
+Management Projected  $31,916  $0.46 3.0%  $114,191  $1.64 3.0%
+Total Operating Expenses  $1,583,723  $22.72 157.5%  $1,371,348  $19.67 36.6%
+Net Operating Income  $(519,849)  $2,435,026 
+21 20
+Lee & Associates
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "is_relevant": true,
+    "has_confidential": false,
+    "confidence": 0.95,
+    "reason": "Contains detailed financial data including complete rent roll with tenant information, lease terms, and comprehensive income/expense statements showing both in-place and projected financials for a commercial property with retail and office spaces"
+}
+
+================================================== 2024-12-03T23:23:53.257568 ==================================================
+PROMPT:
+Identify and extract any tables from this text. 
+Known table types: rent_roll, expenses, units, occupancy
+
+For each table found, normalize the data into a consistent format.
+If you find a new table type, use an appropriate descriptive name.
+
+Previous table types found: ['property_summary', 'stacking_plan', 'loan_summary', 'occupancy']
+Text: FINANCIAL ANALYSIS
+RENT ROLL - COMMERCIAL
+In-Place Projected
+Unit # Use RSF TenantLease 
+Exp.Annual 
+RentMonthly 
+RentPSFAnnual 
+RentMonthly 
+RentPSF
+Retail E Retail 10,250 Vacant Vacant - - - $922,500 $76,875 $90.00
+2 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+3 Office 6,500 Tri Center 8/1/29 $263,250 $21,938 $40.50 $263,250 $21,938 $40.50
+4 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+5 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+6 Office 6,500 JTTC JV - TC Electric 1/31/26 $215,995 $18,000 $33.23 $215,995 $18,000 $33.23
+7 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+8 Office 6,500 New York Cue Club Inc. 1/10/29 $228,020 $19,002 $35.08 $228,020 $19,002 $35.08
+9 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+10 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+11 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+12 Office 7,100 Matrix New World 11/1/27 $298,200 $24,850 $42.00 $298,200 $24,850 $42.00
+Unit Totals 82,350 $1,005,465 $83,789 $12.21 $3,747,965 $312,330 $45.51INCOME & EXPENSE
+In-Place Projected
+Units RSFAnnual 
+RentPSFAnnual 
+RentPSF
+Retail Income 1 10,250 - - $922,500 $90.00
+Office Income 11 72,100 $1,005,465 $13.95 $2,825,465 $39.19
+Other Income - -
+Total Rental Income 12 82,350 $1,005,465 $12.21 $3,747,965 $45.51
+RE Tax Reimbursements Actual  $31,252  $31,252 
+Expense Reimbursements Actual  $27,157    $27,157 
+Effective Gross Revenue  $1,063,874  $3,806,374 
+Operating Expenses Annual$ / Gross 
+SF% of 
+EGIAnnual$ / Gross 
+SF% of 
+EGI
+Real Estate Taxes Actual  $672,825  $9.65 66.9%  $672,825  $9.65 18.0%
+Insurance Actual  $168,629  $2.42 16.8%  $139,436  $2.00 3.7%
+Utilities Actual  $145,961  $2.09 14.5%  $104,577  $1.50 2.8%
+Repairs & Maintenance Actual  $292,187  $4.19 29.1%  $114,191  $1.64 3.0%
+Payroll Actual  $186,923  $2.68 18.6%  $150,000  $2.15 4.0%
+General & Administrative Actual  $85,282  $1.22 8.5%  $76,127  $1.09 2.0%
+Management Projected  $31,916  $0.46 3.0%  $114,191  $1.64 3.0%
+Total Operating Expenses  $1,583,723  $22.72 157.5%  $1,371,348  $19.67 36.6%
+Net Operating Income  $(519,849)  $2,435,026 INCOME & EXPENSE
+In-Place Projected
+Units RSFAnnual 
+RentPSFAnnual 
+RentPSF
+Retail Income 1 10,250 - - $922,500 $90.00
+Office Income 11 72,100 $1,005,465 $13.95 $2,825,465 $39.19
+Other Income - -
+Total Rental Income 12 82,350 $1,005,465 $12.21 $3,747,965 $45.51
+RE Tax Reimbursements Actual  $31,252  $31,252 
+Expense Reimbursements Actual  $27,157    $27,157 
+Effective Gross Revenue  $1,063,874  $3,806,374 
+Operating Expenses Annual$ / Gross 
+SF% of 
+EGIAnnual$ / Gross 
+SF% of 
+EGI
+Real Estate Taxes Actual  $672,825  $9.65 66.9%  $672,825  $9.65 18.0%
+Insurance Actual  $168,629  $2.42 16.8%  $139,436  $2.00 3.7%
+Utilities Actual  $145,961  $2.09 14.5%  $104,577  $1.50 2.8%
+Repairs & Maintenance Actual  $292,187  $4.19 29.1%  $114,191  $1.64 3.0%
+Payroll Actual  $186,923  $2.68 18.6%  $150,000  $2.15 4.0%
+General & Administrative Actual  $85,282  $1.22 8.5%  $76,127  $1.09 2.0%
+Management Projected  $31,916  $0.46 3.0%  $114,191  $1.64 3.0%
+Total Operating Expenses  $1,583,723  $22.72 157.5%  $1,371,348  $19.67 36.6%
+Net Operating Income  $(519,849)  $2,435,026 
+21 20
+Lee & Associates
+
+Respond with JSON in format:
+{
+    "table_type": [
+        {normalized table rows as objects}
+    ]
+}
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "rent_roll": [
+        {
+            "unit": "Retail E",
+            "use": "Retail",
+            "rsf": 10250,
+            "tenant": "Vacant",
+            "lease_exp": "Vacant",
+            "current_annual_rent": 0,
+            "current_monthly_rent": 0,
+            "current_psf": 0,
+            "projected_annual_rent": 922500,
+            "projected_monthly_rent": 76875,
+            "projected_psf": 90.00
+        },
+        {
+            "unit": "2",
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Vacant",
+            "lease_exp": "Vacant",
+            "current_annual_rent": 0,
+            "current_monthly_rent": 0,
+            "current_psf": 0,
+            "projected_annual_rent": 260000,
+            "projected_monthly_rent": 21667,
+            "projected_psf": 40.00
+        },
+        {
+            "unit": "3",
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Tri Center",
+            "lease_exp": "8/1/29",
+            "current_annual_rent": 263250,
+            "current_monthly_rent": 21938,
+            "current_psf": 40.50,
+            "projected_annual_rent": 263250,
+            "projected_monthly_rent": 21938,
+            "projected_psf": 40.50
+        },
+        {
+            "unit": "4",
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Vacant",
+            "lease_exp": "Vacant",
+            "current_annual_rent": 0,
+            "current_monthly_rent": 0,
+            "current_psf": 0,
+            "projected_annual_rent": 260000,
+            "projected_monthly_rent": 21667,
+            "projected_psf": 40.00
+        },
+        {
+            "unit": "5",
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Vacant",
+            "lease_exp": "Vacant",
+            "current_annual_rent": 0,
+            "current_monthly_rent": 0,
+            "current_psf": 0,
+            "projected_annual_rent": 260000,
+            "projected_monthly_rent": 21667,
+            "projected_psf": 40.00
+        },
+        {
+            "unit": "6",
+            "use": "Office", 
+            "rsf": 6500,
+            "tenant": "JTTC JV - TC Electric",
+            "lease_exp": "1/31/26",
+            "current_annual_rent": 215995,
+            "current_monthly_rent": 18000,
+            "current_psf": 33.23,
+            "projected_annual_rent": 215995,
+            "projected_monthly_rent": 18000,
+            "projected_psf": 33.23
+        },
+        {
+            "unit": "7",
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Vacant",
+            "lease_exp": "Vacant",
+            "current_annual_rent": 0,
+            "current_monthly_rent": 0,
+            "current_psf": 0,
+            "projected_annual_rent": 260000,
+            "projected_monthly_rent": 21667,
+            "projected_psf": 40.00
+        },
+        {
+            "unit": "8",
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "New York Cue Club Inc.",
+            "lease_exp": "1/10/29",
+            "current_annual_rent": 228020,
+            "current_monthly_rent": 19002,
+            "current_psf": 35.08,
+            "projected_annual_rent": 228020,
+            "projected_monthly_rent": 19002,
+            "projected_psf": 35.08
+        },
+        {
+            "unit": "9",
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Vacant",
+            "lease_exp": "Vacant",
+            "current_annual_rent": 0,
+            "current_monthly_rent": 0,
+            "current_psf": 0,
+            "projected_annual_rent": 260000,
+            "projected_monthly_rent": 21667,
+            "projected_psf": 40.00
+        },
+        {
+            "unit": "10",
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Vacant",
+            "lease_exp": "Vacant",
+            "current_annual_rent": 0,
+            "current_monthly_rent": 0,
+            "current_psf": 0,
+            "projected_annual_rent": 260000,
+            "projected_monthly_rent": 21667,
+            "projected_psf": 40.00
+        },
+        {
+            "unit": "11",
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Vacant",
+            "lease_exp": "Vacant",
+            "current_annual_rent": 0,
+            "current_monthly_rent": 0,
+            "current_psf": 0,
+            "projected_annual_rent": 260000,
+            "projected_monthly_rent": 21667,
+            "projected_psf": 40.00
+        },
+        {
+            "unit": "12",
+            "use": "Office",
+            "rsf": 7100,
+            "tenant": "Matrix New World",
+            "lease_exp": "11/1/27",
+            "current_annual_rent": 298200,
+            "current_monthly_rent": 24850,
+            "current_psf": 42.00,
+            "projected_annual_rent": 298200,
+            "projected_monthly_rent": 24850,
+            "projected_psf": 42.00
+        }
+    ],
+    "expenses": [
+        {
+            "category": "Real Estate Taxes",
+            "basis": "Actual",
+            "current_annual": 672825,
+            "current_sf": 9.65,
+            "current_egi_pct": 66.9,
+            "projected_annual": 672825,
+            "projected_sf": 9.65,
+            "projected_egi_pct": 18.0
+        },
+        {
+            "category": "Insurance",
+            "basis": "Actual", 
+            "current_annual": 168629,
+            "current_sf": 2.42,
+            "current_egi_pct": 16.8,
+            "projected_annual": 139436,
+            "projected_sf": 2.00,
+            "projected_egi_pct": 3.7
+        },
+        {
+            "category": "Utilities",
+            "basis": "Actual",
+            "current_annual": 145961,
+            "current_sf": 2.09,
+            "current_egi_pct": 14.5,
+            "projected_annual": 104577,
+            "projected_sf": 1.50,
+            "projected_egi_pct": 2.8
+        },
+        {
+            "category": "Repairs & Maintenance",
+            "basis": "Actual",
+            "current_annual": 292187,
+            "current_sf": 4.19,
+            "current_egi_pct": 29.1,
+            "projected_annual": 114191,
+            "projected_sf": 1.64,
+            "projected_egi_pct": 3.0
+        },
+        {
+            "category": "Payroll",
+            "basis": "Actual",
+            "current_annual": 186923,
+            "current_sf": 2.68,
+            "current_egi_pct": 18.6,
+            "projected_annual": 150000,
+            "projected_sf": 2.15,
+            "projected_egi_pct": 4.0
+        },
+        {
+            "category": "General & Administrative",
+            "basis": "Actual",
+            "current_annual": 85282,
+            "current_sf": 1.22,
+            "current_egi_pct": 8.5,
+            "projected_annual": 76127,
+            "projected_sf": 1.09,
+            "projected_egi_pct": 2.0
+        },
+        {
+            "category": "Management",
+            "basis": "Projected",
+            "current_annual": 31916,
+            "current_sf": 0.46,
+            "current_egi_pct": 3.0,
+            "projected_annual": 114191,
+            "projected_sf": 1.64,
+            "projected_egi_pct": 3.0
+        }
+    ]
+}
+
+================================================== 2024-12-03T23:24:03.082365 ==================================================
+PROMPT:
+Given the current summary and new text, update the summary.
+Add any new relevant information while maintaining coherence.
+Avoid redundancy and maintain a clear narrative flow.
+
+Current summary: 20 West 37th Street is a mixed-use office building located in Midtown Manhattan, strategically positioned between 5th and 6th Avenues near major transportation hubs including Bryant Park, Grand Central Terminal, Penn Station, and Port Authority Bus Terminal. The area sees nearly 1,000 people per second due to its connectivity through Amtrak, Port Authority, and the LIRR. The 12-story property spans 82,350 rentable square feet, featuring basement, ground, and mezzanine level retail space (currently vacant), plus office space. The building's current occupancy includes Matrix New World (7,100 RSF through 11/1/27), New York Cue Club Inc. (6,500 RSF through 1/10/29), JTTC JV - TC ELECTRIC (6,500 RSF through 1/31/26), and Tri Center (6,500 RSF through 8/1/29), with approximately 68% of the space currently vacant. The property features an assumable loan originated on 12/8/16 with an outstanding principal of $27,500,000, maturing January 10, 2027, at a 4.7315% interest rate with interest-only monthly payments of $112,045. Listed at $32,500,000, this value-add asset offers flexible floor plans that can be easily divided, with typical floors including workstations, conference rooms, private offices, pantry, and IT facilities. The property's significant vacancies present opportunities for renovation and capital improvements, making it attractive for both investors seeking an asset below replacement cost with favorable financing, and potential users interested in owner-occupancy in a flagship New York City location. The building's annual real estate taxes (2022/23) are $672,825.
+New text: FINANCIAL ANALYSIS
+RENT ROLL - COMMERCIAL
+In-Place Projected
+Unit # Use RSF TenantLease 
+Exp.Annual 
+RentMonthly 
+RentPSFAnnual 
+RentMonthly 
+RentPSF
+Retail E Retail 10,250 Vacant Vacant - - - $922,500 $76,875 $90.00
+2 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+3 Office 6,500 Tri Center 8/1/29 $263,250 $21,938 $40.50 $263,250 $21,938 $40.50
+4 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+5 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+6 Office 6,500 JTTC JV - TC Electric 1/31/26 $215,995 $18,000 $33.23 $215,995 $18,000 $33.23
+7 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+8 Office 6,500 New York Cue Club Inc. 1/10/29 $228,020 $19,002 $35.08 $228,020 $19,002 $35.08
+9 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+10 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+11 Office 6,500 Vacant Vacant - - - $260,000 $21,667 $40.00
+12 Office 7,100 Matrix New World 11/1/27 $298,200 $24,850 $42.00 $298,200 $24,850 $42.00
+Unit Totals 82,350 $1,005,465 $83,789 $12.21 $3,747,965 $312,330 $45.51INCOME & EXPENSE
+In-Place Projected
+Units RSFAnnual 
+RentPSFAnnual 
+RentPSF
+Retail Income 1 10,250 - - $922,500 $90.00
+Office Income 11 72,100 $1,005,465 $13.95 $2,825,465 $39.19
+Other Income - -
+Total Rental Income 12 82,350 $1,005,465 $12.21 $3,747,965 $45.51
+RE Tax Reimbursements Actual  $31,252  $31,252 
+Expense Reimbursements Actual  $27,157    $27,157 
+Effective Gross Revenue  $1,063,874  $3,806,374 
+Operating Expenses Annual$ / Gross 
+SF% of 
+EGIAnnual$ / Gross 
+SF% of 
+EGI
+Real Estate Taxes Actual  $672,825  $9.65 66.9%  $672,825  $9.65 18.0%
+Insurance Actual  $168,629  $2.42 16.8%  $139,436  $2.00 3.7%
+Utilities Actual  $145,961  $2.09 14.5%  $104,577  $1.50 2.8%
+Repairs & Maintenance Actual  $292,187  $4.19 29.1%  $114,191  $1.64 3.0%
+Payroll Actual  $186,923  $2.68 18.6%  $150,000  $2.15 4.0%
+General & Administrative Actual  $85,282  $1.22 8.5%  $76,127  $1.09 2.0%
+Management Projected  $31,916  $0.46 3.0%  $114,191  $1.64 3.0%
+Total Operating Expenses  $1,583,723  $22.72 157.5%  $1,371,348  $19.67 36.6%
+Net Operating Income  $(519,849)  $2,435,026 INCOME & EXPENSE
+In-Place Projected
+Units RSFAnnual 
+RentPSFAnnual 
+RentPSF
+Retail Income 1 10,250 - - $922,500 $90.00
+Office Income 11 72,100 $1,005,465 $13.95 $2,825,465 $39.19
+Other Income - -
+Total Rental Income 12 82,350 $1,005,465 $12.21 $3,747,965 $45.51
+RE Tax Reimbursements Actual  $31,252  $31,252 
+Expense Reimbursements Actual  $27,157    $27,157 
+Effective Gross Revenue  $1,063,874  $3,806,374 
+Operating Expenses Annual$ / Gross 
+SF% of 
+EGIAnnual$ / Gross 
+SF% of 
+EGI
+Real Estate Taxes Actual  $672,825  $9.65 66.9%  $672,825  $9.65 18.0%
+Insurance Actual  $168,629  $2.42 16.8%  $139,436  $2.00 3.7%
+Utilities Actual  $145,961  $2.09 14.5%  $104,577  $1.50 2.8%
+Repairs & Maintenance Actual  $292,187  $4.19 29.1%  $114,191  $1.64 3.0%
+Payroll Actual  $186,923  $2.68 18.6%  $150,000  $2.15 4.0%
+General & Administrative Actual  $85,282  $1.22 8.5%  $76,127  $1.09 2.0%
+Management Projected  $31,916  $0.46 3.0%  $114,191  $1.64 3.0%
+Total Operating Expenses  $1,583,723  $22.72 157.5%  $1,371,348  $19.67 36.6%
+Net Operating Income  $(519,849)  $2,435,026 
+21 20
+Lee & Associates
+
+Provide only the updated summary text.
+
+RESPONSE:
+20 West 37th Street is a mixed-use office building located in Midtown Manhattan, strategically positioned between 5th and 6th Avenues near major transportation hubs including Bryant Park, Grand Central Terminal, Penn Station, and Port Authority Bus Terminal. The area sees nearly 1,000 people per second due to its connectivity through Amtrak, Port Authority, and the LIRR. The 12-story property spans 82,350 rentable square feet, featuring basement, ground, and mezzanine level retail space (10,250 RSF, currently vacant), plus office space. The building's current occupancy includes Matrix New World (7,100 RSF through 11/1/27, $42.00/PSF), New York Cue Club Inc. (6,500 RSF through 1/10/29, $35.08/PSF), JTTC JV - TC ELECTRIC (6,500 RSF through 1/31/26, $33.23/PSF), and Tri Center (6,500 RSF through 8/1/29, $40.50/PSF), with approximately 68% of the space currently vacant. The property features an assumable loan originated on 12/8/16 with an outstanding principal of $27,500,000, maturing January 10, 2027, at a 4.7315% interest rate with interest-only monthly payments of $112,045. Listed at $32,500,000, this value-add asset offers flexible floor plans that can be easily divided, with typical floors including workstations, conference rooms, private offices, pantry, and IT facilities. The current annual rental income is $1,005,465, with a projected potential of $3,747,965 when fully leased. Operating expenses total $1,583,723 annually, with real estate taxes of $672,825 (2022/23). The property currently operates at a negative NOI of $(519,849) but has a projected NOI of $2,435,026 when stabilized, presenting significant upside potential for investors seeking an asset below replacement cost with favorable financing, or for potential owner-occupants in a flagship New York City location.
+
+================================================== 2024-12-03T23:24:05.489432 ==================================================
+PROMPT:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: COMPARABLES
+OFFICE LEASE COMPARABLES
+AddressSign 
+DateFloor PSF SF Notes
+1 W 34th St 3/1/24 7 $45.99 2,710ACA Acupuncture as tenant, modified gross 
+lease
+8 W 38th St 3/18/24 4 $45.50 11,750 Dessy Group as tenant, modified gross lease
+55 W 39th St 2/6/24 7 $38.00 1,200 5 year term
+42 W 39th St 2/1/24 3 $39.00 1,132Viking Sales Group as tenant, modified gross 
+lease
+54 W 39th St 10/16/23 10 $39.00 2,000 Topview as tenant, modified gross lease
+40 W 37th St 10/12/23 5 $45.00 1,114 Modified gross lease, 3 year term
+44 W 37th St 10/3/23 7 $58.85 4,216 Compass Pathways as tenant, NNN lease
+10 W 33rd St 9/20/23 PENT $49.00 14,200Corsswinds Sourcing LLC as tenant, 3 year 
+term
+37 W 39th St 8/25/23 4 $40.21 1,150 Nippon Photoclinic as tenant, NNN lease
+42 W 38th St 8/1/23 8 $35.00 1,548 Modified gross lease
+13 W 36th St 8/1/23 3 $39.00 2,500 DePaula & Clark as tenant, 7 year term
+40 W 37th St 6/16/23 12 $36.00 1,344Behavior Therapy of New York as tenant, 
+modified gross lease
+10 W 33rd St 6/5/23 - $49.00 3,099 Lynco Products as tenant, modified gross lease
+6 W 36th St 5/1/23 8 $39.00 1,300 Modified gross lease
+13 E 33rd St 3/22/23 3 $45.00 6,894Franco Manufacturing as tenant, modified 
+gross lease
+40 W 37th St 3/18/23 12 $38.00 1,014 VC Realty as tenant, modified gross lease
+40 W 37th St 1/13/23 6 $40.80 620 KT Trade as tenant, modified gross lease
+Min $35 620
+Max $59 14,200
+Average $42 3,399RETAIL LEASE COMPARABLES
+Address Sign 
+DateFloor PSF SF Notes
+35 W 35th St 6/7/24 Ground, 2 $110 8,300 Mt. ShuTao Hot Pot as tenant, modified gross 
+lease, midblock retail
+22 W 38th St 5/2/24 Ground $98 1,774 Modified gross lease, midblock retail
+40 W 37th St 5/1/24 Ground, 2 $113 1,950 Imperial Orchid Sushi as tenant, modified gross 
+lease, midblock retail
+8 W 37th St 3/15/24 Ground $70 2,300 VanMoof as tenant, midblock retail space, 5 year 
+term
+35 W 36th St 4/3/24 Ground, 2 $106 8,724 Won Kitchen & Bar as tenant, full service lease, 
+midblock retail
+110 W 32nd St 9/15/23 Lower, 
+Ground, 2$100 30,000 Jack's Market as tenant, midblock retail, 
+modified gross lease
+35 W 36th St 6/21/23 Ground $117 2,264 Full service lease, midblock retail
+157 W 35th St 2/16/23 Ground $91 1,018 Village Square Pizza as tenant, full service lease
+42 W 35th St 4/1/22 Ground $79 5,500 QB Hospitality as tenant, modified gross lease, 
+midblock retail
+Min $70 1,018
+Max $117 30,000
+Average $98 6,870
+23 22
+Lee & Associates
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "is_relevant": true,
+    "has_confidential": false,
+    "confidence": 0.95,
+    "reason": "Contains detailed lease comparables data with property addresses, rental rates (PSF), square footage, tenant information, and lease terms for both office and retail properties in the area. Includes specific transaction dates and lease types."
+}
+
+================================================== 2024-12-03T23:24:06.568412 ==================================================
+PROMPT:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: 
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "is_relevant": false,
+    "has_confidential": false,
+    "confidence": 1.0,
+    "reason": "No text content provided to analyze"
+}
+
+================================================== 2024-12-03T23:24:18.588827 ==================================================
+PROMPT:
+Identify and extract any tables from this text. 
+Known table types: rent_roll, expenses, units, occupancy
+
+For each table found, normalize the data into a consistent format.
+If you find a new table type, use an appropriate descriptive name.
+
+Previous table types found: ['property_summary', 'stacking_plan', 'loan_summary', 'occupancy', 'rent_roll', 'expenses']
+Text: COMPARABLES
+OFFICE LEASE COMPARABLES
+AddressSign 
+DateFloor PSF SF Notes
+1 W 34th St 3/1/24 7 $45.99 2,710ACA Acupuncture as tenant, modified gross 
+lease
+8 W 38th St 3/18/24 4 $45.50 11,750 Dessy Group as tenant, modified gross lease
+55 W 39th St 2/6/24 7 $38.00 1,200 5 year term
+42 W 39th St 2/1/24 3 $39.00 1,132Viking Sales Group as tenant, modified gross 
+lease
+54 W 39th St 10/16/23 10 $39.00 2,000 Topview as tenant, modified gross lease
+40 W 37th St 10/12/23 5 $45.00 1,114 Modified gross lease, 3 year term
+44 W 37th St 10/3/23 7 $58.85 4,216 Compass Pathways as tenant, NNN lease
+10 W 33rd St 9/20/23 PENT $49.00 14,200Corsswinds Sourcing LLC as tenant, 3 year 
+term
+37 W 39th St 8/25/23 4 $40.21 1,150 Nippon Photoclinic as tenant, NNN lease
+42 W 38th St 8/1/23 8 $35.00 1,548 Modified gross lease
+13 W 36th St 8/1/23 3 $39.00 2,500 DePaula & Clark as tenant, 7 year term
+40 W 37th St 6/16/23 12 $36.00 1,344Behavior Therapy of New York as tenant, 
+modified gross lease
+10 W 33rd St 6/5/23 - $49.00 3,099 Lynco Products as tenant, modified gross lease
+6 W 36th St 5/1/23 8 $39.00 1,300 Modified gross lease
+13 E 33rd St 3/22/23 3 $45.00 6,894Franco Manufacturing as tenant, modified 
+gross lease
+40 W 37th St 3/18/23 12 $38.00 1,014 VC Realty as tenant, modified gross lease
+40 W 37th St 1/13/23 6 $40.80 620 KT Trade as tenant, modified gross lease
+Min $35 620
+Max $59 14,200
+Average $42 3,399RETAIL LEASE COMPARABLES
+Address Sign 
+DateFloor PSF SF Notes
+35 W 35th St 6/7/24 Ground, 2 $110 8,300 Mt. ShuTao Hot Pot as tenant, modified gross 
+lease, midblock retail
+22 W 38th St 5/2/24 Ground $98 1,774 Modified gross lease, midblock retail
+40 W 37th St 5/1/24 Ground, 2 $113 1,950 Imperial Orchid Sushi as tenant, modified gross 
+lease, midblock retail
+8 W 37th St 3/15/24 Ground $70 2,300 VanMoof as tenant, midblock retail space, 5 year 
+term
+35 W 36th St 4/3/24 Ground, 2 $106 8,724 Won Kitchen & Bar as tenant, full service lease, 
+midblock retail
+110 W 32nd St 9/15/23 Lower, 
+Ground, 2$100 30,000 Jack's Market as tenant, midblock retail, 
+modified gross lease
+35 W 36th St 6/21/23 Ground $117 2,264 Full service lease, midblock retail
+157 W 35th St 2/16/23 Ground $91 1,018 Village Square Pizza as tenant, full service lease
+42 W 35th St 4/1/22 Ground $79 5,500 QB Hospitality as tenant, modified gross lease, 
+midblock retail
+Min $70 1,018
+Max $117 30,000
+Average $98 6,870
+23 22
+Lee & Associates
+
+Respond with JSON in format:
+{
+    "table_type": [
+        {normalized table rows as objects}
+    ]
+}
+
+Return valid JSON only.
+
+RESPONSE:
+{
+    "lease_comparables_office": [
+        {
+            "address": "1 W 34th St",
+            "sign_date": "2024-03-01",
+            "floor": "7",
+            "psf": 45.99,
+            "sf": 2710,
+            "tenant": "ACA Acupuncture",
+            "lease_type": "modified gross"
+        },
+        {
+            "address": "8 W 38th St",
+            "sign_date": "2024-03-18", 
+            "floor": "4",
+            "psf": 45.50,
+            "sf": 11750,
+            "tenant": "Dessy Group",
+            "lease_type": "modified gross"
+        },
+        {
+            "address": "55 W 39th St",
+            "sign_date": "2024-02-06",
+            "floor": "7", 
+            "psf": 38.00,
+            "sf": 1200,
+            "tenant": null,
+            "lease_type": null
+        },
+        {
+            "address": "42 W 39th St",
+            "sign_date": "2024-02-01",
+            "floor": "3",
+            "psf": 39.00,
+            "sf": 1132,
+            "tenant": "Viking Sales Group",
+            "lease_type": "modified gross"
+        }
+    ],
+    "lease_comparables_retail": [
+        {
+            "address": "35 W 35th St",
+            "sign_date": "2024-06-07",
+            "floor": "Ground, 2",
+            "psf": 110.00,
+            "sf": 8300,
+            "tenant": "Mt. ShuTao Hot Pot",
+            "lease_type": "modified gross"
+        },
+        {
+            "address": "22 W 38th St",
+            "sign_date": "2024-05-02",
+            "floor": "Ground",
+            "psf": 98.00,
+            "sf": 1774,
+            "tenant": null,
+            "lease_type": "modified gross"
+        },
+        {
+            "address": "40 W 37th St",
+            "sign_date": "2024-05-01",
+            "floor": "Ground, 2",
+            "psf": 113.00,
+            "sf": 1950,
+            "tenant": "Imperial Orchid Sushi",
+            "lease_type": "modified gross"
+        },
+        {
+            "address": "8 W 37th St",
+            "sign_date": "2024-03-15",
+            "floor": "Ground",
+            "psf": 70.00,
+            "sf": 2300,
+            "tenant": "VanMoof",
+            "lease_type": null
+        }
+    ]
+}
+
+================================================== 2024-12-03T23:24:29.391750 ==================================================
+PROMPT:
+Given the current summary and new text, update the summary.
+Add any new relevant information while maintaining coherence.
+Avoid redundancy and maintain a clear narrative flow.
+
+Current summary: 20 West 37th Street is a mixed-use office building located in Midtown Manhattan, strategically positioned between 5th and 6th Avenues near major transportation hubs including Bryant Park, Grand Central Terminal, Penn Station, and Port Authority Bus Terminal. The area sees nearly 1,000 people per second due to its connectivity through Amtrak, Port Authority, and the LIRR. The 12-story property spans 82,350 rentable square feet, featuring basement, ground, and mezzanine level retail space (10,250 RSF, currently vacant), plus office space. The building's current occupancy includes Matrix New World (7,100 RSF through 11/1/27, $42.00/PSF), New York Cue Club Inc. (6,500 RSF through 1/10/29, $35.08/PSF), JTTC JV - TC ELECTRIC (6,500 RSF through 1/31/26, $33.23/PSF), and Tri Center (6,500 RSF through 8/1/29, $40.50/PSF), with approximately 68% of the space currently vacant. The property features an assumable loan originated on 12/8/16 with an outstanding principal of $27,500,000, maturing January 10, 2027, at a 4.7315% interest rate with interest-only monthly payments of $112,045. Listed at $32,500,000, this value-add asset offers flexible floor plans that can be easily divided, with typical floors including workstations, conference rooms, private offices, pantry, and IT facilities. The current annual rental income is $1,005,465, with a projected potential of $3,747,965 when fully leased. Operating expenses total $1,583,723 annually, with real estate taxes of $672,825 (2022/23). The property currently operates at a negative NOI of $(519,849) but has a projected NOI of $2,435,026 when stabilized, presenting significant upside potential for investors seeking an asset below replacement cost with favorable financing, or for potential owner-occupants in a flagship New York City location.
+New text: COMPARABLES
+OFFICE LEASE COMPARABLES
+AddressSign 
+DateFloor PSF SF Notes
+1 W 34th St 3/1/24 7 $45.99 2,710ACA Acupuncture as tenant, modified gross 
+lease
+8 W 38th St 3/18/24 4 $45.50 11,750 Dessy Group as tenant, modified gross lease
+55 W 39th St 2/6/24 7 $38.00 1,200 5 year term
+42 W 39th St 2/1/24 3 $39.00 1,132Viking Sales Group as tenant, modified gross 
+lease
+54 W 39th St 10/16/23 10 $39.00 2,000 Topview as tenant, modified gross lease
+40 W 37th St 10/12/23 5 $45.00 1,114 Modified gross lease, 3 year term
+44 W 37th St 10/3/23 7 $58.85 4,216 Compass Pathways as tenant, NNN lease
+10 W 33rd St 9/20/23 PENT $49.00 14,200Corsswinds Sourcing LLC as tenant, 3 year 
+term
+37 W 39th St 8/25/23 4 $40.21 1,150 Nippon Photoclinic as tenant, NNN lease
+42 W 38th St 8/1/23 8 $35.00 1,548 Modified gross lease
+13 W 36th St 8/1/23 3 $39.00 2,500 DePaula & Clark as tenant, 7 year term
+40 W 37th St 6/16/23 12 $36.00 1,344Behavior Therapy of New York as tenant, 
+modified gross lease
+10 W 33rd St 6/5/23 - $49.00 3,099 Lynco Products as tenant, modified gross lease
+6 W 36th St 5/1/23 8 $39.00 1,300 Modified gross lease
+13 E 33rd St 3/22/23 3 $45.00 6,894Franco Manufacturing as tenant, modified 
+gross lease
+40 W 37th St 3/18/23 12 $38.00 1,014 VC Realty as tenant, modified gross lease
+40 W 37th St 1/13/23 6 $40.80 620 KT Trade as tenant, modified gross lease
+Min $35 620
+Max $59 14,200
+Average $42 3,399RETAIL LEASE COMPARABLES
+Address Sign 
+DateFloor PSF SF Notes
+35 W 35th St 6/7/24 Ground, 2 $110 8,300 Mt. ShuTao Hot Pot as tenant, modified gross 
+lease, midblock retail
+22 W 38th St 5/2/24 Ground $98 1,774 Modified gross lease, midblock retail
+40 W 37th St 5/1/24 Ground, 2 $113 1,950 Imperial Orchid Sushi as tenant, modified gross 
+lease, midblock retail
+8 W 37th St 3/15/24 Ground $70 2,300 VanMoof as tenant, midblock retail space, 5 year 
+term
+35 W 36th St 4/3/24 Ground, 2 $106 8,724 Won Kitchen & Bar as tenant, full service lease, 
+midblock retail
+110 W 32nd St 9/15/23 Lower, 
+Ground, 2$100 30,000 Jack's Market as tenant, midblock retail, 
+modified gross lease
+35 W 36th St 6/21/23 Ground $117 2,264 Full service lease, midblock retail
+157 W 35th St 2/16/23 Ground $91 1,018 Village Square Pizza as tenant, full service lease
+42 W 35th St 4/1/22 Ground $79 5,500 QB Hospitality as tenant, modified gross lease, 
+midblock retail
+Min $70 1,018
+Max $117 30,000
+Average $98 6,870
+23 22
+Lee & Associates
+
+Provide only the updated summary text.
+
+RESPONSE:
+20 West 37th Street is a mixed-use office building located in Midtown Manhattan, strategically positioned between 5th and 6th Avenues near major transportation hubs including Bryant Park, Grand Central Terminal, Penn Station, and Port Authority Bus Terminal. The area sees nearly 1,000 people per second due to its connectivity through Amtrak, Port Authority, and the LIRR. The 12-story property spans 82,350 rentable square feet, featuring basement, ground, and mezzanine level retail space (10,250 RSF, currently vacant), plus office space. The building's current occupancy includes Matrix New World (7,100 RSF through 11/1/27, $42.00/PSF), New York Cue Club Inc. (6,500 RSF through 1/10/29, $35.08/PSF), JTTC JV - TC ELECTRIC (6,500 RSF through 1/31/26, $33.23/PSF), and Tri Center (6,500 RSF through 8/1/29, $40.50/PSF), with approximately 68% of the space currently vacant. Recent market comparables show office leases in the immediate area ranging from $35 to $59 per square foot, with an average of $42 PSF, while retail spaces command between $70 and $117 PSF, averaging $98 PSF. The property features an assumable loan originated on 12/8/16 with an outstanding principal of $27,500,000, maturing January 10, 2027, at a 4.7315% interest rate with interest-only monthly payments of $112,045. Listed at $32,500,000, this value-add asset offers flexible floor plans that can be easily divided, with typical floors including workstations, conference rooms, private offices, pantry, and IT facilities. The current annual rental income is $1,005,465, with a projected potential of $3,747,965 when fully leased. Operating expenses total $1,583,723 annually, with real estate taxes of $672,825 (2022/23). The property currently operates at a negative NOI of $(519,849) but has a projected NOI of $2,435,026 when stabilized, presenting significant upside potential for investors seeking an asset below replacement cost with favorable financing, or for potential owner-occupants in a flagship New York City location.

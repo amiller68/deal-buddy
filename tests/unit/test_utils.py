@@ -1,5 +1,6 @@
 from io import BytesIO
 from pathlib import Path
+import pdfplumber
 
 from src.utils import extract_text_from_pdf_stream
 
@@ -9,7 +10,7 @@ FIXTURES_DIR = Path(__file__).parent.parent / "fixtures"
 
 def test_extract_text_from_pdf():
     # Open the sample PDF file
-    pdf_path = FIXTURES_DIR / "om.pdf"
+    pdf_path = FIXTURES_DIR / "20_w_37_st.pdf"
 
     with open(pdf_path, "rb") as pdf_file:
         # Create a BytesIO object from the PDF file

@@ -1,0 +1,146 @@
+
+================================================== 2024-12-03T23:02:24.099482 ==================================================
+Error parsing JSON: Unterminated string starting at: line 142 column 13 (char 4707)
+Response text:
+{
+    "rent_roll": [
+        {
+            "unit_number": "Retail E",
+            "use": "Retail",
+            "rsf": 10250,
+            "tenant": "Vacant",
+            "lease_expiration": "Vacant",
+            "in_place_annual_rent": null,
+            "in_place_monthly_rent": null,
+            "in_place_rent_psf": null,
+            "projected_annual_rent": 922500,
+            "projected_monthly_rent": 76875,
+            "projected_rent_psf": 90.0
+        },
+        {
+            "unit_number": 2,
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Vacant",
+            "lease_expiration": "Vacant",
+            "in_place_annual_rent": null,
+            "in_place_monthly_rent": null,
+            "in_place_rent_psf": null,
+            "projected_annual_rent": 260000,
+            "projected_monthly_rent": 21667,
+            "projected_rent_psf": 40.0
+        },
+        {
+            "unit_number": 3,
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Tri Center",
+            "lease_expiration": "8/1/29",
+            "in_place_annual_rent": 263250,
+            "in_place_monthly_rent": 21938,
+            "in_place_rent_psf": 40.5,
+            "projected_annual_rent": 263250,
+            "projected_monthly_rent": 21938,
+            "projected_rent_psf": 40.5
+        },
+        {
+            "unit_number": 4,
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Vacant",
+            "lease_expiration": "Vacant",
+            "in_place_annual_rent": null,
+            "in_place_monthly_rent": null,
+            "in_place_rent_psf": null,
+            "projected_annual_rent": 260000,
+            "projected_monthly_rent": 21667,
+            "projected_rent_psf": 40.0
+        },
+        {
+            "unit_number": 5,
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Vacant",
+            "lease_expiration": "Vacant",
+            "in_place_annual_rent": null,
+            "in_place_monthly_rent": null,
+            "in_place_rent_psf": null,
+            "projected_annual_rent": 260000,
+            "projected_monthly_rent": 21667,
+            "projected_rent_psf": 40.0
+        },
+        {
+            "unit_number": 6,
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "JTTC JV - TC Electric",
+            "lease_expiration": "1/31/26",
+            "in_place_annual_rent": 215995,
+            "in_place_monthly_rent": 18000,
+            "in_place_rent_psf": 33.23,
+            "projected_annual_rent": 215995,
+            "projected_monthly_rent": 18000,
+            "projected_rent_psf": 33.23
+        },
+        {
+            "unit_number": 7,
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Vacant",
+            "lease_expiration": "Vacant",
+            "in_place_annual_rent": null,
+            "in_place_monthly_rent": null,
+            "in_place_rent_psf": null,
+            "projected_annual_rent": 260000,
+            "projected_monthly_rent": 21667,
+            "projected_rent_psf": 40.0
+        },
+        {
+            "unit_number": 8,
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "New York Cue Club Inc.",
+            "lease_expiration": "1/10/29",
+            "in_place_annual_rent": 228020,
+            "in_place_monthly_rent": 19002,
+            "in_place_rent_psf": 35.08,
+            "projected_annual_rent": 228020,
+            "projected_monthly_rent": 19002,
+            "projected_rent_psf": 35.08
+        },
+        {
+            "unit_number": 9,
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Vacant",
+            "lease_expiration": "Vacant",
+            "in_place_annual_rent": null,
+            "in_place_monthly_rent": null,
+            "in_place_rent_psf": null,
+            "projected_annual_rent": 260000,
+            "projected_monthly_rent": 21667,
+            "projected_rent_psf": 40.0
+        },
+        {
+            "unit_number": 10,
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Vacant",
+            "lease_expiration": "Vacant",
+            "in_place_annual_rent": null,
+            "in_place_monthly_rent": null,
+            "in_place_rent_psf": null,
+            "projected_annual_rent": 260000,
+            "projected_monthly_rent": 21667,
+            "projected_rent_psf": 40.0
+        },
+        {
+            "unit_number": 11,
+            "use": "Office",
+            "rsf": 6500,
+            "tenant": "Vacant",
+            "lease_expiration": "Vacant",
+            "in_place_annual_rent": null,
+            "in_place_monthly_rent": null,
+            "in_place_rent_psf": null,
+            "

@@ -40,18 +40,24 @@ cffi==1.17.1
 cfgv==3.4.0
     # via pre-commit
 charset-normalizer==3.4.0
-    # via requests
+    # via
+    #   pdfminer-six
+    #   requests
 click==8.1.7
     # via
     #   arq
     #   black
     #   uvicorn
 cryptography==43.0.3
-    # via python-jose
+    # via
+    #   pdfminer-six
+    #   python-jose
 distlib==0.3.9
     # via virtualenv
 distro==1.9.0
-    # via anthropic
+    # via
+    #   anthropic
+    #   tabula-py
 dnspython==2.7.0
     # via email-validator
 ecdsa==0.19.0
@@ -105,6 +111,8 @@ jinja2==3.1.4
     # via -r requirements.in
 jiter==0.6.1
     # via anthropic
+jpype1==1.5.0
+    # via tabula-py
 mako==1.3.5
     # via alembic
 markupsafe==2.1.5
@@ -122,15 +130,33 @@ mypy-extensions==1.0.0
     #   mypy
 nodeenv==1.9.1
     # via pre-commit
+numpy==2.1.3
+    # via
+    #   pandas
+    #   tabula-py
 oauthlib==3.2.2
     # via fastapi-sso
 packaging==24.1
     # via
     #   black
     #   huggingface-hub
+    #   jpype1
     #   pytest
+pandas==2.2.3
+    # via tabula-py
 pathspec==0.12.1
     # via black
+pdf2image==1.17.0
+    # via -r requirements.in
+pdfminer-six==20231228
+    # via pdfplumber
+pdfplumber==0.11.4
+    # via -r requirements.in
+pillow==11.0.0
+    # via
+    #   -r requirements.in
+    #   pdf2image
+    #   pdfplumber
 platformdirs==4.3.6
     # via
     #   black
@@ -159,6 +185,8 @@ pyjwt==2.9.0
     # via fastapi-login
 pypdf2==3.0.1
     # via -r requirements.in
+pypdfium2==4.30.0
+    # via pdfplumber
 pytailwindcss==0.2.0
     # via -r requirements.in
 pytest==8.3.3
@@ -167,12 +195,16 @@ pytest==8.3.3
     #   pytest-asyncio
 pytest-asyncio==0.24.0
     # via -r requirements.in
+python-dateutil==2.9.0.post0
+    # via pandas
 python-dotenv==1.0.1
     # via -r requirements.in
 python-jose[cryptography]==3.3.0
     # via -r requirements.in
 python-multipart==0.0.12
     # via -r requirements.in
+pytz==2024.2
+    # via pandas
 pyyaml==6.0.2
     # via
     #   huggingface-hub
@@ -188,7 +220,9 @@ rsa==4.9
 ruff==0.7.3
     # via -r requirements.in
 six==1.16.0
-    # via ecdsa
+    # via
+    #   ecdsa
+    #   python-dateutil
 sniffio==1.3.1
     # via
     #   anthropic
@@ -205,6 +239,8 @@ starlette==0.37.2
     #   -r requirements.in
     #   fastapi
     #   sse-starlette
+tabula-py[jpype]==2.10.0
+    # via -r requirements.in
 tenacity==9.0.0
     # via -r requirements.in
 tokenizers==0.20.1
@@ -228,6 +264,8 @@ typing-extensions==4.12.2
     #   pydantic
     #   pydantic-core
     #   sqlalchemy
+tzdata==2024.2
+    # via pandas
 urllib3==2.2.3
     # via
     #   minio

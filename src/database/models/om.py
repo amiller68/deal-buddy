@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import Column, String, DateTime, update, ForeignKey
+from sqlalchemy import Column, String, DateTime, update, ForeignKey, Integer
 from datetime import datetime, UTC
 import uuid
 from sqlalchemy.future import select
@@ -22,6 +22,14 @@ class OmStatus(str, Enum):
     # the om processing failed -- marked by the worker
     FAILED = "failed"
 
+class PropertyType(str, Enum):
+    OFFICE = "office"
+    INDUSTRIAL = "industrial"
+    RETAIL = "retail"
+    COMMERCIAL = "commercial"
+    RESIDENTIAL = "residential"
+    MIXED_USE = "mixed_use"
+    OTHER = "other"
 
 class Om(Base):
     __tablename__ = "oms"
@@ -38,9 +46,15 @@ class Om(Base):
 
     title = Column(String, nullable=True)
 
+    type: Column[PropertyType] = Column(SQLAlchemyEnum(PropertyType), nullable=True)
+
     description = Column(String, nullable=True)
 
     summary = Column(String, nullable=True)
+    
+    square_feet = Column(Integer, nullable=True)
+    
+    total_units = Column(Integer, nullable=True)
 
     status: Column[OmStatus] = Column(
         SQLAlchemyEnum(OmStatus), nullable=False, default=OmStatus.UPLOADED

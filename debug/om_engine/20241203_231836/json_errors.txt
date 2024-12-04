@@ -1,0 +1,24 @@
+
+================================================== 2024-12-03T23:18:50.769113 ==================================================
+Error parsing JSON: Expecting value: line 1 column 1 (char 0)
+Response text:
+I don't see any tables in the provided text that match the known table types (rent_roll, expenses, units, occupancy) or that contain structured data that could be normalized into a table format. The text appears to be a narrative executive summary describing a property offering.
+
+{
+}
+
+================================================== 2024-12-03T23:18:55.684808 ==================================================
+Error parsing JSON: Expecting value: line 1 column 1 (char 0)
+Response text:
+I don't see any tables in the provided text that match the known table types (rent_roll, expenses, units, occupancy) or that contain structured data that could be normalized into a table format. The text appears to be a narrative executive summary describing a property offering.
+
+{
+}
+
+================================================== 2024-12-03T23:19:01.215231 ==================================================
+Error parsing JSON: Expecting value: line 1 column 1 (char 0)
+Response text:
+I don't see any tables in the provided text that match the known table types (rent_roll, expenses, units, occupancy) or that contain structured data that could be normalized into a table format. The text appears to be a narrative executive summary describing a property offering.
+
+{
+}

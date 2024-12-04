@@ -1,0 +1,18 @@
+
+================================================== 2024-12-03T23:24:29.392652 ==================================================
+{
+  "title": "20 West 37th Street",
+  "address": "20 West 37th Street, New York, NY 10018",
+  "description": "Mixed-use building in Midtown Manhattan featuring retail space in the basement, ground floor and mezzanine level, plus 11 floors of office space above. The property is located near major transportation hubs including Bryant Park, Grand Central Station, and Penn Station.",
+  "summary_length": 2014,
+  "tables": {
+    "property_summary": 16,
+    "stacking_plan": 12,
+    "loan_summary": 1,
+    "occupancy": 2,
+    "rent_roll": 12,
+    "expenses": 7,
+    "lease_comparables_office": 4,
+    "lease_comparables_retail": 4
+  }
+}

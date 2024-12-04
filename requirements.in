@@ -24,6 +24,10 @@ watchfiles
 sse-starlette
 arq
 redis
+pdfplumber
+tabula-py[jpype]
+pdf2image
+Pillow
 
 # Dev dependencies
 

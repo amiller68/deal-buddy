@@ -1,0 +1,327 @@
+
+================================================== 2024-12-03T23:16:09.064492 ==================================================
+Error in generate: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-241022'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:16:10.206314 ==================================================
+Error in generate: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-241022'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:16:12.281728 ==================================================
+Error in generate: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-241022'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:16:16.357850 ==================================================
+Error in generate: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-241022'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:16:17.429421 ==================================================
+Error in generate: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-241022'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:16:18.503295 ==================================================
+Error in generate: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-241022'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:16:20.604901 ==================================================
+Error in generate: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-241022'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:16:24.668035 ==================================================
+Error in generate: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-241022'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:16:26.743503 ==================================================
+Error in generate: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-241022'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:16:27.823561 ==================================================
+Error in generate: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-241022'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:16:29.897427 ==================================================
+Error in generate: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-241022'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:16:34.036169 ==================================================
+Error in generate: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-241022'}}
+Prompt:
+Analyze this page and respond with JSON:
+{
+    "is_relevant": boolean,  # Contains property data, financials, or key information
+    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "confidence": float,  # 0-1 score of confidence in assessment
+    "reason": string  # Brief explanation
+}
+
+Look for:
+- Property details and descriptions
+- Financial data and tables
+- Market analysis
+- Rent rolls or tenant information
+
+Ignore:
+- Legal disclaimers
+- Confidentiality notices
+- Generic marketing content
+- Table of contents
+
+Text: CONFIDENTIAL OFFERING MEMORANDUM
+
+Return valid JSON only.
+
+================================================== 2024-12-03T23:16:34.036545 ==================================================
+Error during processing: Error code: 404 - {'type': 'error', 'error': {'type': 'not_found_error', 'message': 'model: claude-3-5-sonnet-241022'}}
