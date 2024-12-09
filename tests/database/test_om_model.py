@@ -25,12 +25,12 @@ async def session(db):
 async def test_om_create(session):
     # Test creating a new Om
     om = await Om.create(
-        user_id="test-user-id", upload_id="test-upload-id", session=session
+        user_id="test-user-id", storage_object_id="test-storage-object-id", session=session
     )
 
     assert om.id is not None
     assert om.user_id == "test-user-id"
-    assert om.upload_id == "test-upload-id"
+    assert om.storage_object_id == "test-storage-object-id"
     assert om.status == OmStatus.UPLOADED
     assert om.created_at is not None
     assert om.updated_at is not None
@@ -39,7 +39,7 @@ async def test_om_create(session):
 async def test_om_read(session):
     # Create an Om first
     om = await Om.create(
-        user_id="test-user-id", upload_id="test-upload-id", session=session
+        user_id="test-user-id", storage_object_id="test-storage-object-id", session=session
     )
 
     # Test reading the Om
@@ -47,13 +47,13 @@ async def test_om_read(session):
     assert read_om is not None
     assert read_om.id == om.id
     assert read_om.user_id == "test-user-id"
-    assert read_om.upload_id == "test-upload-id"
+    assert read_om.storage_object_id == "test-storage-object-id"
 
 
 async def test_om_update(session):
     # Create an Om first
     om = await Om.create(
-        user_id="test-user-id", upload_id="test-upload-id", session=session
+        user_id="test-user-id", storage_object_id="test-storage-object-id", session=session
     )
 
     # Test updating the Om
@@ -63,6 +63,9 @@ async def test_om_update(session):
         "description": "Test Description",
         "summary": "Test Summary",
         "address": "Test Address",
+        "property_type": "Test Property Type",
+        "square_feet": 1000,
+        "total_units": 10,
     }
 
     updated_om = await Om.update(om.id, update_data, session)
@@ -71,13 +74,16 @@ async def test_om_update(session):
     assert updated_om.description == "Test Description"
     assert updated_om.summary == "Test Summary"
     assert updated_om.address == "Test Address"
+    assert updated_om.property_type == "Test Property Type"
+    assert updated_om.square_feet == 1000
+    assert updated_om.total_units == 10
 
 
 async def test_read_by_user_id(session):
     # Create multiple Oms for the same user
     user_id = "test-user-id"
-    await Om.create(user_id=user_id, upload_id="upload-1", session=session)
-    await Om.create(user_id=user_id, upload_id="upload-2", session=session)
+    await Om.create(user_id=user_id, storage_object_id="storage-object-1", session=session)
+    await Om.create(user_id=user_id, storage_object_id="storage-object-2", session=session)
 
     # Test reading all Oms for the user
     oms = await Om.read_by_user_id(user_id, session, span=None)

@@ -10,8 +10,8 @@ from src.config import Config
 
 
 class StorageBucket(PyEnum):
-    oms = "real-estate-oms"
-
+    oms = "oms"
+    om_tables = "om-tables"
 
 class StorageExceptionType(PyEnum):
     default = "default"
@@ -69,17 +69,17 @@ class Storage:
         bucket: StorageBucket,
     ):
         try:
-            upload_id = str(uuid.uuid4())
+            object_id = str(uuid.uuid4())
             match bucket:
                 case StorageBucket.oms:
                     content_type = "application/pdf"
             self.client.put_object(
                 bucket_name=bucket.value,
-                object_name=upload_id,
+                object_name=object_id,
                 data=stream,
                 length=stream_len,
                 content_type=content_type,
             )
-            return upload_id
+            return object_id
         except S3Error as e:
             raise StorageException.from_s3_error(e)

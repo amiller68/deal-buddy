@@ -5,7 +5,7 @@ from typing import BinaryIO, AsyncGenerator, Tuple
 import PyPDF2
 from pdf2image import convert_from_bytes
 
-async def extract_pdf(pdf_stream: BinaryIO) -> AsyncGenerator[Tuple[str, bytes], None]:
+async def extract_pdf(pdf_stream: BinaryIO) -> AsyncGenerator[Tuple[str, bytes, int], None]:
     """Extract text and images from PDF in parallel"""
     pdf_stream.seek(0)
     
@@ -18,7 +18,8 @@ async def extract_pdf(pdf_stream: BinaryIO) -> AsyncGenerator[Tuple[str, bytes],
 
     async def extract_text():
         reader = PyPDF2.PdfReader(text_stream)
-        return [page.extract_text() for page in reader.pages]
+        total_pages = len(reader.pages)
+        return [[page.extract_text(), total_pages] for page in reader.pages]
 
     async def extract_images():
         try:
@@ -36,5 +37,5 @@ async def extract_pdf(pdf_stream: BinaryIO) -> AsyncGenerator[Tuple[str, bytes],
 
     texts, images = await asyncio.gather(extract_text(), extract_images())
     
-    for text, image in zip(texts, images):
-        yield text, image
+    for [text, total_pages], image in zip(texts, images):
+        yield text, image, total_pages

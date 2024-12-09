@@ -44,7 +44,7 @@ async def create_om(
             raise HTTPException(status_code=422, detail="Error reading uploaded file")
 
         # Upload to storage
-        upload_id = storage.put_object(
+        storage_object_id = storage.put_object(
             stream=io.BytesIO(content),
             stream_len=len(content),
             bucket=StorageBucket.oms,
@@ -53,7 +53,7 @@ async def create_om(
         # Create initial Om record
         om = await Om.create(
             user_id=str(user.id),
-            upload_id=upload_id,
+            storage_object_id=storage_object_id,
             session=db,
             span=span,
         )

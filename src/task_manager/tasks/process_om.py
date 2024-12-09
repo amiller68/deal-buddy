@@ -3,11 +3,12 @@ import io
 # used by dependency
 import json
 from arq import Retry
+from dataclasses import asdict
 
 from src.database.models import Om, OmStatus
+from src.database.models.om_table import OmTable
 from src.storage import StorageBucket
-from src.utils import extract_text_from_pdf_stream
-from src.llm.om import generate_summary
+from src.llm.engines.om.engine import OmEngine, ProgressEvent
 
 
 async def process_om(ctx, om_id: str, max_tries: int = 5):
@@ -18,6 +19,19 @@ async def process_om(ctx, om_id: str, max_tries: int = 5):
     database = ctx["database"]
     job_try = ctx["job_try"]
     logger = ctx["logger"].get_worker_logger(name="process_om", attempt=job_try)
+
+    async def progress_callback(event: ProgressEvent):
+        """Publish progress events to Redis"""
+        try:
+            await redis.publish(
+                "process_om_progress",
+                json.dumps({
+                    "om_id": om_id,
+                    **asdict(event)
+                })
+            )
+        except Exception as e:
+            logger.exception(f"Failed to publish progress event: {e}")
 
     logger.info(f"processing  om -- {om_id}")
     try:
@@ -56,22 +70,34 @@ async def process_om(ctx, om_id: str, max_tries: int = 5):
             try:
                 # read the om file
                 response = storage.get_object(
-                    bucket=StorageBucket.oms, object_name=om.upload_id
+                    bucket=StorageBucket.oms, object_name=om.storage_object_id
                 )
                 file_content = response.data  # Use .data instead of .read() for MinIO
 
                 # extract the text and get the summary
-                pdf_text = extract_text_from_pdf_stream(io.BytesIO(file_content))
-                summary = generate_summary(
-                    anthropic_client=anthropic, pdf_text=pdf_text
+                engine = OmEngine(
+                    anthropic_client=anthropic,
+                    progress_callback=progress_callback
                 )
+                context = await engine.process_pdf(io.BytesIO(file_content))
 
                 # Update with success
-                om.address = summary["address"]
-                om.title = summary["title"]
-                om.description = summary["description"]
-                om.summary = summary["summary"]
+                om.address = context.address
+                om.title = context.title
+                om.description = context.description
+                om.summary = context.running_summary
+                om.square_feet = context.square_feet
+                om.total_units = context.total_units
+                om.property_type = context.property_type
                 om.status = OmStatus.PROCESSED
+
+                # create tables
+                await OmTable.create_many(
+                    om_id=om.id,
+                    tables=context.tables,
+                    session=session,
+                    storage=storage,
+                )
 
             except Exception as e:
                 logger.exception(f"failed to process om -- {om_id} | {e}")

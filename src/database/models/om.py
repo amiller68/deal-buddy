@@ -40,7 +40,7 @@ class Om(Base):
 
     user_id = Column(String, ForeignKey("users.id"), nullable=False)
 
-    upload_id = Column(String, nullable=False)
+    storage_object_id = Column(String, nullable=False)
 
     address = Column(String, nullable=True)
 
@@ -56,6 +56,8 @@ class Om(Base):
     
     total_units = Column(Integer, nullable=True)
 
+    property_type = Column(String, nullable=True)
+
     status: Column[OmStatus] = Column(
         SQLAlchemyEnum(OmStatus), nullable=False, default=OmStatus.UPLOADED
     )
@@ -67,16 +69,16 @@ class Om(Base):
     @staticmethod
     async def create(
         user_id: str,
-        upload_id: str,
+        storage_object_id: str,
         session: AsyncSession,
         span: RequestSpan | None = None,
     ):
         try:
             if span:
-                span.debug(f"database::models::Om::create: {user_id} {upload_id}")
+                span.debug(f"database::models::Om::create: {user_id} {storage_object_id}")
             om = Om(
                 user_id=user_id,
-                upload_id=upload_id,
+                storage_object_id=storage_object_id,
             )
             session.add(om)
             await session.flush()

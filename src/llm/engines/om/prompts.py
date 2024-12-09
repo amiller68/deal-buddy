@@ -4,11 +4,12 @@ Leave fields empty if uncertain.
 
 Return valid JSON in this format:
 {{
-    "title": "Official property name/title",
-    "address": "Complete property address",
-    "description": "2-3 sentence property overview",
-    "property_type": "Type of property (e.g. multifamily, office)",
-    "year_built": "Construction year if mentioned"
+    "title": "Official property name/title. THIS IS REQUIRED",
+    "address": "Complete property address. THIS IS REQUIRED",
+    "description": "2-3 sentence property overview. THIS IS REQUIRED",
+    "square_feet": "Total square feet of the property if mentioned. THIS IS REQUIRED",
+    "total_units": "Total number of units if mentioned. THIS IS REQUIRED",
+    "property_type": "Type of property (e.g. multifamily, office). THIS IS REQUIRED",
 }}
 
 Text: {text}
@@ -44,10 +45,9 @@ Provide only the updated summary text."""
 
 PAGE_SCREENING_PROMPT = """Analyze this page and respond with JSON:
 {{
-    "is_relevant": boolean,  # Contains property data, financials, or key information
-    "has_confidential": boolean,  # Contains confidentiality notices or disclaimers
+    "is_relevant": boolean,  # Contains property data, financials, or key information. This includes rent rolls, expenses, units, occupancy, etc. This explicitly excludes generic marketing content and especially excludes confidentiality notices and legal disclaimers.
     "confidence": float,  # 0-1 score of confidence in assessment
-    "reason": string  # Brief explanation
+    "reason": string  # Brief explanation of why you scored it this way
 }}
 
 Look for:
