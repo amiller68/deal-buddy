@@ -1,13 +1,16 @@
-from fastapi import APIRouter, Request, Depends, Path, HTTPException, Response
+from fastapi import APIRouter, Request, Depends, Path, HTTPException, Response, WebSocket
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from starlette import status
+import json
 
+from redis import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.database.models import OmStatus, User, Om
 from src.state import AppState
 from src.logger import RequestSpan
-from ..deps import require_logged_in_user, state, async_db, span
+from ..deps import redis_client, require_logged_in_user, state, async_db, span, get_websocket_user, websocket_redis, websocket_db
 
 router = APIRouter()
 templates = Jinja2Templates(directory="templates/app")
@@ -92,8 +95,8 @@ def content(
     request: Request,
     content: str = Path(...),
     user: User = Depends(require_logged_in_user),
-    db: AsyncSession = Depends(async_db),
-    span: RequestSpan = Depends(span),
+    _db: AsyncSession = Depends(async_db),
+    _span: RequestSpan = Depends(span),
 ):
     try:
         data = {"request": request}
@@ -113,3 +116,64 @@ def login(request: Request):
         "login.html",
         {"request": request, "auth_google_login_url": "/auth/google/login"},
     )
+
+
+@router.websocket("/ws/om/{om_id}/progress")
+async def om_progress_websocket(
+    websocket: WebSocket,
+    om_id: str,
+    user: User = Depends(get_websocket_user),
+    redis: Redis = Depends(websocket_redis),
+    db: AsyncSession = Depends(websocket_db),
+):
+    """WebSocket endpoint for tracking OM processing progress"""
+    await websocket.accept()
+    
+    try:
+        # Validate OM ownership
+        om = await Om.read(id=om_id, session=db)
+        if not om or om.user_id != user.id:
+            await websocket.close(code=status.WS_1008_POLICY_VIOLATION)
+            return
+
+        # Subscribe to Redis channels
+        pubsub = redis.pubsub()
+        channels = [f"process_om_progress:{om_id}", f"process_om_status:{om_id}"]
+        try:
+            pubsub.subscribe(*channels)
+        except redis.ConnectionError:
+            await websocket.close(code=status.WS_1011_INTERNAL_ERROR)
+            return
+            
+        try:
+            # Listen for messages
+            while True:
+                message = pubsub.get_message(timeout=1.0)
+                if message and message["type"] == "message":
+                    try:
+                        data = json.loads(message["data"])
+                        if "progress" in data:
+                            progress = max(0, min(1, float(data["progress"])))
+                            data["progress"] = round(progress * 100)
+                        
+                        await websocket.send_json(data)
+                    except (json.JSONDecodeError, ValueError):
+                        continue
+                
+                # Check if connection is still alive
+                try:
+                    await websocket.receive_text()
+                except Exception:
+                    break
+                    
+        finally:
+            pubsub.unsubscribe(*channels)
+            pubsub.close()
+            
+    except Exception as e:
+        await websocket.close(code=status.WS_1011_INTERNAL_ERROR)
+    finally:
+        try:
+            await websocket.close()
+        except Exception:
+            pass

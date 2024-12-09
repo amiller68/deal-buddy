@@ -278,5 +278,7 @@ virtualenv==20.27.1
     # via pre-commit
 watchfiles==0.24.0
     # via -r requirements.in
+websockets==14.1
+    # via -r requirements.in
 werkzeug==3.0.1
     # via -r requirements.in

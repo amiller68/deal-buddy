@@ -1,5 +1,6 @@
-from fastapi import Request, Depends, HTTPException, Security
+from fastapi import Request, Depends, HTTPException, Security, WebSocket, WebSocketException, status
 from fastapi.security import APIKeyCookie
+from redis import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi_sso.sso.base import OpenID
 from jose import jwt
@@ -36,6 +37,9 @@ def anthropic_client(request: Request) -> Anthropic:
 def task_manager(request: Request) -> TaskManager:
     return request.state.task_manager
 
+def redis_client(request: Request) -> Redis:
+    return request.state.redis_client
+
 
 async def get_logged_in_user(
     cookie: str = Security(APIKeyCookie(name=SESION_COOKIE_NAME)),
@@ -66,4 +70,61 @@ async def get_logged_in_user(
 async def require_logged_in_user(user: User = Depends(get_logged_in_user)) -> User:
     if not user:
         raise HTTPException(status_code=401, detail="Unauthorized")
+    return user
+
+
+def websocket_db(websocket: WebSocket) -> AsyncSession:
+    return websocket.state.db
+
+def websocket_span(websocket: WebSocket) -> RequestSpan:
+    return websocket.state.span
+
+def websocket_state(websocket: WebSocket):
+    return websocket.state.app_state
+
+def websocket_storage(websocket: WebSocket) -> Storage:
+    return websocket.state.storage
+
+def websocket_redis(websocket: WebSocket) -> Redis:
+    return websocket.state.redis_client
+
+async def get_websocket_user(
+    websocket: WebSocket,
+    db: AsyncSession = Depends(websocket_db),
+    span: RequestSpan = Depends(websocket_span),
+    state=Depends(websocket_state),
+) -> User:
+    """Similar to get_logged_in_user but for WebSocket connections"""
+    try:
+        # Get cookie directly from WebSocket headers
+        cookies = dict(cookie.split("=", 1) for cookie in 
+                      websocket.headers.get("cookie", "").split("; ") if cookie)
+        cookie_value = cookies.get(SESION_COOKIE_NAME)
+        
+        if not cookie_value:
+            raise ValueError("No session cookie found")
+
+        claims = jwt.decode(
+            cookie_value, key=state.secrets.service_secret, algorithms=["HS256"]
+        )
+        openid = OpenID(**claims["pld"])
+
+        if not openid.email:
+            raise ValueError("Email is required")
+
+        user = await User.read_by_email(email=openid.email, session=db, span=span)
+        if not user:
+            raise ValueError("User not found")
+
+        return user
+    except Exception as error:
+        raise WebSocketException(code=status.WS_1008_POLICY_VIOLATION) from error
+
+async def require_websocket_user(
+    websocket: WebSocket,
+    user: User = Depends(get_websocket_user)
+) -> User:
+    """Dependency to ensure WebSocket user is authenticated"""
+    if not user:
+        raise WebSocketException(code=status.WS_1008_POLICY_VIOLATION)
     return user

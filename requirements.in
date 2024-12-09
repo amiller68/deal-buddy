@@ -28,6 +28,7 @@ pdfplumber
 tabula-py[jpype]
 pdf2image
 Pillow
+websockets
 
 # Dev dependencies
 

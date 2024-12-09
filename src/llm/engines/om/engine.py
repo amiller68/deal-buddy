@@ -77,7 +77,6 @@ class DocumentContext:
     property_type: Optional[str] = None
     description: Optional[str] = None
     running_summary: str = ""
-    metadata: Dict[str, any] = None
     tables: Dict[str, List[Dict[str, Any]]] = None
     current_page: int = 0
     
@@ -310,10 +309,6 @@ class OmEngine:
                         context.total_units = metadata.get("total_units")
                     if not context.property_type:
                         context.property_type = metadata.get("property_type")
-                    # fill in the rest of the metadata by associating other new fields with the existing generic fields
-                    for key, value in metadata.items():
-                        if key not in context.metadata:
-                            context.metadata[key] = value
                 except Exception as e:
                     raise
 
@@ -393,7 +388,6 @@ class OmEngine:
                 status=OmStatus.PROCESSED,
                 current_page=total_pages,
                 total_pages=total_pages,
-                percentage=100
             ))
             
             return context

@@ -3,12 +3,39 @@ from fastapi.responses import RedirectResponse, JSONResponse
 from starlette.exceptions import HTTPException
 from starlette import status
 from contextlib import asynccontextmanager
+from starlette.websockets import WebSocket
+from starlette.types import ASGIApp, Receive, Scope, Send
 
 from fastapi.staticfiles import StaticFiles
 from src.state import AppState
 from .html import router as html_router
 from .auth import router as auth_router
 from .api import router as api_router
+
+
+class WebSocketStateMiddleware:
+    def __init__(self, app: ASGIApp, state: AppState):
+        self.app = app
+        self.state = state
+
+    async def __call__(self, scope: Scope, receive: Receive, send: Send):
+        if scope["type"] == "websocket":
+            websocket = WebSocket(scope=scope, receive=receive, send=send)
+            websocket.state.app_state = self.state
+            websocket.state.storage = self.state.storage
+            websocket.state.anthropic_client = self.state.anthropic_client
+            websocket.state.task_manager = self.state.task_manager
+            websocket.state.redis_client = self.state.redis_client
+            websocket.state.span = self.state.logger.get_request_span(websocket)
+            
+            async with self.state.database.session() as session:
+                websocket.state.db = session
+                try:
+                    await self.app(scope, receive, send)
+                finally:
+                    await session.close()
+        else:
+            await self.app(scope, receive, send)
 
 
 def create_app(state: AppState) -> FastAPI:
@@ -32,6 +59,10 @@ def create_app(state: AppState) -> FastAPI:
 
     async def task_manager_middleware(request: Request, call_next):
         request.state.task_manager = state.task_manager
+        return await call_next(request)
+
+    async def redis_client_middleware(request: Request, call_next):
+        request.state.redis_client = state.redis_client
         return await call_next(request)
 
     async def span_middleware(request: Request, call_next):
@@ -83,6 +114,10 @@ def create_app(state: AppState) -> FastAPI:
     app.middleware("http")(span_middleware)
     app.middleware("http")(db_middleware)
     app.middleware("http")(task_manager_middleware)
+    app.middleware("http")(redis_client_middleware)
+
+    # Add WebSocket middleware
+    app.add_middleware(WebSocketStateMiddleware, state=state)
 
     # TODO: hot reloading
     # if state.config.dev_mode:

@@ -7,7 +7,7 @@ from typing import Dict, Any, List
 import json
 
 from src.logger import RequestSpan
-from src.storage import StorageBucket, StorageBucketType
+from src.storage import StorageBucket
 from ..database import Base, DatabaseException
 
 class OmTable(Base):
@@ -47,7 +47,7 @@ class OmTable(Base):
             for table_type, table_data in tables.items():
                 # Store table data in minio
                 storage_object_id = storage.put_object(
-                    bucket=StorageBucketType.OM_TABLES,
+                    bucket=StorageBucket.OM_TABLES,
                     data=json.dumps(table_data).encode(),
                     content_type="application/json"
                 )

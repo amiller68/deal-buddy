@@ -125,3 +125,24 @@
     padding-top: 5rem;
     position: relative;
 }
+
+@layer components {
+    .progress-bar-container {
+        @apply w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700;
+    }
+
+    .progress-bar {
+        @apply bg-orange h-2.5 rounded-full transition-all duration-500;
+    }
+}
+
+/* Add animation for the progress bar */
+@keyframes progress-pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+.progress-bar-animated {
+    animation: progress-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

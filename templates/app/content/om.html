@@ -7,26 +7,82 @@
             hx-target="#content">
             <div class="p-8 max-w-3xl mx-auto">
                 <div class="flex flex-col items-center space-y-6">
-                    <div class="relative w-24 h-24">
-                        <div class="absolute inset-0 border-4 border-gray-200 rounded-full"></div>
-                        <div class="absolute inset-0 border-4 border-t-orange border-r-orange rounded-full animate-spin"></div>
-                        <div class="absolute inset-0 border-4 border-orange rounded-full animate-ping opacity-20"></div>
+                    <!-- Progress bar container -->
+                    <div class="w-full max-w-md">
+                        <div class="relative pt-1">
+                            <div class="flex mb-2 items-center justify-between">
+                                <div>
+                                    <span id="progress-status" class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-orange">
+                                        Processing...
+                                    </span>
+                                </div>
+                                <div class="text-right">
+                                    <span id="progress-percentage" class="text-xs font-semibold inline-block text-orange">
+                                        0%
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
+                                <div id="progress-bar" style="width:0%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-orange transition-all duration-500"></div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="text-center">
-                        <div class="text-xl font-bold mb-2">Processing your document</div>
-                        <div class="text-gray-600 flex items-center justify-center">
-                            Please wait
-                            <span class="inline-flex ml-2">
-                                <span class="animate-bounce">.</span>
-                                <span class="animate-bounce delay-100">.</span>
-                                <span class="animate-bounce delay-200">.</span>
-                            </span>
-                        </div>
+                        <div id="progress-message" class="text-xl font-bold mb-2">Starting processing...</div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- WebSocket Progress Handler -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const ws = new WebSocket(`ws://${window.location.host}/app/ws/om/{{ id }}/progress`);
+                
+                ws.onmessage = function(event) {
+                    const data = JSON.parse(event.data);
+                    
+                    // Handle progress updates
+                    if (data.progress !== undefined) {
+                        const progressBar = document.getElementById('progress-bar');
+                        const progressPercentage = document.getElementById('progress-percentage');
+                        const progressMessage = document.getElementById('progress-message');
+                        
+                        // Progress now comes as 0-100 instead of 0-1
+                        progressBar.style.width = `${data.progress}%`;
+                        progressPercentage.textContent = `${data.progress}%`;
+                        
+                        if (data.message) {
+                            progressMessage.textContent = data.message;
+                        }
+                    }
+                    
+                    // Handle status updates
+                    if (data.status === 'processed') {
+                        // Refresh the page to show the processed content
+                        window.location.reload();
+                    }
+                };
+                
+                ws.onclose = function(event) {
+                    const progressMessage = document.getElementById('progress-message');
+                    if (event.code === 4003) {
+                        progressMessage.textContent = "Not authorized to view this document";
+                        progressMessage.classList.add('text-red-500');
+                    } else if (event.code !== 1000) {
+                        progressMessage.textContent = "Connection lost. Please refresh the page.";
+                        progressMessage.classList.add('text-red-500');
+                    }
+                };
+
+                ws.onerror = function() {
+                    const progressMessage = document.getElementById('progress-message');
+                    progressMessage.textContent = "Error connecting to server";
+                    progressMessage.classList.add('text-red-500');
+                };
+            });
+        </script>
     {% else %}
         <div class="w-full p-4 max-w-3xl mx-auto animate-fade-in">
             {% if address %}

@@ -6,6 +6,8 @@ from fastapi_sso.sso.google import GoogleSSO
 import anthropic
 from enum import Enum as PyEnum
 
+from redis import Redis
+
 
 from src.database import (
     AsyncDatabase,
@@ -36,6 +38,7 @@ class AppState:
     logger: Logger
     secrets: Secrets
     task_manager: TaskManager
+    redis_client: Redis
 
     @classmethod
     def from_config(cls, config: Config):
@@ -53,6 +56,7 @@ class AppState:
             logger=Logger(config.log_path, config.debug),
             secrets=config.secrets,
             task_manager=TaskManager(config.redis_url, None),
+            redis_client=Redis(config.redis_url),
         )
         return state
 
