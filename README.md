@@ -1,8 +1,6 @@
-# deal-buddy
+# ondo
 
 ## requirements
 
 - python 3.12
-- virtualenv
-
-## setup
+- virtualenv# ondo
